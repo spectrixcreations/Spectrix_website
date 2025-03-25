@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>View Certificate - Spectrix</title>
+    
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        /* Ensure full height layout */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar - No Fixed Position */
+        .site-nav-target {
+            position: relative;
+            width: 100%;
+            background: #000000;
+            z-index: 1000;
+        }
+
+        /* Main content wrapper */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+        }
+
+        /* Style table */
+        .cert-table {
+            width: 90%;
+            max-width: 800px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .cert-table th, .cert-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .cert-table th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .cert-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .cert-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer - Moves after Table */
+        footer {
+            width: 100%;
+            margin-top: 20px;
+            background-color: #111;
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .cert-table {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  
+  <nav class="unslate_co--site-nav site-nav-target">
+
+    <div class="container">
+    
+      <div class="row align-items-center justify-content-between text-left">
+        <div class="col-md-5 text-right">
+          <ul class="site-nav-ul js-clone-nav text-left d-none d-lg-inline-block">
+            <li class="has-children">
+              <a href="index.html#home-section" class="nav-link">Home</a>
+              <ul class="dropdown">
+                <li>
+                  <a href="index.html">Hero Image BG</a>
+                </li>
+                <li>
+                  <a href="index-video.html">Video BG</a>
+                </li>
+                <li>
+                  <a href="index-hero-slider.html">Hero Slider</a>
+                </li>
+                <li>
+                  <a href="index-sidebar-menu.html">Sidebar Menu</a>
+                </li>
+                <li>
+                  <a href="index-right-menu.html">Right Menu</a>
+                </li>
+              </ul>
+            </li>
+            
+            <li><a href="index.html#about-section" class="nav-link">About</a></li>
+            
+          </ul>
+        </div>
+        <div class="site-logo pos-absolute">
+          <a href="index.html" class="unslate_co--site-logo">Spectrix<span>.</span></a>
+        </div>
+        <div class="col-md-5 text-right text-lg-left">
+          <ul class="site-nav-ul js-clone-nav text-left d-none d-lg-inline-block">
+            
+            <li><a href="index.html#services-section" class="nav-link">Services</a></li>
+            <li><a href="index.html#journal-section" class="nav-link">Coming up</a></li>
+            <li><a href="index.html#contact-section" class="nav-link">Contact</a></li>
+            <li><a href="certificates.html" class="nav-link">Certificates</a></li>
+          </ul>
+
+          <ul class="site-nav-ul-none-onepage text-right d-inline-block d-lg-none">
+            <li><a href="#" class="js-menu-toggle">Menu</a></li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+  </nav>
+  <!-- END nav -->
+
+  <!-- Main Content -->
+  <div class="main-content">
+      <h2 class="heading-h2">Certificates</h2>
+
+      <table class="cert-table">
+          <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Certificate</th>
+              </tr>
+          </thead>
+          <tbody id="certificateTableBody">
+              <!-- Rows will be added dynamically -->
+          </tbody>
+      </table>
+  </div>
+
+  <!-- Load SheetJS (XLSX.js) for Excel parsing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+  <script>
+      async function loadExcelData() {
+          try {
+              const response = await fetch("./certificates.xlsx"); // Load the Excel file
+              const arrayBuffer = await response.arrayBuffer();
+              const workbook = XLSX.read(arrayBuffer, { type: "array" });
+
+              const sheetName = workbook.SheetNames[0]; // Read first sheet
+              const sheet = workbook.Sheets[sheetName];
+
+              const jsonData = XLSX.utils.sheet_to_json(sheet); // Convert to JSON
+
+              const tableBody = document.getElementById("certificateTableBody");
+
+              jsonData.forEach(row => {
+                  const name = row["Name"];
+                  const filename = row["Filename"];
+
+                  if (name && filename) {
+                      const tr = document.createElement("tr");
+                      tr.innerHTML = `
+                          <td>${name}</td>
+                          <td><a href="view_certificate.html?cert=${filename}" class="cert-link">View Certificate</a></td>
+                      `;
+                      tableBody.appendChild(tr);
+                  }
+              });
+
+              // Move navbar and footer after table is populated
+              adjustNavbarFooter();
+
+          } catch (error) {
+              console.error("Error loading Excel file:", error);
+          }
+      }
+
+      function adjustNavbarFooter() {
+          const navbar = document.querySelector(".site-nav-target");
+          const footer = document.querySelector("footer");
+          const mainContent = document.querySelector(".main-content");
+
+          // Move navbar right above the table heading
+          navbar.insertAdjacentElement('afterend', mainContent);
+
+          // Move footer right below the table
+          mainContent.insertAdjacentElement('afterend', footer);
+      }
+
+      loadExcelData();
+  </script>
+
+  <!-- Footer -->
+  <footer style="background-color: #111; color: #fff; padding: 40px 0; text-align: center;">
+    <div class="container">
+        <div class="row" style="display: flex; justify-content: center;">
+            <div class="col-md-7">
+                <div class="footer-logo" style="margin-bottom: 20px;">
+                    <a href="#" style="color: #fff; font-size: 24px; font-weight: bold; text-decoration: none;">Spectrix<span>.</span></a>
+                </div>
+                <ul class="footer-social-links" style="list-style: none; padding: 0; margin: 20px 0; display: flex; gap: 15px; justify-content: center;">
+                    <li><a href="#" target="_blank" rel="noopener" style="color: #fff; font-size: 16px;">Facebook</a></li>
+                    <li><a href="#" target="_blank" rel="noopener" style="color: #fff; font-size: 16px;">Twitter</a></li>
+                    <li><a href="#" target="_blank" rel="noopener" style="color: #fff; font-size: 16px;">Instagram</a></li>
+                    <li><a href="#" target="_blank" rel="noopener" style="color: #fff; font-size: 16px;">Linkedin</a></li>
+                </ul>
+                <p style="font-size: 14px; color: #bbb;">&copy; <script>document.write(new Date().getFullYear());</script> Spectrix Creations. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+</body>
+</html>
