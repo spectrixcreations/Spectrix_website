@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>View Certificate - Spectrix</title>
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="keywords" content="html, css, javascript, jquery">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" href="css/vendor/icomoon/style.css">
+    <link rel="stylesheet" href="css/vendor/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/vendor/animate.min.css">
+    <link rel="stylesheet" href="css/vendor/aos.css">
+    <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/vendor/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-spy="scroll" data-target=".site-nav-target" data-offset="200">
+
+    <nav class="unslate_co--site-nav site-nav-target">
+
+        <div class="container">
+        
+          <div class="row align-items-center justify-content-between text-left">
+            <div class="col-md-5 text-right">
+              <ul class="site-nav-ul js-clone-nav text-left d-none d-lg-inline-block">
+                <li class="has-children">
+                  <a href="index.html#home-section" class="nav-link">Home</a>
+                  <ul class="dropdown">
+                    <li>
+                      <a href="index.html">Hero Image BG</a>
+                    </li>
+                    <li>
+                      <a href="index-video.html">Video BG</a>
+                    </li>
+                    <li>
+                      <a href="index-hero-slider.html">Hero Slider</a>
+                    </li>
+                    <li>
+                      <a href="index-sidebar-menu.html">Sidebar Menu</a>
+                    </li>
+                    <li>
+                      <a href="index-right-menu.html">Right Menu</a>
+                    </li>
+                  </ul>
+                </li>
+                
+                <li><a href="index.html#about-section" class="nav-link">About</a></li>
+                
+              </ul>
+            </div>
+            <div class="site-logo pos-absolute">
+              <a href="index.html" class="unslate_co--site-logo">Spectrix<span>.</span></a>
+            </div>
+            <div class="col-md-5 text-right text-lg-left">
+              <ul class="site-nav-ul js-clone-nav text-left d-none d-lg-inline-block">
+                
+                <li><a href="index.html#services-section" class="nav-link">Services</a></li>
+                <li><a href="index.html#journal-section" class="nav-link">Coming up</a></li>
+                <li><a href="index.html#contact-section" class="nav-link">Contact</a></li>
+                <li><a href="certificates.html" class="nav-link">Certificates</a></li>
+              </ul>
+
+              <ul class="site-nav-ul-none-onepage text-right d-inline-block d-lg-none">
+                <li><a href="#" class="js-menu-toggle">Menu</a></li>
+              </ul>
+
+            </div>
+          </div>
+        </div>
+
+      </nav>
+      <!-- END nav -->
+
+    <br>
+<!-- ✅ Certificate Display Section -->
+<div class="unslate_co--section">
+    <div class="container text-center">
+        <h2 class="heading-h2">Your Certificate</h2>
+
+        <!-- Responsive Certificate Image Preview -->
+        <div style="display: flex; justify-content: center;">
+            <canvas id="certificateCanvas" style="max-width: 100%; height: auto;"></canvas>
+        </div>
+
+        <!-- Download Button -->
+        <div>
+            <a id="downloadLink" class="btn btn-outline-pill btn-custom-light mt-3" href="#" download>Download Certificate</a>
+        </div>
+    </div>
+</div>
+
+<!-- Load PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+<script>
+    // Get the certificate filename from the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const certificateFile = urlParams.get('cert');
+
+    if (certificateFile) {
+        const certPath = `certificates/${certificateFile}`;
+        
+        // Set download link
+        document.getElementById('downloadLink').href = certPath;
+
+        // Load PDF and render as image
+        const canvas = document.getElementById('certificateCanvas');
+        const ctx = canvas.getContext('2d');
+
+        pdfjsLib.getDocument(certPath).promise.then(pdf => {
+            return pdf.getPage(1); // Get the first page
+        }).then(page => {
+            const viewport = page.getViewport({ scale: 2 }); // Increased scale for better quality
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+
+            // Ensure the image fits within the screen
+            canvas.style.maxWidth = "80%";
+            canvas.style.height = "auto";
+
+            const renderContext = { canvasContext: ctx, viewport: viewport };
+            return page.render(renderContext);
+        }).catch(error => {
+            document.body.innerHTML = "<h2 style='text-align:center; margin-top:20px;'>Certificate not found</h2>";
+        });
+
+    } else {
+        document.body.innerHTML = "<h2 style='text-align:center; margin-top:20px;'>Certificate not found</h2>";
+    }
+</script>
+
+
+    <!-- Footer -->
+    <footer style="background-color: #111; color: #fff; padding: 40px 0; text-align: center;">
+        <div class="container">
+            <div class="row" style="display: flex; justify-content: center;">
+                <div class="col-md-7">
+                    <div class="footer-logo" style="margin-bottom: 20px;">
+                        <a href="#" style="color: #fff; font-size: 24px; font-weight: bold; text-decoration: none;">Spectrix<span>.</span></a>
+                    </div>
+                    <ul class="footer-social-links" style="list-style: none; padding: 0; margin: 20px 0; display: flex; gap: 15px; justify-content: center;">
+                        <li><a href="#" target="_blank" rel="noopener" style="color: #fff; font-size: 16px;">Facebook</a></li>
+                        <li><a href="#" target="_blank" rel="noopener" style="color: #fff; font-size: 16px;">Twitter</a></li>
+                        <li><a href="#" target="_blank" rel="noopener" style="color: #fff; font-size: 16px;">Instagram</a></li>
+                        <li><a href="#" target="_blank" rel="noopener" style="color: #fff; font-size: 16px;">Linkedin</a></li>
+                    </ul>
+                    <p style="font-size: 14px; color: #bbb;">&copy; <script>document.write(new Date().getFullYear());</script> Spectrix Creations. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
