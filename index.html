@@ -1,383 +1,1598 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Spectrix</title>
-    <link rel="icon" type="image/png" href="images/favicon.png" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>SPECTRIX CREATIONS | Dev & Content Studio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <meta name="description" content="">
-    <meta name="keywords" content="html, css, javascript, jquery">
-    <meta name="author" content="">
+    body {
+      font-family: 'Segoe UI', 'Inter', 'Poppins', system-ui, sans-serif;
+      background: #050505;
+      color: #e8e8e8;
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: default;
+    }
 
-    <link rel="stylesheet" href="css/vendor/icomoon/style.css">
-    <link rel="stylesheet" href="css/vendor/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/vendor/animate.min.css">
-    <link rel="stylesheet" href="css/vendor/aos.css">
-    <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
-    <link rel="stylesheet" href="css/vendor/jquery.fancybox.min.css">
-    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
 
-    <!-- Theme Style -->
-    <link rel="stylesheet" href="css/style.css">
+    ::-webkit-scrollbar-track {
+      background: #0a0a0a;
+    }
 
-  </head>
-  <body data-spy="scroll" data-target=".site-nav-target" data-offset="200">
+    ::-webkit-scrollbar-thumb {
+      background: #2a2a2a;
+      border-radius: 3px;
+    }
 
-    <nav class="unslate_co--site-mobile-menu">
-      <div class="close-wrap d-flex">
-        <a href="#" class="d-flex ml-auto js-menu-toggle">
-          <span class="close-label">Close</span>
-          <div class="close-times">
-            <span class="bar1"></span>
-            <span class="bar2"></span>
-          </div>
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4a4a4a;
+    }
+
+    /* ===== GLOWING CRYSTALS REVERSE RAIN ===== */
+    .crystal-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+      overflow: hidden;
+    }
+
+    .crystal {
+      position: absolute;
+      bottom: -20px;
+      width: 4px;
+      height: 4px;
+      background: radial-gradient(circle, #ffffff, #888888);
+      border-radius: 1px;
+      opacity: 0;
+      animation: floatUpGlow linear infinite;
+      pointer-events: none;
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.6), 0 0 6px rgba(255, 255, 255, 0.3);
+    }
+
+    .crystal.large {
+      width: 6px;
+      height: 6px;
+      background: radial-gradient(circle, #ffffff, #aaaaff);
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.8), 0 0 9px rgba(255, 255, 255, 0.4);
+    }
+
+    .crystal.small {
+      width: 2px;
+      height: 2px;
+      background: radial-gradient(circle, #dddddd, #666666);
+      box-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
+    }
+
+    @keyframes floatUpGlow {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.6;
+      }
+
+      50% {
+        opacity: 0.8;
+        transform: translateY(-50vh) rotate(180deg);
+      }
+
+      100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .crystal.fade-behind {
+      opacity: 0.1 !important;
+      box-shadow: 0 0 2px rgba(255, 255, 255, 0.2) !important;
+    }
+
+    /* 3D Background Canvas */
+    .canvas-3d {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Main Container */
+    .site-wrapper {
+      position: relative;
+      z-index: 10;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(5, 5, 5, 0.85);
+      backdrop-filter: blur(15px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #ffffff, #888888);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .logo::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #fff, #888);
+      transition: width 0.3s ease;
+    }
+
+    .logo:hover::after {
+      width: 100%;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 35px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: #ccc;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #fff;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-links a:hover::before {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 140px 0 100px;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 700px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 15px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 30px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.2s;
+    }
+
+    /* Animated Hero Text */
+    .hero h1 {
+      font-size: 72px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 25px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #fff, #aaa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-line {
+      display: block;
+      overflow: hidden;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .hero-line .word {
+      display: inline-block;
+      animation: textGlowIn 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .hero-line .period {
+      display: inline-block;
+      animation: textGlowIn 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .hero-line:nth-child(1) .word {
+      animation-delay: 0.3s;
+    }
+
+    .hero-line:nth-child(1) .period {
+      animation-delay: 0.45s;
+    }
+
+    .hero-line:nth-child(2) .word {
+      animation-delay: 0.6s;
+    }
+
+    .hero-line:nth-child(2) .period {
+      animation-delay: 0.75s;
+    }
+
+    .hero-line:nth-child(3) .word {
+      animation-delay: 0.9s;
+    }
+
+    .hero-line:nth-child(3) .period {
+      animation-delay: 1.05s;
+    }
+
+    @keyframes textGlowIn {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+        text-shadow: 0 0 0 rgba(255, 255, 255, 0);
+      }
+
+      50% {
+        opacity: 0.6;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    .hero-line .word::after {
+      content: '';
+      display: inline-block;
+      width: 0;
+      height: 100%;
+      margin-left: 2px;
+      border-right: 2px solid rgba(255, 255, 255, 0.8);
+      animation: blinkCursor 0.8s step-end infinite;
+      opacity: 0;
+    }
+
+    .hero-line:nth-child(1) .word::after {
+      animation-delay: 0.45s;
+      animation-duration: 0.5s;
+    }
+
+    .hero-line:nth-child(2) .word::after {
+      animation-delay: 0.75s;
+      animation-duration: 0.5s;
+    }
+
+    .hero-line:nth-child(3) .word::after {
+      animation-delay: 1.05s;
+      animation-duration: 0.5s;
+    }
+
+    @keyframes blinkCursor {
+
+      0%,
+      100% {
+        border-color: transparent;
+      }
+
+      50% {
+        border-color: rgba(255, 255, 255, 0.8);
+      }
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #aaa;
+      margin-bottom: 40px;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 1.2s;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 1.4s;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 14px 35px;
+      background: #fff;
+      color: #050505;
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: #ddd;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 14px 35px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-outline:hover {
+      border-color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-2px);
+    }
+
+    /* 3D Rotating Elements */
+    .floating-3d {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 300px;
+      height: 300px;
+      perspective: 1000px;
+    }
+
+    .rotating-cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCube 20s infinite linear;
+    }
+
+    @keyframes rotateCube {
+      0% {
+        transform: rotateX(0deg) rotateY(0deg);
+      }
+
+      100% {
+        transform: rotateX(360deg) rotateY(360deg);
+      }
+    }
+
+    .cube-face {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: rgba(15, 15, 15, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.03);
+    }
+
+    .face-front {
+      transform: translateZ(60px);
+    }
+
+    .face-back {
+      transform: rotateY(180deg) translateZ(60px);
+    }
+
+    .face-right {
+      transform: rotateY(90deg) translateZ(60px);
+    }
+
+    .face-left {
+      transform: rotateY(-90deg) translateZ(60px);
+    }
+
+    .face-top {
+      transform: rotateX(90deg) translateZ(60px);
+    }
+
+    .face-bottom {
+      transform: rotateX(-90deg) translateZ(60px);
+    }
+
+    /* Section Styles */
+    .section {
+      padding: 120px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .section-title {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .section-title span {
+      color: #555;
+    }
+
+    .section-subtitle {
+      color: #777;
+      max-width: 700px;
+      margin-bottom: 60px;
+      font-size: 18px;
+    }
+
+    /* ===== SERVICE CARDS ===== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    .service-card {
+      background: rgba(8, 8, 8, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .service-card::before,
+    .service-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .service-card::before {
+      background: linear-gradient(90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.8) 50%,
+          rgba(255, 255, 255, 0) 100%);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .service-card::after {
+      background: linear-gradient(180deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.8) 50%,
+          rgba(255, 255, 255, 0) 100%);
+      transform: translateY(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .service-card:hover::before {
+      transform: translateX(100%);
+      opacity: 1;
+    }
+
+    .service-card:hover::after {
+      transform: translateY(100%);
+      opacity: 1;
+    }
+
+    .service-card:hover {
+      border-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.3), 0 20px 40px rgba(0, 0, 0, 0.5);
+      transform: translateY(-10px);
+    }
+
+    .service-icon {
+      font-size: 48px;
+      margin-bottom: 25px;
+      color: #fff;
+      transition: transform 0.3s ease;
+      display: inline-block;
+    }
+
+    /* Center zoom animation instead of moving right */
+    .service-card:hover .service-icon {
+      transform: scale(1.15);
+    }
+
+    .service-card h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .service-card p {
+      color: #999;
+      line-height: 1.7;
+    }
+
+    /* ===== STATS SECTION ===== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      text-align: center;
+    }
+
+    .stat-item {
+      padding: 40px;
+      background: rgba(8, 8, 8, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      transition: all 0.3s ease;
+    }
+
+    .stat-item:hover {
+      border-color: rgba(255, 255, 255, 0.6);
+      transform: scale(1.02);
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-number {
+      font-size: 52px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #fff, #aaa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* ===== PORTFOLIO CARDS ===== */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+    }
+
+    .portfolio-item {
+      background: rgba(8, 8, 8, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+    }
+
+    .portfolio-item::before,
+    .portfolio-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 1;
+    }
+
+    .portfolio-item::before {
+      background: linear-gradient(90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.7) 50%,
+          rgba(255, 255, 255, 0) 100%);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .portfolio-item::after {
+      background: linear-gradient(180deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.7) 50%,
+          rgba(255, 255, 255, 0) 100%);
+      transform: translateY(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .portfolio-item:hover::before {
+      transform: translateX(100%);
+      opacity: 1;
+    }
+
+    .portfolio-item:hover::after {
+      transform: translateY(100%);
+      opacity: 1;
+    }
+
+    .portfolio-item:hover {
+      border-color: rgba(255, 255, 255, 0.6);
+      transform: translateY(-8px);
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.25);
+    }
+
+    .portfolio-img {
+      height: 220px;
+      background: linear-gradient(135deg, #111111, #050505);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      color: #444;
+      transition: transform 0.3s ease;
+    }
+
+    .portfolio-item:hover .portfolio-img {
+      transform: scale(1.02);
+    }
+
+    .portfolio-content {
+      padding: 30px;
+    }
+
+    .portfolio-tag {
+      display: inline-block;
+      padding: 5px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 12px;
+      border-radius: 20px;
+      color: #aaa;
+      transition: all 0.3s ease;
+    }
+
+    .portfolio-item:hover .portfolio-tag {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    /* ===== TEAM CARDS ===== */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    .team-card {
+      background: rgba(8, 8, 8, 0.7);
+      padding: 30px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .team-card::before,
+    .team-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .team-card::before {
+      background: linear-gradient(90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.7) 50%,
+          rgba(255, 255, 255, 0) 100%);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .team-card::after {
+      background: linear-gradient(180deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.7) 50%,
+          rgba(255, 255, 255, 0) 100%);
+      transform: translateY(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .team-card:hover::before {
+      transform: translateX(100%);
+      opacity: 1;
+    }
+
+    .team-card:hover::after {
+      transform: translateY(100%);
+      opacity: 1;
+    }
+
+    .team-card:hover {
+      border-color: rgba(255, 255, 255, 0.6);
+      transform: translateY(-8px);
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.25);
+    }
+
+    .team-avatar {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, #111111, #050505);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 48px;
+      color: #555;
+      transition: all 0.3s ease;
+    }
+
+    .team-card:hover .team-avatar {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+    }
+
+    .team-social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .team-social-icons a {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ddd;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .team-social-icons a:hover {
+      background: #fff;
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+    }
+
+    /* ===== CONTACT SECTION ===== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+      width: 100%;
+      padding: 16px;
+      background: rgba(8, 8, 8, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 14px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus,
+    .contact-form select:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+
+    .contact-info {
+      background: rgba(8, 8, 8, 0.7);
+      padding: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      transition: all 0.3s ease;
+    }
+
+    .contact-info:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .contact-info p {
+      margin-bottom: 20px;
+      color: #aaa;
+    }
+
+    .contact-info i {
+      width: 30px;
+      color: #fff;
+    }
+
+    .contact-social-links {
+      display: flex;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .contact-social-link {
+      width: 45px;
+      height: 45px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ddd;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .contact-social-link:hover {
+      background: rgba(255, 255, 255, 0.9);
+      color: #000000;
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Custom X Logo SVG */
+    .x-logo {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .x-logo svg {
+      width: 100%;
+      height: 100%;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .contact-social-link .x-logo svg,
+    .social-links .x-logo svg {
+      stroke: currentColor;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #020202;
+      padding: 70px 0 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.02);
+      margin-top: 80px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+
+    .footer-col h4 {
+      font-size: 18px;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+      color: #fff;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+    }
+
+    .footer-col a {
+      color: #ccc;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 12px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+    }
+
+    .footer-col a:hover {
+      color: #fff;
+      transform: translateX(5px);
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+    }
+
+    .footer-col p {
+      color: #ccc;
+      text-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ccc;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .social-links a:hover {
+      background: #fff;
+      color: #050505;
+      transform: translateY(-3px);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.02);
+      color: #aaa;
+      font-size: 12px;
+      text-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .service-card,
+    .portfolio-item,
+    .team-card,
+    .stat-item {
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    .service-card:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .service-card:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .service-card:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .service-card:nth-child(4) {
+      animation-delay: 0.4s;
+    }
+
+    .service-card:nth-child(5) {
+      animation-delay: 0.5s;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+
+      .stats-grid,
+      .team-grid,
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .floating-3d {
+        display: none;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .site-wrapper {
+        padding: 0 20px;
+      }
+
+      .nav-container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .stats-grid,
+      .team-grid,
+      .footer-grid,
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Glowing Crystals Reverse Rain -->
+  <div class="crystal-container" id="crystalContainer"></div>
+
+  <!-- 3D Background Canvas -->
+  <canvas class="canvas-3d" id="threeCanvas"></canvas>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="#" class="logo">SPECTRIX<span style="background: none; color: #fff;">CREATIONS</span></a>
+      <div class="nav-links">
+        <a href="#home">HOME</a>
+        <a href="#services">SERVICES</a>
+        <a href="#portfolio">WORK</a>
+        <a href="#team">TEAM</a>
+        <a href="#contact">CONTACT</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="site-wrapper" style="width: 100%;">
+      <div class="hero-content">
+        <div class="hero-badge">✦ PREMIUM DIGITAL STUDIO ✦</div>
+        <h1>
+          <span class="hero-line"><span class="word">CREATE</span><span class="period">.</span></span>
+          <span class="hero-line"><span class="word">INNOVATE</span><span class="period">.</span></span>
+          <span class="hero-line"><span class="word">DOMINATE</span><span class="period">.</span></span>
+        </h1>
+        <p>Spectrix Creations is a full-service digital studio specializing in app development, web development,
+          game development, and content creation. We bring your visions to life with cutting-edge technology
+          and creative excellence.</p>
+        <div class="hero-buttons">
+          <a href="#contact" class="btn-primary">START A PROJECT</a>
+          <a href="#services" class="btn-outline">EXPLORE SERVICES</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D Floating Cube -->
+    <div class="floating-3d">
+      <div class="rotating-cube">
+        <div class="cube-face face-front"><i class="fas fa-code"></i></div>
+        <div class="cube-face face-back"><i class="fas fa-gamepad"></i></div>
+        <div class="cube-face face-right"><i class="fas fa-mobile-alt"></i></div>
+        <div class="cube-face face-left"><i class="fas fa-video"></i></div>
+        <div class="cube-face face-top"><i class="fas fa-globe"></i></div>
+        <div class="cube-face face-bottom"><i class="fas fa-crown"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section - What We Create -->
+  <section id="services" class="section">
+    <div class="site-wrapper">
+      <h2 class="section-title">WHAT WE <span>CREATE</span></h2>
+      <p class="section-subtitle">Comprehensive digital solutions tailored to your needs</p>
+
+      <div class="services-grid">
+        <!-- App Development -->
+        <a href="app-dev.html" class="service-card" target="_blank">
+          <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+          <h3>App Development</h3>
+          <p>Native iOS, Android, and cross-platform apps. From concept to deployment, we build
+            high-performance mobile experiences that users love.</p>
+        </a>
+
+        <!-- Web Development -->
+        <a href="web-dev.html" class="service-card" target="_blank">
+          <div class="service-icon"><i class="fas fa-code"></i></div>
+          <h3>Web Development</h3>
+          <p>Custom websites, web applications, and e-commerce platforms. Modern, responsive, and scalable
+            solutions for businesses of all sizes.</p>
+        </a>
+
+        <!-- Game Development -->
+        <a href="game-dev.html" class="service-card" target="_blank">
+          <div class="service-icon"><i class="fas fa-gamepad"></i></div>
+          <h3>Game Development</h3>
+          <p>2D/3D games, Unity, Unreal Engine. From indie to AAA, we create immersive gaming experiences
+            across all platforms.</p>
+        </a>
+
+        <!-- Content Creation -->
+        <a href="content-creation.html" class="service-card" target="_blank">
+          <div class="service-icon"><i class="fas fa-film"></i></div>
+          <h3>Content Creation</h3>
+          <p>Video production, animation, social media content, and creator management. Engaging content that
+            tells your brand's story.</p>
+        </a>
+
+        <!-- Interns (New) -->
+        <a href="certificates.html" class="service-card">
+          <div class="service-icon"><i class="fas fa-graduation-cap"></i></div>
+          <h3>Interns</h3>
+          <p>Kickstart your career with our paid internship program. Learn from industry experts and work on
+            real-world projects in app, web, game development, and content creation.</p>
         </a>
       </div>
-      <div class="site-mobile-inner"></div>
-    </nav>
-
-
-    <div class="unslate_co--site-wrap">
-
-      <div class="unslate_co--site-inner">
-
-        <div class="lines-wrap">
-          <div class="lines-inner">
-            <div class="lines"></div>
-          </div>
-        </div>
-        <!-- END lines -->
-      
-      <nav class="unslate_co--site-nav site-nav-target">
-
-        <div class="container">
-        
-          <div class="row align-items-center justify-content-between text-left">
-            <div class="col-md-5 text-right">
-              <ul class="site-nav-ul js-clone-nav text-left d-none d-lg-inline-block">
-                <li class="has-children">
-                  <a href="#home-section" class="nav-link">Home</a>
-                  <ul class="dropdown">
-                    <li>
-                      <a href="index.html">Hero Image BG</a>
-                    </li>
-                    <li>
-                      <a href="index-video.html">Video BG</a>
-                    </li>
-                    <li>
-                      <a href="index-hero-slider.html">Hero Slider</a>
-                    </li>
-                    <li>
-                      <a href="index-sidebar-menu.html">Sidebar Menu</a>
-                    </li>
-                    <li>
-                      <a href="index-right-menu.html">Right Menu</a>
-                    </li>
-                  </ul>
-                </li>
-                
-                <li><a href="#about-section" class="nav-link">About</a></li>
-                <li><a href="#services-section" class="nav-link">Services</a></li>
-              </ul>
-            </div>
-            <div class="site-logo pos-absolute">
-              <a href="index.html" class="unslate_co--site-logo">Spectrix<span>.</span></a>
-            </div>
-            <div class="col-md-5 text-right text-lg-left">
-              <ul class="site-nav-ul js-clone-nav text-left d-none d-lg-inline-block">
-                
-               
-                <li><a href="winner.html" class="nav-link">Coming up</a></li>
-                <li><a href="#contact-section" class="nav-link">Contact</a></li>                
-                                                                                                <!-- #journal-section -->
-                <li><a href="certificates.html" class="nav-link">Interns</a></li>
-              </ul>
-
-              <ul class="site-nav-ul-none-onepage text-right d-inline-block d-lg-none">
-                <li><a href="#" class="js-menu-toggle">Menu</a></li>
-              </ul>
-
-            </div>
-          </div>
-        </div>
-
-      </nav>
-      <!-- END nav -->
-
-      <div class="cover-v1 jarallax" style="background-image: url('images/bhai.jpg'); background-size: 50%; background-repeat: no-repeat; background-position: top center;" id="home-section">
-        <div class="container relative">
-    <div class="absolute inset-0 bg-black bg-opacity-50"></div> <!-- Dark overlay -->
-    <div class="row align-items-center relative z-10">
-        <div class="col-md-7 mx-auto text-center">
-          <h1 class="heading gsap-reveal-hero text-white text-6xl font-extrabold 
-          [text-shadow:2px_2px_0_black,-2px_2px_0_black,2px_-2px_0_black,-2px_-2px_0_black]
-          [webkit-text-stroke:2px_black] drop-shadow-lg">Spectrix</h1>
-            <h2 class="subheading gsap-reveal-hero drop-shadow-lg bg-black bg-opacity-50 p-2 rounded-md inline-block">
-                "Bringing Imagination to Life: Game Animation, Content Creation, and Production Excellence"
-            </h2>
-        </div>
     </div>
-</div>
+  </section>
 
+  <!-- Stats Section -->
+  <section class="section">
+    <div class="site-wrapper">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">PROJECTS DELIVERED</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">25+</div>
+          <div class="stat-label">HAPPY CLIENTS</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">CREATORS</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">10M+</div>
+          <div class="stat-label">REACH</div>
+        </div>
+      </div>
     </div>
-    <div>
-        <!-- END .cover-v1 -->
-        <a href="#portfolio-section" class="mouse-wrap smoothscroll">
-          <span class="mouse">
-            <span class="scroll"></span>
-          </span>
-          <span class="mouse-label">Scroll</span>
-        </a>
+  </section>
 
-      </div>
-      <!-- END .cover-v1 -->
-      <div>
-        <img src="images/bhai 2.jpg" alt="Bhai 2" style="width: 100%; height: auto;">
-     </div>
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="section">
+    <div class="site-wrapper">
+      <h2 class="section-title">FEATURED <span>WORK</span></h2>
+      <p class="section-subtitle">Showcasing our best projects across all disciplines</p>
 
-     
-      <div class="unslate_co--section" id="about-section">
-        <div class="container">
-          
-          <div class="section-heading-wrap text-center mb-5">
-            <h2 class="heading-h2 text-center divider"><span class="gsap-reveal">About Us</span></h2>
-            <span class="gsap-reveal">
-            <img src="images/divider.png" alt="divider" width="76">
-            </span>
+      <div class="portfolio-grid">
+        <div class="portfolio-item">
+          <div class="portfolio-img"><i class="fas fa-gamepad"></i></div>
+          <div class="portfolio-content">
+            <h3>Galaxy Quest VR</h3>
+            <p>Immersive VR gaming experience built with Unreal Engine. Won "Best Indie Game" at IGDC 2024.
+            </p>
+            <span class="portfolio-tag">Game Development</span>
           </div>
-          
-
-          <div class="row justify-content-between align-items-center" style="display: flex; flex-wrap: wrap;">
-  <!-- Image Section -->
-  <div class="col-lg-6 mb-4 mb-lg-0" style="flex: 1; max-width: 45%;">
-    <figure class="dotted-bg gsap-reveal-img" style="margin: 0;">
-      <img src="images/logo.jpg" alt="Spectrix Logo" class="img-fluid" style="width: 100%; height: auto;">
-    </figure>
-  </div>
-
-  <!-- Text Section -->
-  <div class="col-lg-6" style="flex: 1; max-width: 45%;">
-    <h3 class="mb-4 heading-h3" style="font-size: 2rem; font-weight: bold;">
-      <span class="gsap-reveal">We are Spectrix Creations</span>
-    </h3>
-    <p class="lead gsap-reveal" style="font-size: 1.1rem; line-height: 1.5;">
-      A passionate team of creatives committed to transforming ideas into immersive entertainment experiences. With a blend of innovation, strategy, and artistic execution,
-      <a href="#" style="color: #007bff; text-decoration: none;">we specialize in gaming, digital content creation, and entertainment solutions</a>.
-    </p>
-  </div>
-</div>
-
         </div>
-      </div>
-
-      <div class="unslate_co--section" id="services-section">
-        <div class="container">
-
-          <div class="section-heading-wrap text-center mb-5">
-            <h2 class="heading-h2 text-center divider"><span class="gsap-reveal">Our Services</span></h2>
-            <span class="gsap-reveal"><img src="images/divider.png" alt="divider" width="76"></span>
+        <div class="portfolio-item">
+          <div class="portfolio-img"><i class="fas fa-mobile-alt"></i></div>
+          <div class="portfolio-content">
+            <h3>FitTrack Pro</h3>
+            <p>AI-powered fitness tracking app with 500K+ downloads. Featured on Google Play's "Best of
+              2024".</p>
+            <span class="portfolio-tag">App Development</span>
           </div>
-
-          <div class="row gutter-v3">
-            <div class="col-md-6 col-lg-4 mb-4">
-              <div class="feature-v1" data-aos="fade-up" data-aos-delay="0">
-                <div class="wrap-icon mb-3">
-                  <img src="images/svg/001-options.svg" alt="Image" width="45">
-                </div>
-                <h3>Game <br> Animation</h3>
-                <p>Animation and motion graphics, cinematics and story telling </p>
-              </div> 
-            </div>
-            <div class="col-md-6 col-lg-4 mb-4">
-              <div class="feature-v1" data-aos="fade-up" data-aos-delay="100">
-                <div class="wrap-icon mb-3">
-                  <img src="images/svg/002-chat.svg" alt="Icon" width="45">
-                </div>
-                <h3>Content <br>Creation</h3>
-                <p>Concept Art and Visual Design, Asset Creation and Management, Scriptwriting and Storyboarding, Voiceover and Sound Design </p>
-              </div> 
-            </div>
-            <div class="col-md-6 col-lg-4 mb-4">
-              <div class="feature-v1" data-aos="fade-up" data-aos-delay="200">
-                <div class="wrap-icon mb-3">
-                  <img src="images/svg/003-contact-book.svg" alt="Image" class="img-fluid" width="45">
-                </div>
-                <h3>Content <br> Production</h3>
-                <p>End-to-End Production Management, Post-Production and Special Effects, Marketing Content and Trailers, Localization and Adaptation </p>
-              </div> 
-            </div>
-
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-img"><i class="fas fa-code"></i></div>
+          <div class="portfolio-content">
+            <h3>EcoMart</h3>
+            <p>Sustainable e-commerce platform with 1000+ daily active users. Built with React and Node.js.
+            </p>
+            <span class="portfolio-tag">Web Development</span>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-img"><i class="fas fa-video"></i></div>
+          <div class="portfolio-content">
+            <h3>Creator Collab Series</h3>
+            <p>Content campaign featuring 15 top creators. Generated 5M+ views across platforms.</p>
+            <span class="portfolio-tag">Content Creation</span>
           </div>
         </div>
       </div>
-
-      
-      <!-- END .counter -->
-
-      
-      <!-- END testimonial -->
-
-      <div class="unslate_co--section" id="journal-section">
-        <div class="container">
-          <div class="section-heading-wrap text-center mb-5">
-            <h2 class="heading-h2 text-center divider"><span class="gsap-reveal">Coming up soon</span></h2>
-            <span class="gsap-reveal"><img src="images/divider.png" alt="divider" width="100"></span>
-          </div>
-
-          <div class="container">
-            <!-- Video Row -->
-            <div class="row gutter-v4 align-items-stretch mb-4">
-                <div class="col-12">
-                    <video autoplay muted loop src="./images/v1.mp4" class="w-100" style="object-fit: cover; aspect-ratio: 16/9;"></video>
-                </div>
-            </div>
-            
-            <!-- Images Row -->
-            <div class="row gutter-v4 align-items-stretch">
-                <!-- Image 1 -->
-                <div class="col-4 mb-4">
-                    <img src="./images/img1.jpg" alt="Image 1" class="w-100 h-100" style="object-fit: cover;">
-                </div>
-                
-                <!-- Image 2 -->
-                <div class="col-4 mb-4">
-                    <img src="./images/img2.jpg" alt="Image 2" class="w-100 h-100" style="object-fit: cover;">
-                </div>
-                
-                <!-- Image 3 -->
-                <div class="col-4 mb-4">
-                    <img src="./images/img3.jpg" alt="Image 3" class="w-100 h-100" style="object-fit: cover;">
-                </div>
-            </div>
-        </div>
-        
-        
-            
-      <!-- END blog posts -->
-
-
-      <div class="unslate_co--section" id="contact-section">
-        <div class="container">
-          <div class="section-heading-wrap text-center mb-5">
-            <h2 class="heading-h2 text-center divider"><span class="gsap-reveal">Get In Touch</span></h2>
-            <span class="gsap-reveal"><img src="images/divider.png" alt="divider" width="76"></span>
-          </div>
-
-
-          <div class="row justify-content-between">
-            
-            <div class="col-md-6">
-              <form method="post" class="form-outline-style-v1" id="contactForm">
-                <div class="form-group row mb-0">
-
-                  <div class="col-lg-6 form-group gsap-reveal">
-                    <label for="name">Name</label>
-                    <input name="name" type="text" class="form-control" id="name">
-                  </div>
-                  <div class="col-lg-6 form-group gsap-reveal">
-                    <label for="email">Email</label>
-                    <input name="email" type="email" class="form-control" id="email">
-                  </div>
-                  <div class="col-lg-12 form-group gsap-reveal">
-                    <label for="message">Write your message...</label>
-                    <textarea name="message" id="message" cols="30" rows="7" class="form-control"></textarea>
-                  </div>
-                </div>
-                <div class="form-group row gsap-reveal">
-                    <div class="col-md-12 d-flex align-items-center">
-                      <input type="submit" class="btn btn-outline-pill btn-custom-light mr-3" value="Send Message">
-                      <span class="submitting"></span>
-                    </div>
-                  </div>
-              </form>
-              <div id="form-message-warning" class="mt-4"></div> 
-              <div id="form-message-success">
-                Your message was sent, thank you!
-              </div>
-
-            </div>
-
-            <div class="col-md-4">
-              <div class="contact-info-v1">
-                <div class="gsap-reveal d-block">
-
-                  <!-- Email Addresses -->
-                  <span class="d-block contact-info-label" style="font-weight: bold; font-size: 1.1em; color: #f0f0f0; margin-bottom: 5px;">Email</span>
-
-<!-- Email Addresses -->
-<a href="mailto:officialspectrix@gmail.com" class="contact-info-val" style="display: block; margin-bottom: 5px; color: #e0e0e0; font-size: 1em; text-decoration: none;">
-    officialspectrix@gmail.com
-</a>
-
-<a href="mailto:metaverse.spectrix@gmail.com" class="contact-info-val" style="display: block; margin-bottom: 5px; color: #e0e0e0; font-size: 1em; text-decoration: none;">
-    For web series/games: metaverse.spectrix@gmail.com
-</a>
-
-<a href="mailto:spectrix.soumya@gmail.com" class="contact-info-val" style="display: block; margin-bottom: 5px; color: #e0e0e0; font-size: 1em; text-decoration: none;">
-    Manager: spectrix.soumya@gmail.com
-</a>
-
-<a href="mailto:spectrix.associate@gmail.com" class="contact-info-val" style="display: block; margin-bottom: 5px; color: #e0e0e0; font-size: 1em; text-decoration: none;">
-    Associate Manager: spectrix.associate@gmail.com
-</a>
-
-                </div>
-                <div class="gsap-reveal d-block">
-                  <span class="d-block contact-info-label"></span>
-                  <a href="#" class="contact-info-val"></a>
-                </div>
-                <div class="gsap-reveal d-block">
-                  <span class="d-block contact-info-label">Address</span>
-                 
-                  <address class="contact-info-val"> Talcher,<br>Odisha-759103</address>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-      </div> <!-- END .unslate_co-site-inner -->
-
-      <footer style="background-color: #111; color: #fff; padding: 40px 0; text-align: center;">
-        <div class="container" style="max-width: 960px; margin: 0 auto;">
-          <div class="row" style="display: flex; justify-content: center;">
-            <div class="col-md-7">
-              
-              <!-- Logo or Company Name -->
-              <div class="footer-logo" style="margin-bottom: 20px;">
-                <a href="#" style="color: #fff; font-size: 24px; font-weight: bold; text-decoration: none;">Spectrix<span>.</span></a>
-              </div>
-      
-              <!-- Social Media Links -->
-              <ul class="footer-social-links" style="list-style: none; padding: 0; margin: 20px 0; display: flex; gap: 15px; justify-content: center;">
-                <li><a href="https://www.linkedin.com/in/spectrix-creations-4a3570302/" target="_blank" rel="noopener" style="color: #fff; font-size: 16px; text-decoration: none;">Linkedin</a></li>
-                <li><a href="https://x.com/spectrixindia" target="_blank" rel="noopener" style="color: #fff; font-size: 16px; text-decoration: none;">Twitter</a></li>
-                <li><a href="https://www.instagram.com/spectrix_creations/" target="_blank" rel="noopener" style="color: #fff; font-size: 16px; text-decoration: none;">Instagram</a></li>
-                
-         
-              </ul>
-      
-              <!-- Copyright Text -->
-              <p style="font-size: 14px; color: #bbb; margin-top: 20px;">
-                &copy; <script>document.write(new Date().getFullYear());</script> Spectrix Creations. All rights reserved.
-              </p>
-              
-            </div>
-          </div>
-        </div>
-      </footer>
-      
-    
-    <!-- Loader -->
-    <div id="unslate_co--overlayer"></div>
-    <div class="site-loader-wrap">
-      <div class="site-loader"></div>
     </div>
+  </section>
 
-    <script src="js/scripts-dist.js"></script>
-    <script src="js/main.js"></script>
+  <!-- Team Section -->
+  <section id="team" class="section">
+    <div class="site-wrapper">
+      <h2 class="section-title">LEADERSHIP <span>TEAM</span></h2>
+      <p class="section-subtitle">The visionaries behind Spectrix Creations</p>
 
-  </body>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar"><i class="fas fa-crown"></i></div>
+          <h3>Suryakanta Sahoo</h3>
+          <div class="position">Founder & CEO</div>
+          <p>Visionary leader with 6+ years in content creation and tech industry. Building India's premier
+            digital studio.</p>
+          <div class="team-social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar"><i class="fas fa-microchip"></i></div>
+          <h3>Arjun Reddy</h3>
+          <div class="position">Head of Technology</div>
+          <p>Full-stack architect with expertise in AI/ML and cloud infrastructure. Former Lead Engineer at
+            TechMahindra.</p>
+          <div class="team-social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar"><i class="fas fa-paintbrush"></i></div>
+          <h3>Meera Kapoor</h3>
+          <div class="position">Creative Director</div>
+          <p>Award-winning designer and animator. 8+ years in visual storytelling and brand design.</p>
+          <div class="team-social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar"><i class="fas fa-chart-line"></i></div>
+          <h3>Rohan Desai</h3>
+          <div class="position">Strategy & Growth</div>
+          <p>Growth specialist who scaled 3 startups to 7-figure revenues. Expert in digital marketing.</p>
+          <div class="team-social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section">
+    <div class="site-wrapper">
+      <h2 class="section-title">LET'S <span>CONNECT</span></h2>
+      <p class="section-subtitle">Ready to bring your vision to life? Let's talk.</p>
+
+      <div class="contact-grid">
+        <form class="contact-form"
+          onsubmit="event.preventDefault(); alert('Thank you! We will contact you within 24 hours.');">
+          <input type="text" placeholder="Your Name" required>
+          <input type="email" placeholder="Email Address" required>
+          <input type="tel" placeholder="Phone Number">
+          <select>
+            <option>Select Service</option>
+            <option>App Development</option>
+            <option>Web Development</option>
+            <option>Game Development</option>
+            <option>Content Creation</option>
+            <option>Internship</option>
+            <option>Other</option>
+          </select>
+          <textarea rows="5" placeholder="Tell us about your project..." required></textarea>
+          <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">SEND
+            MESSAGE</button>
+        </form>
+
+        <div class="contact-info">
+          <h3 style="margin-bottom: 25px;">Contact Information</h3>
+          <p><i class="fas fa-envelope"></i> officialspectrix@gmail.com</p>
+          <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+          <p><i class="fas fa-map-marker-alt"></i> Hyderabad, India</p>
+          <p><i class="fas fa-globe"></i> spectrix-creations.vercel.app</p>
+
+          <div class="contact-social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <!-- Custom X Logo -->
+            <a href="#" class="contact-social-link x-logo-wrapper">
+              <span class="x-logo">
+                <svg viewBox="-6 -7 12 20" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M -5.56 -6.01 L -3.98 -2.33 L -2.4 1.35 L -0.82 5.03 L 0.76 8.71 L 2.34 11.49"
+                    stroke="currentColor" fill="none" stroke-width="1.2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M -5.56 -6.01 L -2.96 -3.37 L -0.36 -0.73 L 2.24 1.91 L 4.84 4.55 L 4.86 4.57"
+                    stroke="currentColor" fill="none" stroke-width="1.2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M -4.65 7.02 L -2.53 3.63 L -0.41 0.25 L 1.71 -3.14 L 3.23 -5.67" stroke="currentColor"
+                    fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M 0.76 8.71 L 2.74 5.24 L 4.72 1.77 L 4.86 -0.05" stroke="currentColor" fill="none"
+                    stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M 3.23 -5.67 L 4.81 -5.99" stroke="currentColor" fill="none" stroke-width="1.2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="site-wrapper">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>SPECTRIX CREATIONS</h4>
+          <p style="color: #ddd;">Premium digital studio specializing in app, web, game development, and
+            content creation. Built on innovation and creativity.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a href="#home">Home</a>
+          <a href="#services">Services</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#team">Team</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="#">App Development</a>
+          <a href="#">Web Development</a>
+          <a href="#">Game Development</a>
+          <a href="#">Content Creation</a>
+          <a href="#">Internships</a>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <!-- Custom X Logo in Footer -->
+            <a href="#" class="x-logo-wrapper">
+              <span class="x-logo">
+                <svg viewBox="-6 -7 12 20" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M -5.56 -6.01 L -3.98 -2.33 L -2.4 1.35 L -0.82 5.03 L 0.76 8.71 L 2.34 11.49"
+                    stroke="currentColor" fill="none" stroke-width="1.2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M -5.56 -6.01 L -2.96 -3.37 L -0.36 -0.73 L 2.24 1.91 L 4.84 4.55 L 4.86 4.57"
+                    stroke="currentColor" fill="none" stroke-width="1.2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M -4.65 7.02 L -2.53 3.63 L -0.41 0.25 L 1.71 -3.14 L 3.23 -5.67" stroke="currentColor"
+                    fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M 0.76 8.71 L 2.74 5.24 L 4.72 1.77 L 4.86 -0.05" stroke="currentColor" fill="none"
+                    stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M 3.23 -5.67 L 4.81 -5.99" stroke="currentColor" fill="none" stroke-width="1.2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 SPECTRIX CREATIONS. All rights reserved.</p>
+        <p style="margin-top: 10px;">App Dev | Web Dev | Game Dev | Content Creation | Internships</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function createCrystals() {
+      const container = document.getElementById('crystalContainer');
+      const crystalCount = 100;
+
+      for (let i = 0; i < crystalCount; i++) {
+        const crystal = document.createElement('div');
+        crystal.className = 'crystal';
+
+        const sizeType = Math.random();
+        if (sizeType < 0.15) crystal.classList.add('large');
+        else if (sizeType > 0.85) crystal.classList.add('small');
+
+        crystal.style.left = Math.random() * 100 + '%';
+        crystal.style.animationDuration = (3 + Math.random() * 6) + 's';
+        crystal.style.animationDelay = Math.random() * 20 + 's';
+        crystal.style.opacity = 0.3 + Math.random() * 0.5;
+
+        container.appendChild(crystal);
+      }
+    }
+
+    function updateCrystalFade() {
+      const boxes = document.querySelectorAll('.service-card, .portfolio-item, .team-card, .stat-item, .contact-info, .contact-form');
+      const crystals = document.querySelectorAll('.crystal');
+
+      boxes.forEach(box => {
+        const boxRect = box.getBoundingClientRect();
+        crystals.forEach(crystal => {
+          const crystalRect = crystal.getBoundingClientRect();
+          if (crystalRect.bottom > boxRect.top && crystalRect.top < boxRect.bottom &&
+            crystalRect.right > boxRect.left && crystalRect.left < boxRect.right) {
+            crystal.classList.add('fade-behind');
+          } else {
+            crystal.classList.remove('fade-behind');
+          }
+        });
+      });
+    }
+
+    function create3DBackground() {
+      const canvas = document.getElementById('threeCanvas');
+      const ctx = canvas.getContext('2d');
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      let particles = [];
+      for (let i = 0; i < 50; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.5 + 0.5,
+          alpha: Math.random() * 0.15 + 0.02,
+          vx: (Math.random() - 0.5) * 0.15,
+          vy: (Math.random() - 0.5) * 0.15,
+          glow: Math.random() * 0.3 + 0.1
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let p of particles) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.shadowBlur = 4;
+          ctx.shadowColor = `rgba(255, 255, 255, ${p.glow})`;
+          ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+          ctx.fill();
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < -50) p.x = canvas.width + 50;
+          if (p.x > canvas.width + 50) p.x = -50;
+          if (p.y < -50) p.y = canvas.height + 50;
+          if (p.y > canvas.height + 50) p.y = -50;
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    function addScrollEffects() {
+      const elements = document.querySelectorAll('.service-card, .portfolio-item, .team-card, .stat-item');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animation = 'none';
+            entry.target.offsetHeight;
+            entry.target.style.animation = null;
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      elements.forEach(el => observer.observe(el));
+    }
+
+    document.querySelectorAll('.nav-links a, .hero-buttons a').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 100) {
+        nav.style.background = 'rgba(5, 5, 5, 0.95)';
+        nav.style.backdropFilter = 'blur(20px)';
+      } else {
+        nav.style.background = 'rgba(5, 5, 5, 0.85)';
+        nav.style.backdropFilter = 'blur(15px)';
+      }
+      updateCrystalFade();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      createCrystals();
+      create3DBackground();
+      addScrollEffects();
+      setInterval(updateCrystalFade, 100);
+    });
+  </script>
+</body>
 </html>
