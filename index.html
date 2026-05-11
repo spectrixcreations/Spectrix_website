@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <link rel="icon" type="image/png" href="images/favicon.png" />
@@ -734,9 +735,9 @@
 
     /* ===== TEAM CARDS ===== */
     .team-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
       gap: 30px;
+      display: flex;
+      justify-content: center;
     }
 
     .team-card {
@@ -747,6 +748,7 @@
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
       overflow: hidden;
+      width: 25%;
     }
 
     .team-card::before,
@@ -1113,6 +1115,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- Glowing Crystals Reverse Rain -->
@@ -1249,7 +1252,7 @@
       <p class="section-subtitle">Showcasing our best projects across all disciplines</p>
 
       <div class="portfolio-grid">
-        <div class="portfolio-item" href="temp.html" >
+        <div class="portfolio-item" href="temp.html">
           <div class="portfolio-img"><i class="fas fa-gamepad"></i></div>
           <div class="portfolio-content">
             <h3>Galaxy Quest VR</h3>
@@ -1308,7 +1311,7 @@
         </div>
         <div class="team-card">
           <div class="team-avatar"><i class="fas fa-microchip"></i></div>
-          <h3>Arjun Reddy</h3>
+          <h3>Marvel john</h3>
           <div class="position">Head of Technology</div>
           <p>Full-stack architect with expertise in AI/ML and cloud infrastructure. Former Lead Engineer at
             TechMahindra.</p>
@@ -1317,7 +1320,7 @@
             <a href="#"><i class="fab fa-linkedin-in"></i></a>
           </div>
         </div>
-        <div class="team-card">
+        <!-- <div class="team-card">
           <div class="team-avatar"><i class="fas fa-paintbrush"></i></div>
           <h3>Meera Kapoor</h3>
           <div class="position">Creative Director</div>
@@ -1336,7 +1339,7 @@
             <a href="#"><i class="fab fa-instagram"></i></a>
             <a href="#"><i class="fab fa-linkedin-in"></i></a>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </section>
@@ -1370,14 +1373,14 @@
         <div class="contact-info">
           <h3 style="margin-bottom: 25px;">Contact Information</h3>
           <p><i class="fas fa-envelope"></i> officialspectrix@gmail.com</p>
-          <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+          <p><i class="fas fa-phone"></i> +91 7656 898 298</p>
           <p><i class="fas fa-map-marker-alt"></i> Hyderabad, India</p>
           <p><i class="fas fa-globe"></i> spectrix-creations.vercel.app</p>
 
           <div class="contact-social-links">
             <a href="#"><i class="fab fa-instagram"></i></a>
             <!-- Custom X Logo -->
-            <a href="#" class="contact-social-link x-logo-wrapper">
+            <!-- <a href="#" class="contact-social-link x-logo-wrapper">
               <span class="x-logo">
                 <svg viewBox="-6 -7 12 20" xmlns="http://www.w3.org/2000/svg">
                   <path d="M -5.56 -6.01 L -3.98 -2.33 L -2.4 1.35 L -0.82 5.03 L 0.76 8.71 L 2.34 11.49"
@@ -1394,7 +1397,7 @@
                     stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </span>
-            </a>
+            </a> -->
             <a href="#"><i class="fab fa-linkedin-in"></i></a>
             <a href="#"><i class="fab fa-youtube"></i></a>
             <a href="#"><i class="fab fa-github"></i></a>
@@ -1434,7 +1437,7 @@
           <div class="social-links">
             <a href="#"><i class="fab fa-instagram"></i></a>
             <!-- Custom X Logo in Footer -->
-            <a href="#" class="x-logo-wrapper">
+            <!-- <a href="#" class="x-logo-wrapper">
               <span class="x-logo">
                 <svg viewBox="-6 -7 12 20" xmlns="http://www.w3.org/2000/svg">
                   <path d="M -5.56 -6.01 L -3.98 -2.33 L -2.4 1.35 L -0.82 5.03 L 0.76 8.71 L 2.34 11.49"
@@ -1451,7 +1454,7 @@
                     stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </span>
-            </a>
+            </a> -->
             <a href="#"><i class="fab fa-linkedin-in"></i></a>
             <a href="#"><i class="fab fa-youtube"></i></a>
           </div>
@@ -1595,4 +1598,5 @@
     });
   </script>
 </body>
+
 </html>
