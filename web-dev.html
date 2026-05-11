@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Spectrix Creations | Web Development Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', 'Poppins', system-ui, sans-serif;
+            background: #050505;
+            color: #e8e8e8;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a2a;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a4a4a;
+        }
+
+        /* Glowing Crystals Reverse Rain */
+        .crystal-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .crystal {
+            position: absolute;
+            bottom: -20px;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #ffffff, #888888);
+            border-radius: 1px;
+            opacity: 0;
+            animation: floatUpGlow linear infinite;
+            pointer-events: none;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.6), 0 0 6px rgba(255, 255, 255, 0.3);
+        }
+
+        .crystal.large {
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #ffffff, #aaaaff);
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.8), 0 0 9px rgba(255, 255, 255, 0.4);
+        }
+
+        .crystal.small {
+            width: 2px;
+            height: 2px;
+            background: radial-gradient(circle, #dddddd, #666666);
+            box-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes floatUpGlow {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: translateY(-50vh) rotate(180deg);
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .crystal.fade-behind {
+            opacity: 0.1 !important;
+            box-shadow: 0 0 2px rgba(255, 255, 255, 0.2) !important;
+        }
+
+        /* 3D Background Canvas */
+        .canvas-3d {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .site-wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #ffffff, #888888);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #fff, #888);
+            transition: width 0.3s ease;
+        }
+
+        .logo:hover::after {
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #fff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 180px 0 80px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 64px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: #aaa;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Pricing Cards */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .pricing-card {
+            background: rgba(8, 8, 8, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 40px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .pricing-card:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-12px);
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            backdrop-filter: blur(4px);
+        }
+
+        .pricing-card h2 {
+            font-size: 32px;
+            margin-bottom: 16px;
+            color: #fff;
+        }
+
+        .price {
+            font-size: 52px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #ccc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 20px 0 10px;
+        }
+
+        .price-sub {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+        }
+
+        .features-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            color: #ddd;
+        }
+
+        .features-list li i {
+            width: 24px;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .btn-pricing {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            border-radius: 40px;
+        }
+
+        .btn-pricing:hover {
+            background: #fff;
+            color: #050505;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
+        }
+
+        /* Tech Stack Section */
+        .tech-section {
+            margin: 80px 0;
+        }
+
+        .section-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .section-title span {
+            color: #555;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .tech-item {
+            background: rgba(8, 8, 8, 0.6);
+            padding: 30px 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+            background: rgba(15, 15, 15, 0.8);
+        }
+
+        .tech-item i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .tech-item h4 {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        /* Process Timeline */
+        .process-section {
+            margin: 80px 0;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px;
+            background: rgba(8, 8, 8, 0.6);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .step h4 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            margin: 80px 0 60px;
+            padding: 60px;
+            background: rgba(8, 8, 8, 0.6);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cta-section h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            padding: 16px 42px;
+            background: #fff;
+            color: #050505;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 40px;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
+            background: #ddd;
+        }
+
+        /* Footer */
+        footer {
+            background: #020202;
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            margin-top: 80px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h4 {
+            font-size: 18px;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+
+        .footer-col a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #fff;
+            color: #050505;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .site-wrapper {
+                padding: 0 20px;
+            }
+
+            .page-header h1 {
+                font-size: 42px;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pricing-card,
+        .tech-item,
+        .step {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .pricing-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .pricing-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="crystal-container" id="crystalContainer"></div>
+    <canvas class="canvas-3d" id="threeCanvas"></canvas>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">SPECTRIX<span style="background: none; color: #fff;">CREATIONS</span></a>
+            <div class="nav-links">
+                <a href="index.html#home">HOME</a>
+                <a href="index.html#services">SERVICES</a>
+                <a href="index.html#portfolio">WORK</a>
+                <a href="index.html#team">TEAM</a>
+                <a href="index.html#contact">CONTACT</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="site-wrapper">
+        <div class="page-header">
+            <h1>Web Development</h1>
+            <p>Custom websites & web apps that blend stunning design with powerful functionality. From sleek static
+                sites to AI-powered dynamic platforms, we bring your digital vision to life.</p>
+        </div>
+
+        <!-- Pricing Plans -->
+        <div class="pricing-grid">
+            <!-- StaticX Package -->
+            <div class="pricing-card">
+                <div class="card-badge">✨ Most Popular for Startups</div>
+                <h2>StaticX</h2>
+                <div class="price">₹60,000/-</div>
+                <div class="price-sub">One-time investment | Static & Animated Website</div>
+                <ul class="features-list">
+                    <li><i class="fas fa-check-circle"></i> Fully responsive design (mobile/tablet/desktop)</li>
+                    <li><i class="fas fa-check-circle"></i> Custom UI/UX with modern animations</li>
+                    <li><i class="fas fa-check-circle"></i> Up to 8 pages (Home, About, Services, Contact, etc.)</li>
+                    <li><i class="fas fa-check-circle"></i> SEO optimized structure & meta tags</li>
+                    <li><i class="fas fa-check-circle"></i> Contact form integration (EmailJS/Formspree)</li>
+                    <li><i class="fas fa-check-circle"></i> Google Maps integration</li>
+                    <li><i class="fas fa-check-circle"></i> Social media links & embed</li>
+                    <li><i class="fas fa-check-circle"></i> Fast loading & optimized assets</li>
+                    <li><i class="fas fa-check-circle"></i> 3 months free support & maintenance</li>
+                    <li><i class="fas fa-check-circle"></i> Free hosting setup (1 year)</li>
+                </ul>
+                <a href="index.html#contact" class="btn-pricing">Get StaticX →</a>
+            </div>
+
+            <!-- SyncX Package -->
+            <div class="pricing-card">
+                <div class="card-badge">🔥 Enterprise Grade</div>
+                <h2>SyncX</h2>
+                <div class="price">₹1,20,000/-</div>
+                <div class="price-sub">Dynamic Web Application | Full-Stack Solution</div>
+                <ul class="features-list">
+                    <li><i class="fas fa-check-circle"></i> Everything in StaticX +</li>
+                    <li><i class="fas fa-check-circle"></i> Secure user login/authentication (JWT/Session)</li>
+                    <li><i class="fas fa-check-circle"></i> Payment gateway integration (Razorpay/Stripe)</li>
+                    <li><i class="fas fa-check-circle"></i> Database storage (MySQL/PostgreSQL/MongoDB)</li>
+                    <li><i class="fas fa-check-circle"></i> AI prompting & ChatGPT integration</li>
+                    <li><i class="fas fa-check-circle"></i> Product catalog with buy/purchase flow</li>
+                    <li><i class="fas fa-check-circle"></i> Order management system & invoice generation</li>
+                    <li><i class="fas fa-check-circle"></i> Admin dashboard to manage users/orders/products</li>
+                    <li><i class="fas fa-check-circle"></i> Advanced search & filters</li>
+                    <li><i class="fas fa-check-circle"></i> Real-time notifications & email alerts</li>
+                    <li><i class="fas fa-check-circle"></i> 6 months technical support & updates</li>
+                    <li><i class="fas fa-check-circle"></i> Cloud deployment (AWS/Vercel/self-hosted)</li>
+                </ul>
+                <a href="index.html#contact" class="btn-pricing">Get SyncX →</a>
+            </div>
+        </div>
+
+        <!-- Technologies We Master -->
+        <div class="tech-section">
+            <h2 class="section-title">TECH <span>STACK</span></h2>
+            <p class="section-subtitle" style="text-align: center; color:#777; margin-bottom: 20px;">Cutting-edge tools
+                & frameworks for modern web experiences</p>
+            <div class="tech-grid">
+                <div class="tech-item"><i class="fab fa-react"></i>
+                    <h4>React.js</h4>
+                </div>
+                <div class="tech-item"><i class="fab fa-angular"></i>
+                    <h4>Angular</h4>
+                </div>
+                <div class="tech-item"><i class="fab fa-vuejs"></i>
+                    <h4>Vue.js</h4>
+                </div>
+                <div class="tech-item"><i class="fab fa-node-js"></i>
+                    <h4>Node.js</h4>
+                </div>
+                <div class="tech-item"><i class="fab fa-python"></i>
+                    <h4>Django/Flask</h4>
+                </div>
+                <div class="tech-item"><i class="fas fa-database"></i>
+                    <h4>MongoDB/MySQL</h4>
+                </div>
+                <div class="tech-item"><i class="fab fa-php"></i>
+                    <h4>Laravel</h4>
+                </div>
+                <div class="tech-item"><i class="fab fa-js"></i>
+                    <h4>Vanilla JS/TS</h4>
+                </div>
+                <div class="tech-item"><i class="fab fa-figma"></i>
+                    <h4>Figma to Code</h4>
+                </div>
+                <div class="tech-item"><i class="fas fa-cloud"></i>
+                    <h4>AWS/Cloud</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Our Development Process -->
+        <div class="process-section">
+            <h2 class="section-title">OUR <span>PROCESS</span></h2>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <h4>Discovery</h4>
+                    <p>Understand goals, target audience, and technical requirements.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <h4>Design</h4>
+                    <p>Wireframing & high-fidelity UI/UX designs with interactive prototypes.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <h4>Development</h4>
+                    <p>Agile sprints, regular demos, clean code with version control.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">04</div>
+                    <h4>Launch & Support</h4>
+                    <p>Deployment, testing, optimization & post-launch maintenance.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="cta-section">
+            <h3>Ready to build something extraordinary?</h3>
+            <p style="color:#bbb; max-width: 600px; margin: 15px auto;">Whether you need a blazing-fast static site or a
+                fully dynamic AI-powered platform, we've got you covered.</p>
+            <a href="index.html#contact" class="btn-cta">Start Your Project →</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="site-wrapper">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>SPECTRIX CREATIONS</h4>
+                    <p style="color:#ddd;">Premium digital studio for web, app, game development & content creation.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="index.html#home">Home</a>
+                    <a href="index.html#services">Services</a>
+                    <a href="index.html#portfolio">Portfolio</a>
+                    <a href="index.html#team">Team</a>
+                    <a href="index.html#contact">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <a href="web-dev.html">Web Development</a>
+                    <a href="app-dev.html">App Development</a>
+                    <a href="game-dev.html">Game Development</a>
+                    <a href="content-creation.html">Content Creation</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 SPECTRIX CREATIONS. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Glowing Crystals Reverse Rain (same as main page)
+        function createCrystals() {
+            const container = document.getElementById('crystalContainer');
+            const crystalCount = 100;
+            for (let i = 0; i < crystalCount; i++) {
+                const crystal = document.createElement('div');
+                crystal.className = 'crystal';
+                const sizeType = Math.random();
+                if (sizeType < 0.15) crystal.classList.add('large');
+                else if (sizeType > 0.85) crystal.classList.add('small');
+                crystal.style.left = Math.random() * 100 + '%';
+                crystal.style.animationDuration = (3 + Math.random() * 6) + 's';
+                crystal.style.animationDelay = Math.random() * 20 + 's';
+                crystal.style.opacity = 0.3 + Math.random() * 0.5;
+                container.appendChild(crystal);
+            }
+        }
+
+        function updateCrystalFade() {
+            const boxes = document.querySelectorAll('.pricing-card, .tech-item, .step, .cta-section');
+            const crystals = document.querySelectorAll('.crystal');
+            boxes.forEach(box => {
+                const boxRect = box.getBoundingClientRect();
+                crystals.forEach(crystal => {
+                    const crystalRect = crystal.getBoundingClientRect();
+                    if (crystalRect.bottom > boxRect.top && crystalRect.top < boxRect.bottom &&
+                        crystalRect.right > boxRect.left && crystalRect.left < boxRect.right) {
+                        crystal.classList.add('fade-behind');
+                    } else {
+                        crystal.classList.remove('fade-behind');
+                    }
+                });
+            });
+        }
+
+        function create3DBackground() {
+            const canvas = document.getElementById('threeCanvas');
+            const ctx = canvas.getContext('2d');
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            let particles = [];
+            for (let i = 0; i < 50; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5 + 0.5,
+                    alpha: Math.random() * 0.15 + 0.02,
+                    vx: (Math.random() - 0.5) * 0.15,
+                    vy: (Math.random() - 0.5) * 0.15,
+                    glow: Math.random() * 0.3 + 0.1
+                });
+            }
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let p of particles) {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.shadowBlur = 4;
+                    ctx.shadowColor = `rgba(255, 255, 255, ${p.glow})`;
+                    ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+                    ctx.fill();
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < -50) p.x = canvas.width + 50;
+                    if (p.x > canvas.width + 50) p.x = -50;
+                    if (p.y < -50) p.y = canvas.height + 50;
+                    if (p.y > canvas.height + 50) p.y = -50;
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // Scroll effect for nav
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(5, 5, 5, 0.95)';
+                nav.style.backdropFilter = 'blur(20px)';
+            } else {
+                nav.style.background = 'rgba(5, 5, 5, 0.85)';
+                nav.style.backdropFilter = 'blur(15px)';
+            }
+            updateCrystalFade();
+        });
+
+        // Smooth scroll for anchor links (just in case)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href && href !== '#' && href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createCrystals();
+            create3DBackground();
+            setInterval(updateCrystalFade, 120);
+        });
+    </script>
+</body>
+
+</html>
