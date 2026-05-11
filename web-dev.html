@@ -227,15 +227,19 @@
             margin: 0 auto;
         }
 
-        /* Pricing Cards */
+        /* Pricing Cards - FLEXBOX with button alignment */
         .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 40px;
             margin: 60px 0;
+            justify-content: center;
         }
 
         .pricing-card {
+            flex: 1;
+            min-width: 360px;
+            max-width: 500px;
             background: rgba(8, 8, 8, 0.8);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -244,6 +248,8 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .pricing-card::before {
@@ -302,7 +308,8 @@
 
         .features-list {
             list-style: none;
-            margin: 30px 0;
+            margin: 0 0 30px 0;
+            flex: 1;
         }
 
         .features-list li {
@@ -331,7 +338,7 @@
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
-            margin-top: 30px;
+            margin-top: auto;
             border-radius: 40px;
         }
 
@@ -342,7 +349,7 @@
             box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
         }
 
-        /* Tech Stack Section */
+        /* Tech Stack Section - Responsive Grid: 4 -> 3 -> 1 */
         .tech-section {
             margin: 80px 0;
         }
@@ -358,11 +365,33 @@
             color: #555;
         }
 
+        .section-subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        /* Tech Grid - Responsive: 4 columns default, then 3, then 1 */
         .tech-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 30px;
             margin-top: 50px;
+        }
+
+        /* Tablet: 3 columns */
+        @media (max-width: 992px) {
+            .tech-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Mobile: 1 column */
+        @media (max-width: 576px) {
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .tech-item {
@@ -504,6 +533,10 @@
             transform: translateX(5px);
         }
 
+        .footer-col p {
+            color: #ccc;
+        }
+
         .social-links {
             display: flex;
             gap: 15px;
@@ -546,7 +579,14 @@
             }
 
             .pricing-grid {
-                grid-template-columns: 1fr;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .pricing-card {
+                min-width: auto;
+                width: 100%;
+                max-width: 100%;
             }
 
             .footer-grid {
@@ -556,6 +596,10 @@
 
             .section-title {
                 font-size: 32px;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -586,6 +630,38 @@
         .pricing-card:nth-child(2) {
             animation-delay: 0.2s;
         }
+
+        .tech-item:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .tech-item:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .tech-item:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        .tech-item:nth-child(4) {
+            animation-delay: 0.2s;
+        }
+
+        .tech-item:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+
+        .tech-item:nth-child(6) {
+            animation-delay: 0.3s;
+        }
+
+        .tech-item:nth-child(7) {
+            animation-delay: 0.35s;
+        }
+
+        .tech-item:nth-child(8) {
+            animation-delay: 0.4s;
+        }
     </style>
 </head>
 
@@ -614,7 +690,7 @@
                 sites to AI-powered dynamic platforms, we bring your digital vision to life.</p>
         </div>
 
-        <!-- Pricing Plans -->
+        <!-- Pricing Plans - FLEXBOX with button alignment -->
         <div class="pricing-grid">
             <!-- StaticX Package -->
             <div class="pricing-card">
@@ -625,14 +701,13 @@
                 <ul class="features-list">
                     <li><i class="fas fa-check-circle"></i> Fully responsive design (mobile/tablet/desktop)</li>
                     <li><i class="fas fa-check-circle"></i> Custom UI/UX with modern animations</li>
-                    <li><i class="fas fa-check-circle"></i> Up to 8 pages (Home, About, Services, Contact, etc.)</li>
-                    <li><i class="fas fa-check-circle"></i> SEO optimized structure & meta tags</li>
+                    <li><i class="fas fa-check-circle"></i> Up to 6 pages (Home, About, Services, Contact, etc.)</li>
                     <li><i class="fas fa-check-circle"></i> Contact form integration (EmailJS/Formspree)</li>
                     <li><i class="fas fa-check-circle"></i> Google Maps integration</li>
                     <li><i class="fas fa-check-circle"></i> Social media links & embed</li>
                     <li><i class="fas fa-check-circle"></i> Fast loading & optimized assets</li>
                     <li><i class="fas fa-check-circle"></i> 3 months free support & maintenance</li>
-                    <li><i class="fas fa-check-circle"></i> Free hosting setup (1 year)</li>
+                    <li><i class="fas fa-check-circle"></i> Free hosting setup (6 months)</li>
                 </ul>
                 <a href="index.html#contact" class="btn-pricing">Get StaticX →</a>
             </div>
@@ -661,11 +736,10 @@
             </div>
         </div>
 
-        <!-- Technologies We Master -->
+        <!-- Technologies We Master - Responsive Grid: 4 -> 3 -> 1 -->
         <div class="tech-section">
             <h2 class="section-title">TECH <span>STACK</span></h2>
-            <p class="section-subtitle" style="text-align: center; color:#777; margin-bottom: 20px;">Cutting-edge tools
-                & frameworks for modern web experiences</p>
+            <p class="section-subtitle">Cutting-edge tools & frameworks for modern web experiences</p>
             <div class="tech-grid">
                 <div class="tech-item"><i class="fab fa-react"></i>
                     <h4>React.js</h4>
@@ -679,14 +753,8 @@
                 <div class="tech-item"><i class="fab fa-node-js"></i>
                     <h4>Node.js</h4>
                 </div>
-                <div class="tech-item"><i class="fab fa-python"></i>
-                    <h4>Django/Flask</h4>
-                </div>
                 <div class="tech-item"><i class="fas fa-database"></i>
                     <h4>MongoDB/MySQL</h4>
-                </div>
-                <div class="tech-item"><i class="fab fa-php"></i>
-                    <h4>Laravel</h4>
                 </div>
                 <div class="tech-item"><i class="fab fa-js"></i>
                     <h4>Vanilla JS/TS</h4>
@@ -775,7 +843,7 @@
     </footer>
 
     <script>
-        // Glowing Crystals Reverse Rain (same as main page)
+        // Glowing Crystals Reverse Rain
         function createCrystals() {
             const container = document.getElementById('crystalContainer');
             const crystalCount = 100;
@@ -865,7 +933,7 @@
             updateCrystalFade();
         });
 
-        // Smooth scroll for anchor links (just in case)
+        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
