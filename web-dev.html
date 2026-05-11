@@ -420,7 +420,7 @@
             font-weight: 500;
         }
 
-        /* Process Timeline */
+        /* Process Timeline - with HOVER UPWARD MOVEMENT & HIGHLIGHT */
         .process-section {
             margin: 80px 0;
         }
@@ -438,6 +438,23 @@
             background: rgba(8, 8, 8, 0.6);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        /* Hover effect: move upward, add glow, enhance border */
+        .step:hover {
+            transform: translateY(-12px);
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(15, 15, 15, 0.85);
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.25), 0 15px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Optional: Scale up the step number icon slightly on hover */
+        .step:hover .step-number {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
 
         .step-number {
@@ -452,16 +469,28 @@
             font-size: 24px;
             font-weight: 700;
             color: #fff;
+            transition: all 0.3s ease;
         }
 
         .step h4 {
             font-size: 22px;
             margin-bottom: 12px;
+            transition: color 0.3s ease;
+        }
+
+        .step:hover h4 {
+            color: #fff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
         }
 
         .step p {
             color: #aaa;
             font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .step:hover p {
+            color: #ddd;
         }
 
         /* CTA */
@@ -662,6 +691,22 @@
         .tech-item:nth-child(8) {
             animation-delay: 0.4s;
         }
+
+        .step:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .step:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .step:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .step:nth-child(4) {
+            animation-delay: 0.4s;
+        }
     </style>
 </head>
 
@@ -768,7 +813,7 @@
             </div>
         </div>
 
-        <!-- Our Development Process -->
+        <!-- Our Development Process - with HOVER UPWARD MOVEMENT & HIGHLIGHT -->
         <div class="process-section">
             <h2 class="section-title">OUR <span>PROCESS</span></h2>
             <div class="process-steps">
