@@ -164,6 +164,7 @@
             display: flex;
             gap: 35px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .nav-links a {
@@ -225,15 +226,176 @@
             font-size: 18px;
         }
 
+        /* Creator count and button container */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
         .creator-count {
             display: inline-block;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 40px;
             padding: 6px 18px;
             font-size: 14px;
-            margin-top: 24px;
             color: #bbb;
             border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Become Creator Button - near creator count */
+        .become-creator-btn {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .become-creator-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Popup Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: rgba(15, 15, 15, 0.98);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 30px 35px;
+            max-width: 520px;
+            width: 90%;
+            position: relative;
+            animation: fadeInUp 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #25D366;
+            border-radius: 4px;
+        }
+
+        .modal-content h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #fff, #25D366);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .modal-content p {
+            color: #aaa;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 18px;
+            right: 22px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #aaa;
+            transition: 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #ddd;
+        }
+
+        .form-group label .required {
+            color: #25D366;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #25D366;
+            box-shadow: 0 0 10px rgba(37, 211, 102, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border: none;
+            border-radius: 40px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
         }
 
         /* Flexbox Cards Container */
@@ -245,7 +407,7 @@
             margin: 60px 0 60px;
         }
 
-        /* Individual Card - Glowing Effect with Ray Animation */
+        /* Individual Card */
         .creator-card {
             flex: 1;
             min-width: 280px;
@@ -261,7 +423,6 @@
             border-radius: 24px;
         }
 
-        /* Glowing ray animation (horizontal & vertical sweep) */
         .creator-card::before,
         .creator-card::after {
             content: '';
@@ -304,7 +465,6 @@
             background: rgba(18, 18, 18, 0.92);
         }
 
-        /* Profile Image - Perfect Circle with Cover Fit */
         .creator-photo {
             width: 160px;
             height: 160px;
@@ -335,7 +495,6 @@
             color: transparent;
         }
 
-        /* Creator Description / Bio Text */
         .creator-description {
             color: #aaa;
             font-size: 14px;
@@ -352,7 +511,6 @@
             color: #ddd;
         }
 
-        /* Creator Category/Tag */
         .creator-category {
             display: inline-block;
             background: rgba(255, 255, 255, 0.08);
@@ -372,7 +530,6 @@
             color: #fff;
         }
 
-        /* Social Icons - Updated for 3 icons */
         .social-icons {
             display: flex;
             justify-content: center;
@@ -403,12 +560,6 @@
             box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
         }
 
-        /* Discord specific hover color */
-        .social-icons a .fa-discord:hover {
-            color: #5865F2;
-        }
-
-        /* Footer */
         footer {
             background: #020202;
             padding: 50px 0 30px;
@@ -421,6 +572,18 @@
             color: #aaa;
             font-size: 13px;
             letter-spacing: 0.5px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 768px) {
@@ -442,13 +605,12 @@
                 height: 130px;
             }
 
-            .creator-description {
-                font-size: 13px;
-                min-height: 70px;
-            }
-
             .nav-container {
                 padding: 16px 24px;
+            }
+
+            .modal-content {
+                padding: 25px 20px;
             }
         }
     </style>
@@ -473,17 +635,56 @@
         </div>
     </nav>
 
+    <!-- Popup Modal -->
+    <div class="modal" id="creatorModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2>Join as a Creator</h2>
+            <p>Fill out the form below and we'll reach out to you on WhatsApp!</p>
+            <form id="creatorForm">
+                <div class="form-group">
+                    <label>Full Name <span class="required">*</span></label>
+                    <input type="text" id="fullName" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label>Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number <span class="required">*</span></label>
+                    <input type="tel" id="phone" required placeholder="+91 XXXXX XXXXX">
+                </div>
+                <div class="form-group">
+                    <label>Instagram Profile Link</label>
+                    <input type="url" id="instagram" placeholder="https://instagram.com/yourhandle">
+                </div>
+                <div class="form-group">
+                    <label>YouTube Channel Link</label>
+                    <input type="url" id="youtube" placeholder="https://youtube.com/@yourchannel">
+                </div>
+                <div class="form-group">
+                    <label>Tell us about yourself <span class="required">*</span></label>
+                    <textarea id="bio" required
+                        placeholder="Share your content niche, audience size, and why you want to join Spectrix..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn"><i class="fab fa-whatsapp"></i> Submit via WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
     <div class="site-wrapper">
         <div class="page-header">
             <h1>MEET OUR <span>CONTENT CREATORS</span></h1>
             <p>Certified excellence — each glow reflects a milestone achieved.</p>
-            <div class="creator-count">✨ 18 Certified Creators</div>
+            <div class="stats-container">
+                <div class="creator-count">✨ 18 Certified Creators</div>
+                <button class="become-creator-btn" id="becomeCreatorBtn"><i class="fab fa-whatsapp"></i> Become a
+                    Creator</button>
+            </div>
         </div>
 
-        <!-- Flexbox Cards Container - All Content Creators with YouTube & Discord -->
         <div class="creators-grid">
-
-            <!-- Card 1: Kaina June - Beauty & Lifestyle -->
+            <!-- Card 1: Kaina June -->
             <div class="creator-card">
                 <div class="creator-photo" style="background-image: url('./images/content-creators/Kaina_June.png');">
                 </div>
@@ -500,10 +701,9 @@
                 </div>
             </div>
 
-            <!-- Card 2: Diksha Joshi - Beauty & Lifestyle -->
+            <!-- Card 2: Diksha Joshi -->
             <div class="creator-card">
-                <div class="creator-photo" style="background-image: url('./images/content-creators/Diksha.png');">
-                </div>
+                <div class="creator-photo" style="background-image: url('./images/content-creators/Diksha.png');"></div>
                 <div class="creator-name">Diksha Joshi</div>
                 <div class="creator-category">Beauty & Lifestyle</div>
                 <div class="creator-description">Diksha brings relatable beauty rituals and everyday elegance.</div>
@@ -516,7 +716,7 @@
                 </div>
             </div>
 
-            <!-- Card 3: Shisham Rai - Fitness & Lifestyle -->
+            <!-- Card 3: Shisham Rai -->
             <div class="creator-card">
                 <div class="creator-photo" style="background-image: url('./images/content-creators/Shisham.png');">
                 </div>
@@ -532,10 +732,9 @@
                 </div>
             </div>
 
-            <!-- Card 4: Pankaj Tadiyal - Gaming -->
+            <!-- Card 4: Pankaj Tadiyal -->
             <div class="creator-card">
-                <div class="creator-photo" style="background-image: url('./images/content-creators/Pankaj.png');">
-                </div>
+                <div class="creator-photo" style="background-image: url('./images/content-creators/Pankaj.png');"></div>
                 <div class="creator-name">Pankaj Tadiyal</div>
                 <div class="creator-category">Gaming</div>
                 <div class="creator-description">Pankaj brings high-energy gameplay, genuine reactions, and a loyal
@@ -548,7 +747,7 @@
                 </div>
             </div>
 
-            <!-- Card 5: Rani Rojalin - Beauty & Lifestyle -->
+            <!-- Card 5: Rani Rojalin -->
             <div class="creator-card">
                 <div class="creator-photo" style="background-image: url('./images/content-creators/Rani-Rojalin.png');">
                 </div>
@@ -564,11 +763,10 @@
                 </div>
             </div>
 
-            <!-- Card 6: Taniya Behera - Beauty & Lifestyle -->
+            <!-- Card 6: Taniya Behera -->
             <div class="creator-card">
                 <div class="creator-photo"
-                    style="background-image: url('./images/content-creators/Taniya-Behera.png');">
-                </div>
+                    style="background-image: url('./images/content-creators/Taniya-Behera.png');"></div>
                 <div class="creator-name">Taniya Behera</div>
                 <div class="creator-category">Beauty & Lifestyle</div>
                 <div class="creator-description">Taniya blends fresh beauty perspectives with authentic lifestyle
@@ -582,11 +780,10 @@
                 </div>
             </div>
 
-            <!-- Card 7: Ishita Shinde - Beauty & Lifestyle -->
+            <!-- Card 7: Ishita Shinde -->
             <div class="creator-card">
                 <div class="creator-photo"
-                    style="background-image: url('./images/content-creators/Ishita-Shinde.png');">
-                </div>
+                    style="background-image: url('./images/content-creators/Ishita-Shinde.png');"></div>
                 <div class="creator-name">Ishita Shinde</div>
                 <div class="creator-category">Beauty & Lifestyle</div>
                 <div class="creator-description">Ishita champions real-girl beauty rituals and soulful living.</div>
@@ -599,7 +796,7 @@
                 </div>
             </div>
 
-            <!-- Card 8: Saumya Shah - Mythology & Storyteller -->
+            <!-- Card 8: Saumya Shah -->
             <div class="creator-card">
                 <div class="creator-photo" style="background-image: url('./images/content-creators/Saumya-Shah.png');">
                 </div>
@@ -615,11 +812,10 @@
                 </div>
             </div>
 
-            <!-- Card 9: Bhawana Parihar - Beauty & Lifestyle -->
+            <!-- Card 9: Bhawana Parihar -->
             <div class="creator-card">
                 <div class="creator-photo"
-                    style="background-image: url('./images/content-creators/Bhawana-Parihar.png');">
-                </div>
+                    style="background-image: url('./images/content-creators/Bhawana-Parihar.png');"></div>
                 <div class="creator-name">Bhawana Parihar</div>
                 <div class="creator-category">Beauty & Lifestyle</div>
                 <div class="creator-description">Bhawana shares authentic beauty tips and lifestyle inspiration.</div>
@@ -632,11 +828,10 @@
                 </div>
             </div>
 
-            <!-- Card 10: Monika Barman - Beauty & Lifestyle -->
+            <!-- Card 10: Monika Barman -->
             <div class="creator-card">
                 <div class="creator-photo"
-                    style="background-image: url('./images/content-creators/Monika-Barman.png');">
-                </div>
+                    style="background-image: url('./images/content-creators/Monika-Barman.png');"></div>
                 <div class="creator-name">Monika Barman</div>
                 <div class="creator-category">Beauty & Lifestyle</div>
                 <div class="creator-description">Monika brings elegance and authenticity to every post.</div>
@@ -648,10 +843,9 @@
                 </div>
             </div>
 
-            <!-- Card 11: Nayan - Fitness & Lifestyle -->
+            <!-- Card 11: Nayan -->
             <div class="creator-card">
-                <div class="creator-photo" style="background-image: url('./images/content-creators/Nayan.png');">
-                </div>
+                <div class="creator-photo" style="background-image: url('./images/content-creators/Nayan.png');"></div>
                 <div class="creator-name">Nayan</div>
                 <div class="creator-category">Fitness & Lifestyle</div>
                 <div class="creator-description">Nayan shapes sweat into sanctuary and turns daily moves into mindful
@@ -665,11 +859,10 @@
                 </div>
             </div>
 
-            <!-- Card 12: Neharika Adullat - Gaming and Lifestyle -->
+            <!-- Card 12: Neharika Adullat -->
             <div class="creator-card">
                 <div class="creator-photo"
-                    style="background-image: url('./images/content-creators/Neharika-Adullat.png');">
-                </div>
+                    style="background-image: url('./images/content-creators/Neharika-Adullat.png');"></div>
                 <div class="creator-name">Neharika Adullat</div>
                 <div class="creator-category">Gaming and Lifestyle</div>
                 <div class="creator-description">Neharika seamlessly switches between boss battles and daily routines
@@ -683,7 +876,7 @@
                 </div>
             </div>
 
-            <!-- Card 13: Priyanka - Fitness & Lifestyle -->
+            <!-- Card 13: Priyanka -->
             <div class="creator-card">
                 <div class="creator-photo" style="background-image: url('./images/content-creators/Priyanka.png');">
                 </div>
@@ -699,10 +892,9 @@
                 </div>
             </div>
 
-            <!-- Card 14: Tushar - Fitness & Lifestyle -->
+            <!-- Card 14: Tushar -->
             <div class="creator-card">
-                <div class="creator-photo" style="background-image: url('./images/content-creators/Tushar.png');">
-                </div>
+                <div class="creator-photo" style="background-image: url('./images/content-creators/Tushar.png');"></div>
                 <div class="creator-name">Tushar</div>
                 <div class="creator-category">Fitness & Lifestyle</div>
                 <div class="creator-description">Tushar brings the fire of a workout and the calm of a balanced life
@@ -716,10 +908,9 @@
                 </div>
             </div>
 
-            <!-- Card 15: Ritik - Fitness & Lifestyle -->
+            <!-- Card 15: Ritik -->
             <div class="creator-card">
-                <div class="creator-photo" style="background-image: url('./images/content-creators/ritik.png');">
-                </div>
+                <div class="creator-photo" style="background-image: url('./images/content-creators/ritik.png');"></div>
                 <div class="creator-name">Ritik</div>
                 <div class="creator-category">Fitness & Lifestyle</div>
                 <div class="creator-description">Ritik lives the grind and loves the unwind</div>
@@ -732,11 +923,10 @@
                 </div>
             </div>
 
-            <!-- Card 16: Mili Samantha - Fitness & Lifestyle -->
+            <!-- Card 16: Mili Samantha -->
             <div class="creator-card">
                 <div class="creator-photo"
-                    style="background-image: url('./images/content-creators/Mili-Samantha.png');">
-                </div>
+                    style="background-image: url('./images/content-creators/Mili-Samantha.png');"></div>
                 <div class="creator-name">Mili Samantha</div>
                 <div class="creator-category">Fitness & Lifestyle</div>
                 <div class="creator-description">Mili turns every workout into a win and every rest day into reset</div>
@@ -748,10 +938,9 @@
                 </div>
             </div>
 
-            <!-- Card 17: Keshav - Fitness & Lifestyle -->
+            <!-- Card 17: Keshav -->
             <div class="creator-card">
-                <div class="creator-photo" style="background-image: url('./images/content-creators/keshav.png');">
-                </div>
+                <div class="creator-photo" style="background-image: url('./images/content-creators/keshav.png');"></div>
                 <div class="creator-name">Keshav</div>
                 <div class="creator-category">Fitness & Lifestyle</div>
                 <div class="creator-description">Keshav flows from high-intensity reps to restful routines</div>
@@ -764,11 +953,10 @@
                 </div>
             </div>
 
-            <!-- Card 18: Sizzu Da Mommy - Gaming and Lifestyle -->
+            <!-- Card 18: Sizzu Da Mommy -->
             <div class="creator-card">
                 <div class="creator-photo"
-                    style="background-image: url('./images/content-creators/SIzzu-Da-Mommy.png');">
-                </div>
+                    style="background-image: url('./images/content-creators/SIzzu-Da-Mommy.png');"></div>
                 <div class="creator-name">Sizzu Da Mommy</div>
                 <div class="creator-category">Gaming and Lifestyle</div>
                 <div class="creator-description">Sizzu dominates the leaderboard and owns every lobby</div>
@@ -808,7 +996,6 @@
             }
         }
 
-        // Crystal fade effect behind cards
         function updateCrystalFade() {
             const cards = document.querySelectorAll('.creator-card');
             const crystals = document.querySelectorAll('.crystal');
@@ -827,7 +1014,6 @@
             });
         }
 
-        // 3D particle background
         function create3DBackground() {
             const canvas = document.getElementById('threeCanvas');
             if (!canvas) return;
@@ -882,7 +1068,55 @@
             animateParticles();
         }
 
-        // Navbar scroll effect
+        // Popup Modal Logic
+        const modal = document.getElementById('creatorModal');
+        const becomeCreatorBtn = document.getElementById('becomeCreatorBtn');
+        const closeModal = document.getElementById('closeModal');
+        const creatorForm = document.getElementById('creatorForm');
+
+        becomeCreatorBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Form submission - Send WhatsApp message (no alert message)
+        creatorForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const instagram = document.getElementById('instagram').value;
+            const youtube = document.getElementById('youtube').value;
+            const bio = document.getElementById('bio').value;
+
+            if (!fullName || !email || !phone || !bio) {
+                alert('Please fill in all required fields (*)');
+                return;
+            }
+
+            // Format WhatsApp message
+            const message = `🌟 *NEW CREATOR APPLICATION* 🌟%0A%0A📝 *Name:* ${fullName}%0A📧 *Email:* ${email}%0A📱 *Phone:* ${phone}%0A%0A📸 *Instagram:* ${instagram || 'Not provided'}%0A▶️ *YouTube:* ${youtube || 'Not provided'}%0A%0A📖 *About:*%0A${bio}%0A%0A---%0ASent from Spectrix Creators Directory`;
+
+            // WhatsApp number
+            const whatsappNumber = '917656898298';
+            const whatsappLink = `https://wa.me/${whatsappNumber}?text=${message}`;
+
+            window.open(whatsappLink, '_blank');
+            creatorForm.reset();
+            modal.style.display = 'none';
+            // No alert message - just open WhatsApp
+        });
+
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
             if (window.scrollY > 100) {
@@ -895,7 +1129,6 @@
             updateCrystalFade();
         });
 
-        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
