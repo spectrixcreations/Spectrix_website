@@ -3,17 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="images/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>SPECTRIX INTERNS | Glowing Certificate Directory</title>
+    <title>SPECTRIX CREATIONS | Content Creator Directory</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- SheetJS for Excel parsing -->
-    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -41,7 +38,11 @@
             border-radius: 3px;
         }
 
-        /* Crystal rain (same as main) */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a4a4a;
+        }
+
+        /* Crystal rain animation */
         .crystal-container {
             position: fixed;
             bottom: 0;
@@ -69,6 +70,7 @@
             width: 6px;
             height: 6px;
             background: radial-gradient(circle, #ffffff, #aaaaff);
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
         }
 
         .crystal.small {
@@ -99,6 +101,7 @@
             transition: opacity 0.2s;
         }
 
+        /* 3D Background Canvas */
         .canvas-3d {
             position: fixed;
             top: 0;
@@ -127,6 +130,7 @@
             backdrop-filter: blur(15px);
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
         }
 
         .nav-container {
@@ -151,6 +155,11 @@
             letter-spacing: 2px;
         }
 
+        .logo span {
+            background: none;
+            color: #fff;
+        }
+
         .nav-links {
             display: flex;
             gap: 35px;
@@ -164,26 +173,49 @@
             font-size: 14px;
             letter-spacing: 1px;
             transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #fff;
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
             color: #fff;
         }
 
-        /* Page header */
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        /* Page Header */
         .page-header {
-            padding: 140px 0 60px;
+            padding: 160px 0 60px;
             text-align: center;
         }
 
         .page-header h1 {
-            font-size: 48px;
-            font-weight: 700;
+            font-size: 56px;
+            font-weight: 800;
             letter-spacing: 1px;
+            background: linear-gradient(135deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .page-header h1 span {
             color: #aaa;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
         }
 
         .page-header p {
@@ -193,41 +225,45 @@
             font-size: 18px;
         }
 
-        .intern-count-badge {
+        .creator-count {
             display: inline-block;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 40px;
-            padding: 5px 16px;
+            padding: 6px 18px;
             font-size: 14px;
-            margin-top: 20px;
+            margin-top: 24px;
             color: #bbb;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Interns grid */
-        .interns-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+        /* Flexbox Cards Container */
+        .creators-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 32px;
-            margin: 60px 0 40px;
+            margin: 60px 0 60px;
         }
 
-        /* CARD STYLING – SAME RAY ANIMATION AS REFERENCE */
-        .intern-card {
+        /* Individual Card - Glowing Effect with Ray Animation */
+        .creator-card {
+            flex: 1;
+            min-width: 280px;
+            max-width: 320px;
             background: rgba(10, 10, 10, 0.75);
             backdrop-filter: blur(12px);
-
-            padding: 32px 22px 28px;
+            padding: 32px 24px 28px;
             text-align: center;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
         }
 
-        /* Glowing ray animation (same as original file) */
-        .intern-card::before,
-        .intern-card::after {
+        /* Glowing ray animation (horizontal & vertical sweep) */
+        .creator-card::before,
+        .creator-card::after {
             content: '';
             position: absolute;
             top: 0;
@@ -239,123 +275,115 @@
             z-index: 1;
         }
 
-        .intern-card::before {
-            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0) 100%);
+        .creator-card::before {
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0) 100%);
             transform: translateX(-100%);
             transition: transform 0.6s ease;
         }
 
-        .intern-card::after {
-            background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0) 100%);
+        .creator-card::after {
+            background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0) 100%);
             transform: translateY(-100%);
             transition: transform 0.6s ease;
         }
 
-        .intern-card:hover::before {
+        .creator-card:hover::before {
             transform: translateX(100%);
             opacity: 1;
         }
 
-        .intern-card:hover::after {
+        .creator-card:hover::after {
             transform: translateY(100%);
             opacity: 1;
         }
 
-        .intern-card:hover {
+        .creator-card:hover {
             border-color: rgba(255, 255, 255, 0.5);
             transform: translateY(-10px);
             box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
-            background: rgba(15, 15, 15, 0.9);
+            background: rgba(18, 18, 18, 0.92);
         }
 
-        .intern-photo {
-            width: 130px;
-            height: 130px;
+        /* Profile Image - Perfect Circle with Cover Fit */
+        .creator-photo {
+            width: 160px;
+            height: 160px;
             margin: 0 auto 20px;
             border-radius: 50%;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             transition: all 0.35s ease;
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
         }
 
-        .intern-card:hover .intern-photo {
-            border-color: rgba(255, 255, 255, 0.5);
+        .creator-card:hover .creator-photo {
+            border-color: rgba(255, 255, 255, 0.7);
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
-        .intern-name {
+        .creator-name {
             font-size: 24px;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 12px;
             letter-spacing: -0.3px;
-            background: linear-gradient(135deg, #fff, #ccc);
+            background: linear-gradient(135deg, #fff, #ddd);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
-        .intern-role {
-            color: #b0b0b0;
-            font-size: 13px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 14px;
-            background: rgba(255, 255, 255, 0.05);
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 50px;
-        }
-
-        .intern-bio {
+        /* Creator Description / Bio Text */
+        .creator-description {
             color: #aaa;
             font-size: 14px;
-            line-height: 1.5;
-            margin-bottom: 22px;
-            padding: 0 6px;
+            line-height: 1.6;
+            margin: 12px 0 8px;
+            padding: 0 8px;
+            min-height: 65px;
+            text-align: center;
+            font-weight: 400;
+            transition: color 0.3s ease;
         }
 
-        .cert-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 9px 24px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 40px;
-            color: #f0f0f0;
-            text-decoration: none;
-            font-size: 13px;
+        .creator-card:hover .creator-description {
+            color: #ddd;
+        }
+
+        /* Creator Category/Tag (optional - for niche) */
+        .creator-category {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 4px 14px;
+            font-size: 11px;
             font-weight: 500;
-            transition: 0.25s;
-            margin-bottom: 18px;
-            backdrop-filter: blur(4px);
+            letter-spacing: 0.5px;
+            color: #bbb;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
         }
 
-        .cert-link i {
-            font-size: 14px;
+        .creator-card:hover .creator-category {
+            background: rgba(255, 255, 255, 0.18);
+            color: #fff;
         }
 
-        .cert-link:hover {
-            background: #ffffff;
-            color: #000000;
-            border-color: #fff;
-            transform: scale(1.02);
-            box-shadow: 0 5px 12px rgba(255, 255, 255, 0.1);
-        }
-
+        /* Social Icons */
         .social-icons {
             display: flex;
             justify-content: center;
             gap: 14px;
-            margin-top: 8px;
+            margin-top: 18px;
         }
 
         .social-icons a {
             width: 38px;
             height: 38px;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -371,27 +399,10 @@
             color: #000;
             transform: translateY(-4px);
             border-color: #fff;
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
         }
 
-        /* loader & error */
-        .loader-placeholder {
-            text-align: center;
-            padding: 80px 20px;
-            color: #aaa;
-            font-size: 18px;
-            grid-column: 1 / -1;
-        }
-
-        .error-message {
-            background: rgba(255, 50, 50, 0.1);
-            border-left: 4px solid #ff5555;
-            padding: 20px;
-            border-radius: 20px;
-            text-align: center;
-            margin: 40px 0;
-            backdrop-filter: blur(8px);
-        }
-
+        /* Footer */
         footer {
             background: #020202;
             padding: 50px 0 30px;
@@ -411,12 +422,23 @@
                 padding: 0 24px;
             }
 
-            .interns-grid {
-                gap: 20px;
+            .page-header h1 {
+                font-size: 38px;
             }
 
-            .page-header h1 {
-                font-size: 36px;
+            .creator-card {
+                min-width: 260px;
+                max-width: 100%;
+            }
+
+            .creator-photo {
+                width: 130px;
+                height: 130px;
+            }
+
+            .creator-description {
+                font-size: 13px;
+                min-height: 70px;
             }
 
             .nav-container {
@@ -427,187 +449,168 @@
 </head>
 
 <body>
+
     <div class="crystal-container" id="crystalContainer"></div>
     <canvas class="canvas-3d" id="threeCanvas"></canvas>
 
-    <!-- <nav>
+    <nav>
         <div class="nav-container">
-            <a href="index.html" class="logo">SPECTRIX<span style="background:none; color:#fff;"> CREATIONS</span></a>
+            <a href="index.html" class="logo">SPECTRIX<span> CREATIONS</span></a>
             <div class="nav-links">
                 <a href="index.html">HOME</a>
                 <a href="index.html#services">SERVICES</a>
-                <a href="index.html#work">WORK</a>
+                <a href="index.html#portfolio">WORK</a>
                 <a href="index.html#team">TEAM</a>
                 <a href="index.html#contact">CONTACT</a>
-                <a href="interns.html" style="color:#fff; border-bottom: 1px solid #fff;">INTERNS</a>
+                <a href="#" style="color:#fff; border-bottom: 1px solid #fff;">CREATORS</a>
             </div>
         </div>
-    </nav> -->
+    </nav>
 
     <div class="site-wrapper">
         <div class="page-header">
             <h1>MEET OUR <span>CONTENT CREATORS</span></h1>
             <p>Certified excellence — each glow reflects a milestone achieved.</p>
-            <!-- <div class="intern-count-badge" id="internCountBadge">✨ loading certified members</div> -->
+            <div class="creator-count">✨ 10 Certified Creators</div>
         </div>
 
-        <!-- <div class="interns-grid" id="internsGrid">
-            <div class="loader-placeholder"><i class="fas fa-spinner fa-pulse"></i> Fetching certificate data...</div>
-        </div> -->
+        <!-- Flexbox Cards Container - Pure HTML Cards (No Certificate Button) -->
+        <div class="creators-grid">
+
+            <!-- Card 1: Kaina June - Beauty & Lifestyle -->
+            <div class="creator-card">
+                <div class="creator-photo" style="background-image: url('./images/content-creators/Kaina_June.png');">
+                </div>
+                <div class="creator-name">Kaina June</div>
+                <div class="creator-category">Beauty & Lifestyle</div>
+                <div class="creator-description">Kaina blends honest beauty insights with effortless lifestyle
+                    inspiration.</div>
+                <div class="social-icons">
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <!-- Card 2: Diksha - Beauty & Lifestyle -->
+            <div class="creator-card">
+                <div class="creator-photo" style="background-image: url('./images/content-creators/Diksha.png');">
+                </div>
+                <div class="creator-name">Diksha Joshi</div>
+                <div class="creator-category">Beauty & Lifestyle</div>
+                <div class="creator-description">Diksha brings relatable beauty rituals and everyday elegance.</div>
+                <div class="social-icons">
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <!-- Card 3: Shisham - Fitness & Lifestyle -->
+            <div class="creator-card">
+                <div class="creator-photo" style="background-image: url('./images/content-creators/Shisham.png');">
+                </div>
+                <div class="creator-name">Shisham Rai</div>
+                <div class="creator-category">Fitness & Lifestyle</div>
+                <div class="creator-description">Shisham turns sweat into strength and discipline into results.</div>
+                <div class="social-icons">
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <!-- Card 4: Pankaj - Gaming -->
+            <div class="creator-card">
+                <div class="creator-photo" style="background-image: url('./images/content-creators/Pankaj.png');">
+                </div>
+                <div class="creator-name">Pankaj Tadiyal</div>
+                <div class="creator-category">Gaming</div>
+                <div class="creator-description">Pankaj brings high-energy gameplay, genuine reactions, and a loyal
+                    squad.</div>
+                <div class="social-icons">
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <!-- Card 5: Suryakanta Sahoo - Tech & Leadership -->
+            <div class="creator-card">
+                <div class="creator-photo" style="background-image: url('./images/content-creators/Rani-Rojalin.png');">
+                </div>
+                <div class="creator-name">Rani Rojalin</div>
+                <div class="creator-category">Beauty & Lifestyle</div>
+                <div class="creator-description">Rojalin celebrates real skin, real style, and real moments</div>
+                <div class="social-icons">
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <!-- <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a> -->
+                </div>
+            </div>
+
+            <!-- Card 6: Meera Kapoor - Creative Design -->
+            <div class="creator-card">
+                <div class="creator-photo"
+                    style="background-image: url('./images/content-creators/Taniya-Behera.png');">
+                </div>
+                <div class="creator-name">Taniya Behera</div>
+                <div class="creator-category">Beauty & Lifestyle</div>
+                <div class="creator-description">Taniya blends fresh beauty perspectives with authentic lifestyle
+                    moments</div>
+                <div class="social-icons">
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <!-- <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a> -->
+                </div>
+            </div>
+
+            <!-- Card 7: Rohan Desai - Strategy & Growth -->
+            <div class="creator-card">
+                <div class="creator-photo"
+                    style="background-image: url('./images/content-creators/Ishita-Shinde.png');">
+                </div>
+                <div class="creator-name">Ishita Shinde</div>
+                <div class="creator-category">Beauty & Lifestyle</div>
+                <div class="creator-description">Ishita champions real-girl beauty rituals and soulful living</div>
+                <div class="social-icons">
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <!-- <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a> -->
+                </div>
+            </div>
+            <div class="creator-card">
+                <div class="creator-photo" style="background-image: url('./images/content-creators/Saumya-Shah.png');">
+                </div>
+                <div class="creator-name">Saumya Shah</div>
+                <div class="creator-category">Mythology and Storyteller</div>
+                <div class="creator-description">Saumya bringing ancient tales to life with captivating narration</div>
+                <div class="social-icons">
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <!-- <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a> -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer>
         <div class="site-wrapper">
             <div class="footer-bottom">
-                <p>© 2025 SPECTRIX CREATIONS – Glowing Certificate Portal | Innovate. Inspire. Illuminate.</p>
+                <p>© 2025 SPECTRIX CREATIONS – Glowing Creator Directory | Innovate. Inspire. Illuminate.</p>
             </div>
         </div>
     </footer>
 
-    <!-- <script>
-        // ----------------------------------------------
-        // 1. Helper: deterministic avatar images (based on name)
-        // ----------------------------------------------
-        function getStableAvatars(name) {
-            let hash = 0;
-            for (let i = 0; i < name.length; i++) {
-                hash = ((hash << 5) - hash) + name.charCodeAt(i);
-                hash |= 0;
-            }
-            const absHash = Math.abs(hash);
-            const gender = (absHash % 2 === 0) ? 'women' : 'men';
-            const defaultIdx = (absHash % 85) + 10;
-            const hoverIdx = ((defaultIdx + 27) % 85) + 10;
-            const defaultImage = `https://randomuser.me/api/portraits/${gender}/${defaultIdx}.jpg`;
-            const hoverImage = `https://randomuser.me/api/portraits/${gender}/${hoverIdx}.jpg`;
-            return { defaultImage, hoverImage };
-        }
-
-        const creativeRoles = [
-            "⚡ Full-stack Intern", "🎨 UI/UX Trainee", "📱 App Dev Intern", "🧠 AI/ML Intern",
-            "🎮 Game Dev Intern", "📢 Marketing Intern", "🔍 QA Engineer Intern", "💡 Creative Technologist",
-            "🌐 Web3 Intern", "☁️ Cloud Intern", "📊 Data Analyst Intern", "🖌️ Brand Design Intern"
-        ];
-
-        const bioVariants = [
-            "Building next-gen solutions with bold ideas and relentless curiosity.",
-            "Crafting digital experiences that blend design & functionality.",
-            "Obsessed with clean code and meaningful user impact.",
-            "Transforming concepts into reality, one line at a time.",
-            "Passionate about emerging tech and creative problem-solving.",
-            "Bringing fresh energy and innovation to every project."
-        ];
-
-        // ----------------------------------------------
-        // 2. Load Excel and Render cards with RAY ANIMATION
-        // ----------------------------------------------
-        async function loadCertificatesAndRender() {
-            const gridContainer = document.getElementById('internsGrid');
-            // const countBadge = document.getElementById('internCountBadge');
-
-            try {
-                const response = await fetch("./certificates.xlsx");
-                if (!response.ok) throw new Error(`HTTP ${response.status}: certificates.xlsx not found.`);
-
-                const arrayBuffer = await response.arrayBuffer();
-                const workbook = XLSX.read(arrayBuffer, { type: "array" });
-                const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-                const rows = XLSX.utils.sheet_to_json(firstSheet);
-
-                const validInterns = rows.filter(row => row["Name"] && row["Filename"]).map(row => ({
-                    name: String(row["Name"]).trim(),
-                    filename: String(row["Filename"]).trim()
-                }));
-
-                if (validInterns.length === 0) {
-                    gridContainer.innerHTML = `<div class="error-message"><i class="fas fa-exclamation-triangle"></i> No certificate entries found. Add "Name" and "Filename" columns.</div>`;
-                    // countBadge.textContent = `0 certificates`;
-                    return;
-                }
-
-                // countBadge.textContent = `${validInterns.length} glowing ${validInterns.length === 1 ? 'member' : 'members'}`;
-                gridContainer.innerHTML = '';
-
-                validInterns.forEach((intern, idx) => {
-                    const { name, filename } = intern;
-                    const { defaultImage, hoverImage } = getStableAvatars(name);
-                    const role = creativeRoles[idx % creativeRoles.length];
-                    const bioSeed = (name.length + idx) % bioVariants.length;
-                    const bioText = bioVariants[bioSeed];
-
-                    const card = document.createElement('div');
-                    card.className = 'intern-card';
-
-                    const photoDiv = document.createElement('div');
-                    photoDiv.className = 'intern-photo';
-                    photoDiv.style.backgroundImage = `url('${defaultImage}')`;
-                    photoDiv.style.backgroundSize = 'cover';
-                    photoDiv.style.backgroundPosition = 'center';
-
-                    // Hover image swap
-                    card.addEventListener('mouseenter', () => {
-                        photoDiv.style.backgroundImage = `url('${hoverImage}')`;
-                    });
-                    card.addEventListener('mouseleave', () => {
-                        photoDiv.style.backgroundImage = `url('${defaultImage}')`;
-                    });
-
-                    const nameEl = document.createElement('div'); nameEl.className = 'intern-name'; nameEl.textContent = name;
-                    const roleEl = document.createElement('div'); roleEl.className = 'intern-role'; roleEl.textContent = role;
-                    const bioEl = document.createElement('div'); bioEl.className = 'intern-bio'; bioEl.textContent = bioText;
-
-                    const certLink = document.createElement('a');
-                    certLink.className = 'cert-link';
-                    certLink.href = `view_certificate.html?cert=${encodeURIComponent(filename)}`;
-                    certLink.innerHTML = '<i class="fas fa-certificate"></i> View Certificate';
-                    certLink.target = '_blank';
-
-                    const socialDiv = document.createElement('div');
-                    socialDiv.className = 'social-icons';
-                    socialDiv.innerHTML = `
-                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-                    `;
-
-                    card.appendChild(photoDiv);
-                    card.appendChild(nameEl);
-                    card.appendChild(roleEl);
-                    card.appendChild(bioEl);
-                    card.appendChild(certLink);
-                    card.appendChild(socialDiv);
-                    gridContainer.appendChild(card);
-                });
-
-            } catch (error) {
-                console.error(error);
-                gridContainer.innerHTML = `<div class="error-message"><i class="fas fa-database"></i> Failed to load certificates.xlsx.<br>Ensure the file exists with columns 'Name' and 'Filename'.<br><span style="font-size:13px;">${error.message}</span></div>`;
-                // countBadge.textContent = `⚠️ data error`;
-            }
-        }
-
-        // ----------------------------------------------
-        // 3. Crystal rain + fade effect (enhanced)
-        // ----------------------------------------------
+    <script>
+        // Crystal rain particles creation
         function createCrystals() {
             const container = document.getElementById('crystalContainer');
             if (!container) return;
-            container.innerHTML = '';
-            for (let i = 0; i < 140; i++) {
-                const c = document.createElement('div');
-                c.className = 'crystal';
-                if (Math.random() < 0.12) c.classList.add('large');
-                else if (Math.random() > 0.85) c.classList.add('small');
-                c.style.left = Math.random() * 100 + '%';
-                c.style.animationDuration = (2.5 + Math.random() * 7) + 's';
-                c.style.animationDelay = Math.random() * 18 + 's';
-                container.appendChild(c);
+            const crystalCount = 120;
+            for (let i = 0; i < crystalCount; i++) {
+                const crystal = document.createElement('div');
+                crystal.className = 'crystal';
+                if (Math.random() < 0.12) crystal.classList.add('large');
+                else if (Math.random() > 0.85) crystal.classList.add('small');
+                crystal.style.left = Math.random() * 100 + '%';
+                crystal.style.animationDuration = (2.5 + Math.random() * 7) + 's';
+                crystal.style.animationDelay = Math.random() * 18 + 's';
+                container.appendChild(crystal);
             }
         }
 
-        // Crystal fade behind cards (exactly like reference)
+        // Crystal fade effect behind cards
         function updateCrystalFade() {
-            const cards = document.querySelectorAll('.intern-card');
+            const cards = document.querySelectorAll('.creator-card');
             const crystals = document.querySelectorAll('.crystal');
             if (!cards.length || !crystals.length) return;
             cards.forEach(card => {
@@ -643,7 +646,7 @@
 
             function initParticles() {
                 particles = [];
-                const particleCount = Math.min(75, Math.floor(width * height / 16000));
+                const particleCount = Math.min(70, Math.floor(width * height / 18000));
                 for (let i = 0; i < particleCount; i++) {
                     particles.push({
                         x: Math.random() * width,
@@ -679,18 +682,37 @@
             animateParticles();
         }
 
-        // Initialize everything
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(5, 5, 5, 0.95)';
+                nav.style.backdropFilter = 'blur(20px)';
+            } else {
+                nav.style.background = 'rgba(5, 5, 5, 0.85)';
+                nav.style.backdropFilter = 'blur(15px)';
+            }
+            updateCrystalFade();
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href && href !== '#' && href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
             createCrystals();
             create3DBackground();
-            loadCertificatesAndRender().then(() => {
-                // start crystal fade detection after cards exist
-                setInterval(updateCrystalFade, 120);
-            }).catch(() => {
-                setInterval(updateCrystalFade, 120);
-            });
+            setInterval(updateCrystalFade, 120);
         });
-    </script> -->
+    </script>
 </body>
 
 </html>
