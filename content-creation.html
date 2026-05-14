@@ -11,7 +11,10 @@
         href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
+        /* Your existing CSS styles here - same as before */
         * {
             margin: 0;
             padding: 0;
@@ -42,7 +45,6 @@
             background: #4a4a4a;
         }
 
-        /* Crystal rain animation - stays in background */
         .crystal-container {
             position: fixed;
             bottom: 0;
@@ -101,7 +103,6 @@
             transition: opacity 0.2s;
         }
 
-        /* 3D Background Canvas - fixed behind everything */
         .canvas-3d {
             position: fixed;
             top: 0;
@@ -120,7 +121,6 @@
             padding: 0 40px;
         }
 
-        /* Navigation */
         nav {
             position: fixed;
             top: 0;
@@ -196,7 +196,6 @@
             width: 100%;
         }
 
-        /* Page Header */
         .page-header {
             padding: 140px 0 30px;
             text-align: center;
@@ -226,7 +225,6 @@
             font-size: 17px;
         }
 
-        /* Filter Section - Dark theme */
         .filter-section {
             display: flex;
             justify-content: center;
@@ -259,7 +257,6 @@
             color: #fff;
         }
 
-        /* Creator count and button container */
         .stats-container {
             display: flex;
             justify-content: center;
@@ -279,7 +276,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Become Creator Button - Dark theme */
         .become-creator-btn {
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
@@ -301,7 +297,6 @@
             border-color: rgba(255, 255, 255, 0.4);
         }
 
-        /* Popup Modal - Dark theme (no green) */
         .modal {
             display: none;
             position: fixed;
@@ -425,6 +420,10 @@
             transition: 0.3s;
             margin-top: 10px;
             margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .submit-btn:hover {
@@ -433,7 +432,11 @@
             border-color: rgba(255, 255, 255, 0.4);
         }
 
-        /* Flexbox Cards Container - 3 in a row */
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .creators-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -441,7 +444,6 @@
             margin: 30px 0 50px;
         }
 
-        /* Individual Card */
         .creator-card {
             background: rgba(10, 10, 10, 0.85);
             backdrop-filter: blur(12px);
@@ -458,7 +460,6 @@
             z-index: 15;
         }
 
-        /* Glowing ray animation */
         .creator-card::before,
         .creator-card::after {
             content: '';
@@ -501,7 +502,6 @@
             background: rgba(25, 25, 25, 0.95);
         }
 
-        /* Profile Image */
         .creator-photo {
             width: 110px;
             height: 110px;
@@ -633,6 +633,27 @@
             }
         }
 
+        /* Loading spinner */
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
         @media (max-width: 1100px) {
             .creators-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -742,12 +763,12 @@
         </div>
     </nav>
 
-    <!-- Popup Modal - Dark theme -->
+    <!-- Popup Modal -->
     <div class="modal" id="creatorModal">
         <div class="modal-content">
             <span class="close-modal" id="closeModal">&times;</span>
             <h2>Join as a Creator</h2>
-            <p>Fill out the form below and we'll reach out to you on WhatsApp!</p>
+            <p>Fill out the form below and we'll reach out to you via email!</p>
             <form id="creatorForm">
                 <div class="form-group">
                     <label>Full Name <span class="required">*</span></label>
@@ -774,7 +795,9 @@
                     <textarea id="bio" required
                         placeholder="Share your content niche, audience size, and why you want to join Spectrix..."></textarea>
                 </div>
-                <button type="submit" class="submit-btn"><i class="fab fa-whatsapp"></i> Submit via WhatsApp</button>
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Submit Application
+                </button>
             </form>
         </div>
     </div>
@@ -784,7 +807,6 @@
             <h1>MEET OUR <span>CONTENT CREATORS</span></h1>
             <p>Certified excellence — each glow reflects a milestone achieved.</p>
 
-            <!-- Filter Section -->
             <div class="filter-section">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="Beauty & Lifestyle">Beauty & Lifestyle</button>
@@ -796,14 +818,12 @@
 
             <div class="stats-container">
                 <div class="creator-count" id="creatorCount">🖤 18 Certified Creators</div>
-                <button class="become-creator-btn" id="becomeCreatorBtn"><i class="fab fa-whatsapp"></i> Become a
+                <button class="become-creator-btn" id="becomeCreatorBtn"><i class="fas fa-pen-fancy"></i> Become a
                     Creator</button>
             </div>
         </div>
 
-        <div class="creators-grid" id="creatorsGrid">
-            <!-- Cards will be dynamically populated -->
-        </div>
+        <div class="creators-grid" id="creatorsGrid"></div>
     </div>
 
     <footer>
@@ -815,6 +835,22 @@
     </footer>
 
     <script>
+        // ============================================
+        // EMAILJS CONFIGURATION - REPLACE WITH YOUR IDs
+        // ============================================
+        // Get these from your EmailJS account:
+        // 1. Public Key: From Account → API Keys
+        // 2. Service ID: From Email Services
+        // 3. Template ID: From Email Templates
+
+        const EMAILJS_PUBLIC_KEY = "Nb4m_I_v8Ds9g3cfi";     // Replace with your Public Key
+        const EMAILJS_SERVICE_ID = "service_2uir8cd";     // Replace with your Service ID
+        const EMAILJS_TEMPLATE_ID = "template_ur7ubap";   // Replace with your Template ID
+        const RECIPIENT_EMAIL = "officialspectrix@gmail.com";   // Email where applications will be sent
+
+        // Initialize EmailJS
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+
         // Creator Data Array
         const creatorsData = [
             { name: "Kaina June", category: "Beauty & Lifestyle", description: "Kaina blends honest beauty insights with effortless lifestyle inspiration.", instagram: "https://www.instagram.com/kaina_june_/", youtube: "https://www.youtube.com/@KainaJune-pn4rt", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Kaina_June.png" },
@@ -852,7 +888,6 @@
             filteredData.forEach(creator => {
                 const card = document.createElement('div');
                 card.className = 'creator-card';
-                card.setAttribute('data-category', creator.category);
 
                 card.innerHTML = `
                     <div class="creator-photo" style="background-image: url('${creator.image}');"></div>
@@ -871,7 +906,7 @@
             });
         }
 
-        // Crystal rain particles creation
+        // Crystal rain effects
         function createCrystals() {
             const container = document.getElementById('crystalContainer');
             if (!container) return;
@@ -966,6 +1001,7 @@
         const becomeCreatorBtn = document.getElementById('becomeCreatorBtn');
         const closeModal = document.getElementById('closeModal');
         const creatorForm = document.getElementById('creatorForm');
+        const submitBtn = document.getElementById('submitBtn');
 
         becomeCreatorBtn.addEventListener('click', () => {
             modal.style.display = 'flex';
@@ -981,9 +1017,10 @@
             }
         });
 
-        // Form submission - Instagram and YouTube are now required
-        creatorForm.addEventListener('submit', (e) => {
+        // EmailJS Form submission
+        creatorForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+
             const fullName = document.getElementById('fullName').value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
@@ -996,12 +1033,45 @@
                 return;
             }
 
-            const message = `🖤 *NEW CREATOR APPLICATION* 🖤%0A%0A📝 *Name:* ${fullName}%0A📧 *Email:* ${email}%0A📱 *Phone:* ${phone}%0A%0A📸 *Instagram:* ${instagram}%0A▶️ *YouTube:* ${youtube}%0A%0A📖 *About:*%0A${bio}%0A%0A---%0ASent from Spectrix Creators Directory`;
-            const whatsappNumber = '917656898298';
-            const whatsappLink = `https://wa.me/${whatsappNumber}?text=${message}`;
-            window.open(whatsappLink, '_blank');
-            creatorForm.reset();
-            modal.style.display = 'none';
+            // Show loading state
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="spinner"></span> Sending...';
+            submitBtn.disabled = true;
+
+            try {
+                // Prepare template parameters
+                const templateParams = {
+                    to_email: RECIPIENT_EMAIL,
+                    from_name: fullName,
+                    from_email: email,
+                    phone: phone,
+                    instagram: instagram,
+                    youtube: youtube,
+                    bio: bio,
+                    subject: `New Creator Application from ${fullName}`,
+                    reply_to: email
+                };
+
+                // Send email using EmailJS
+                const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+
+                console.log('Email sent successfully!', response);
+
+                // Reset form and close modal
+                creatorForm.reset();
+                modal.style.display = 'none';
+
+                // Show success message
+                alert('✓ Application submitted successfully! We will contact you soon.');
+
+            } catch (error) {
+                console.error('Email sending failed:', error);
+                alert('❌ Failed to send application. Please try again later.');
+            } finally {
+                // Reset button state
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
         });
 
         // Filter functionality
