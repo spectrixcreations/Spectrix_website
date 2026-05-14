@@ -42,7 +42,7 @@
             background: #4a4a4a;
         }
 
-        /* Crystal rain animation */
+        /* Crystal rain animation - stays in background */
         .crystal-container {
             position: fixed;
             bottom: 0;
@@ -50,7 +50,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 999;
+            z-index: 1;
             overflow: hidden;
         }
 
@@ -101,7 +101,7 @@
             transition: opacity 0.2s;
         }
 
-        /* 3D Background Canvas */
+        /* 3D Background Canvas - fixed behind everything */
         .canvas-3d {
             position: fixed;
             top: 0;
@@ -196,7 +196,7 @@
             width: 100%;
         }
 
-        /* Page Header - Reduced padding */
+        /* Page Header */
         .page-header {
             padding: 140px 0 30px;
             text-align: center;
@@ -226,7 +226,7 @@
             font-size: 17px;
         }
 
-        /* Filter Section */
+        /* Filter Section - Dark theme */
         .filter-section {
             display: flex;
             justify-content: center;
@@ -254,8 +254,8 @@
         }
 
         .filter-btn.active {
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            border-color: #25D366;
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
             color: #fff;
         }
 
@@ -279,15 +279,15 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Become Creator Button */
+        /* Become Creator Button - Dark theme */
         .become-creator-btn {
-            background: linear-gradient(135deg, #25D366, #128C7E);
+            background: rgba(255, 255, 255, 0.1);
             color: #fff;
             padding: 7px 18px;
             border-radius: 40px;
             font-weight: 600;
             font-size: 13px;
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
             transition: all 0.3s ease;
             display: inline-flex;
@@ -296,11 +296,12 @@
         }
 
         .become-creator-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
-        /* Popup Modal */
+        /* Popup Modal - Dark theme (no green) */
         .modal {
             display: none;
             position: fixed;
@@ -338,14 +339,14 @@
         }
 
         .modal-content::-webkit-scrollbar-thumb {
-            background: #25D366;
+            background: #666;
             border-radius: 4px;
         }
 
         .modal-content h2 {
             font-size: 28px;
             margin-bottom: 8px;
-            background: linear-gradient(135deg, #fff, #25D366);
+            background: linear-gradient(135deg, #fff, #aaa);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -384,7 +385,7 @@
         }
 
         .form-group label .required {
-            color: #25D366;
+            color: #ff4444;
         }
 
         .form-group input,
@@ -402,8 +403,8 @@
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #25D366;
-            box-shadow: 0 0 10px rgba(37, 211, 102, 0.3);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
 
         .form-group textarea {
@@ -414,8 +415,8 @@
         .submit-btn {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 40px;
             color: #fff;
             font-size: 16px;
@@ -427,8 +428,9 @@
         }
 
         .submit-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
         /* Flexbox Cards Container - 3 in a row */
@@ -439,9 +441,9 @@
             margin: 30px 0 50px;
         }
 
-        /* Individual Card - Horizontal Layout with larger image */
+        /* Individual Card */
         .creator-card {
-            background: rgba(10, 10, 10, 0.75);
+            background: rgba(10, 10, 10, 0.85);
             backdrop-filter: blur(12px);
             padding: 18px;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -453,6 +455,7 @@
             flex-direction: row;
             gap: 18px;
             align-items: center;
+            z-index: 15;
         }
 
         /* Glowing ray animation */
@@ -495,10 +498,10 @@
             border-color: rgba(255, 255, 255, 0.5);
             transform: translateY(-5px);
             box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
-            background: rgba(18, 18, 18, 0.92);
+            background: rgba(25, 25, 25, 0.95);
         }
 
-        /* Profile Image - Larger size (110px) */
+        /* Profile Image */
         .creator-photo {
             width: 110px;
             height: 110px;
@@ -518,7 +521,6 @@
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
-        /* Right side info container */
         .creator-info {
             flex: 1;
             text-align: left;
@@ -609,6 +611,8 @@
             margin-top: 40px;
             text-align: center;
             border-top: 1px solid rgba(255, 255, 255, 0.02);
+            position: relative;
+            z-index: 10;
         }
 
         .footer-bottom {
@@ -738,7 +742,7 @@
         </div>
     </nav>
 
-    <!-- Popup Modal -->
+    <!-- Popup Modal - Dark theme -->
     <div class="modal" id="creatorModal">
         <div class="modal-content">
             <span class="close-modal" id="closeModal">&times;</span>
@@ -758,12 +762,12 @@
                     <input type="tel" id="phone" required placeholder="+91 XXXXX XXXXX">
                 </div>
                 <div class="form-group">
-                    <label>Instagram Profile Link</label>
-                    <input type="url" id="instagram" placeholder="https://instagram.com/yourhandle">
+                    <label>Instagram Profile Link <span class="required">*</span></label>
+                    <input type="url" id="instagram" required placeholder="https://instagram.com/yourhandle">
                 </div>
                 <div class="form-group">
-                    <label>YouTube Channel Link</label>
-                    <input type="url" id="youtube" placeholder="https://youtube.com/@yourchannel">
+                    <label>YouTube Channel Link <span class="required">*</span></label>
+                    <input type="url" id="youtube" required placeholder="https://youtube.com/@yourchannel">
                 </div>
                 <div class="form-group">
                     <label>Tell us about yourself <span class="required">*</span></label>
@@ -791,7 +795,7 @@
             </div>
 
             <div class="stats-container">
-                <div class="creator-count" id="creatorCount">✨ 18 Certified Creators</div>
+                <div class="creator-count" id="creatorCount">🖤 18 Certified Creators</div>
                 <button class="become-creator-btn" id="becomeCreatorBtn"><i class="fab fa-whatsapp"></i> Become a
                     Creator</button>
             </div>
@@ -811,7 +815,7 @@
     </footer>
 
     <script>
-        // Creator Data Array - Updated Categories
+        // Creator Data Array
         const creatorsData = [
             { name: "Kaina June", category: "Beauty & Lifestyle", description: "Kaina blends honest beauty insights with effortless lifestyle inspiration.", instagram: "https://www.instagram.com/kaina_june_/", youtube: "https://www.youtube.com/@KainaJune-pn4rt", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Kaina_June.png" },
             { name: "Diksha Joshi", category: "Beauty & Lifestyle", description: "Diksha brings relatable beauty rituals and everyday elegance.", instagram: "https://www.instagram.com/its_dikshajoshi/", youtube: "https://www.youtube.com/@DikshaJoshi-u6p", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Diksha.png" },
@@ -822,7 +826,7 @@
             { name: "Ishita Shinde", category: "Beauty & Lifestyle", description: "Ishita champions real-girl beauty rituals and soulful living.", instagram: "https://www.instagram.com/ishita.aaaaaaa/", youtube: "https://www.youtube.com/@SpectrixCreations", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Ishita-Shinde.png" },
             { name: "Saumya Shah", category: "Mythology & Storyteller", description: "Saumya brings ancient tales to life with captivating narration.", instagram: "https://www.instagram.com/almost_saumya/", youtube: "https://www.youtube.com/@SpectrixCreations", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Saumya-Shah.png" },
             { name: "Bhawana Parihar", category: "Fitness & Lifestyle", description: "Bhawana shares authentic beauty tips and lifestyle inspiration.", instagram: "https://www.instagram.com/flex_with_bhawana/", youtube: "https://www.youtube.com/@bhawana_parihar2229", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Bhawana-Parihar.png" },
-            { name: "Monika Barman", category: "Beauty & Lifestyle", description: "Monika brings elegance and authenticity to every post.", instagram: "https://www.instagram.com/notyour_batman/", youtube: "https://www.youtube.com/@MONikaYT", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Monika-Barman.png" },
+            { name: "Monika Barman", category: "Gaming & Lifestyle", description: "Monika brings elegance and authenticity to every post.", instagram: "https://www.instagram.com/notyour_batman/", youtube: "https://www.youtube.com/@MONikaYT", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Monika-Barman.png" },
             { name: "Nayan", category: "Fitness & Lifestyle", description: "Nayan shapes sweat into sanctuary and turns daily moves into mindful living.", instagram: "https://www.instagram.com/trainwithnayan", youtube: "https://www.youtube.com/@SpectrixCreations", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Nayan.png" },
             { name: "Neharika Adullat", category: "Gaming & Lifestyle", description: "Neharika seamlessly switches between boss battles and daily routines.", instagram: "https://www.instagram.com/neharikadullat/", youtube: "https://www.youtube.com/@SpectrixCreations", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Neharika-Adullat.png" },
             { name: "Priyanka", category: "Fitness & Lifestyle", description: "Priyanka proves that strength and softness coexist.", instagram: "https://www.instagram.com/nickk_liftz/", youtube: "https://www.youtube.com/@SpectrixCreations", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Priyanka.png" },
@@ -843,7 +847,7 @@
                 filteredData = creatorsData.filter(creator => creator.category === filter);
             }
 
-            document.getElementById('creatorCount').innerHTML = `✨ ${filteredData.length} Certified Creators`;
+            document.getElementById('creatorCount').innerHTML = `🖤 ${filteredData.length} Certified Creators`;
 
             filteredData.forEach(creator => {
                 const card = document.createElement('div');
@@ -871,7 +875,8 @@
         function createCrystals() {
             const container = document.getElementById('crystalContainer');
             if (!container) return;
-            const crystalCount = 120;
+            container.innerHTML = '';
+            const crystalCount = 100;
             for (let i = 0; i < crystalCount; i++) {
                 const crystal = document.createElement('div');
                 crystal.className = 'crystal';
@@ -926,9 +931,9 @@
                         x: Math.random() * width,
                         y: Math.random() * height,
                         radius: Math.random() * 2 + 0.8,
-                        alpha: Math.random() * 0.2 + 0.03,
-                        vx: (Math.random() - 0.5) * 0.2,
-                        vy: (Math.random() - 0.5) * 0.12
+                        alpha: Math.random() * 0.15 + 0.02,
+                        vx: (Math.random() - 0.5) * 0.15,
+                        vy: (Math.random() - 0.5) * 0.1
                     });
                 }
             }
@@ -943,10 +948,10 @@
                     ctx.fill();
                     p.x += p.vx;
                     p.y += p.vy;
-                    if (p.x < -30) p.x = width + 30;
-                    if (p.x > width + 30) p.x = -30;
-                    if (p.y < -30) p.y = height + 30;
-                    if (p.y > height + 30) p.y = -30;
+                    if (p.x < -50) p.x = width + 50;
+                    if (p.x > width + 50) p.x = -50;
+                    if (p.y < -50) p.y = height + 50;
+                    if (p.y > height + 50) p.y = -50;
                 }
                 requestAnimationFrame(animateParticles);
             }
@@ -976,7 +981,7 @@
             }
         });
 
-        // Form submission
+        // Form submission - Instagram and YouTube are now required
         creatorForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const fullName = document.getElementById('fullName').value;
@@ -986,12 +991,12 @@
             const youtube = document.getElementById('youtube').value;
             const bio = document.getElementById('bio').value;
 
-            if (!fullName || !email || !phone || !bio) {
+            if (!fullName || !email || !phone || !instagram || !youtube || !bio) {
                 alert('Please fill in all required fields (*)');
                 return;
             }
 
-            const message = `🌟 *NEW CREATOR APPLICATION* 🌟%0A%0A📝 *Name:* ${fullName}%0A📧 *Email:* ${email}%0A📱 *Phone:* ${phone}%0A%0A📸 *Instagram:* ${instagram || 'Not provided'}%0A▶️ *YouTube:* ${youtube || 'Not provided'}%0A%0A📖 *About:*%0A${bio}%0A%0A---%0ASent from Spectrix Creators Directory`;
+            const message = `🖤 *NEW CREATOR APPLICATION* 🖤%0A%0A📝 *Name:* ${fullName}%0A📧 *Email:* ${email}%0A📱 *Phone:* ${phone}%0A%0A📸 *Instagram:* ${instagram}%0A▶️ *YouTube:* ${youtube}%0A%0A📖 *About:*%0A${bio}%0A%0A---%0ASent from Spectrix Creators Directory`;
             const whatsappNumber = '917656898298';
             const whatsappLink = `https://wa.me/${whatsappNumber}?text=${message}`;
             window.open(whatsappLink, '_blank');
