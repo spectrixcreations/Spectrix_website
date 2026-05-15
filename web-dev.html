@@ -208,7 +208,7 @@
 
         /* Page Header */
         .page-header {
-            padding: 180px 0 80px;
+            padding: 180px 0 60px;
             text-align: center;
         }
 
@@ -229,24 +229,24 @@
             margin: 0 auto;
         }
 
-        /* Pricing Cards */
+        /* Pricing Cards - Reduced gap and proper alignment */
         .pricing-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 40px;
-            margin: 60px 0;
+            gap: 24px;
+            margin: 50px 0;
             justify-content: center;
         }
 
         .pricing-card {
             flex: 1;
-            min-width: 360px;
-            max-width: 500px;
+            min-width: 340px;
+            max-width: 400px;
             background: rgba(8, 8, 8, 0.8);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            padding: 40px;
+            border-radius: 20px;
+            padding: 28px;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
@@ -267,73 +267,89 @@
 
         .pricing-card:hover {
             border-color: rgba(255, 255, 255, 0.5);
-            transform: translateY(-12px);
-            box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
         }
 
         .card-badge {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 16px;
+            right: 16px;
             background: rgba(255, 255, 255, 0.1);
-            padding: 6px 14px;
+            padding: 4px 12px;
             border-radius: 30px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             letter-spacing: 1px;
             backdrop-filter: blur(4px);
         }
 
         .pricing-card h2 {
-            font-size: 32px;
-            margin-bottom: 16px;
+            font-size: 28px;
+            margin-bottom: 12px;
             color: #fff;
+            text-align: left;
+        }
+
+        /* Price Container - Left aligned */
+        .price-container {
+            margin: 15px 0 8px;
+            text-align: left;
+        }
+
+        .raised-price {
+            font-size: 16px;
+            color: #888;
+            text-decoration: line-through;
+            margin-bottom: 4px;
         }
 
         .price {
-            font-size: 52px;
+            font-size: 42px;
             font-weight: 800;
             background: linear-gradient(135deg, #fff, #ccc);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin: 20px 0 10px;
         }
 
         .price-sub {
             color: #888;
-            font-size: 14px;
-            margin-bottom: 30px;
+            font-size: 13px;
+            margin-bottom: 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 20px;
+            padding-bottom: 15px;
+            text-align: left;
         }
 
         .features-list {
             list-style: none;
-            margin: 0 0 30px 0;
+            margin: 0 0 25px 0;
             flex: 1;
         }
 
         .features-list li {
-            padding: 12px 0;
+            padding: 10px 0;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
             color: #ddd;
+            font-size: 13px;
+            text-align: left;
         }
 
         .features-list li i {
-            width: 24px;
+            width: 20px;
             color: #fff;
-            font-size: 18px;
+            font-size: 14px;
         }
 
         .btn-pricing {
             display: block;
             width: 100%;
             text-align: center;
-            padding: 14px;
+            padding: 12px;
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
@@ -343,6 +359,7 @@
             margin-top: auto;
             border-radius: 40px;
             cursor: pointer;
+            font-size: 14px;
         }
 
         .btn-pricing:hover {
@@ -354,7 +371,7 @@
 
         /* Tech Stack Section */
         .tech-section {
-            margin: 80px 0;
+            margin: 60px 0;
         }
 
         .section-title {
@@ -378,8 +395,8 @@
         .tech-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            margin-top: 50px;
+            gap: 24px;
+            margin-top: 40px;
         }
 
         @media (max-width: 992px) {
@@ -396,94 +413,94 @@
 
         .tech-item {
             background: rgba(8, 8, 8, 0.6);
-            padding: 30px 20px;
+            padding: 25px 15px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
+            border-radius: 16px;
             transition: all 0.3s ease;
         }
 
         .tech-item:hover {
             border-color: rgba(255, 255, 255, 0.4);
-            transform: scale(1.05);
+            transform: scale(1.03);
             background: rgba(15, 15, 15, 0.8);
         }
 
         .tech-item i {
-            font-size: 48px;
-            margin-bottom: 15px;
+            font-size: 40px;
+            margin-bottom: 12px;
             color: #fff;
         }
 
         .tech-item h4 {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 500;
         }
 
         /* Process Timeline */
         .process-section {
-            margin: 80px 0;
+            margin: 60px 0;
         }
 
         .process-steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
         }
 
         .step {
             text-align: center;
-            padding: 30px;
+            padding: 25px;
             background: rgba(8, 8, 8, 0.6);
-            border-radius: 20px;
+            border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
         }
 
         .step:hover {
-            transform: translateY(-12px);
+            transform: translateY(-8px);
             border-color: rgba(255, 255, 255, 0.6);
             background: rgba(15, 15, 15, 0.85);
-            box-shadow: 0 0 35px rgba(255, 255, 255, 0.25), 0 15px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
         }
 
         .step:hover .step-number {
-            transform: scale(1.1);
+            transform: scale(1.08);
             background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
         }
 
         .step-number {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 24px;
+            margin: 0 auto 15px;
+            font-size: 20px;
             font-weight: 700;
             color: #fff;
             transition: all 0.3s ease;
         }
 
         .step h4 {
-            font-size: 22px;
-            margin-bottom: 12px;
+            font-size: 18px;
+            margin-bottom: 10px;
             transition: color 0.3s ease;
         }
 
         .step:hover h4 {
             color: #fff;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
         }
 
         .step p {
             color: #aaa;
-            font-size: 14px;
+            font-size: 13px;
             transition: color 0.3s ease;
         }
 
@@ -494,30 +511,31 @@
         /* CTA Section */
         .cta-section {
             text-align: center;
-            margin: 80px 0 60px;
-            padding: 60px;
+            margin: 60px 0 50px;
+            padding: 50px;
             background: rgba(8, 8, 8, 0.6);
-            border-radius: 30px;
+            border-radius: 24px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .cta-section h3 {
-            font-size: 32px;
-            margin-bottom: 20px;
+            font-size: 28px;
+            margin-bottom: 15px;
         }
 
         .btn-cta {
             display: inline-block;
-            padding: 16px 42px;
+            padding: 14px 36px;
             background: #fff;
             color: #050505;
             text-decoration: none;
             font-weight: 700;
             border-radius: 40px;
             transition: all 0.3s ease;
-            margin-top: 20px;
+            margin-top: 15px;
             cursor: pointer;
             border: none;
+            font-size: 15px;
         }
 
         .btn-cta:hover {
@@ -545,9 +563,9 @@
             background: rgba(15, 15, 15, 0.98);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-            padding: 35px;
-            max-width: 550px;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 520px;
             width: 90%;
             position: relative;
             animation: fadeInUp 0.4s ease;
@@ -569,8 +587,8 @@
         }
 
         .modal-content h2 {
-            font-size: 28px;
-            margin-bottom: 8px;
+            font-size: 26px;
+            margin-bottom: 6px;
             background: linear-gradient(135deg, #fff, #aaa);
             -webkit-background-clip: text;
             background-clip: text;
@@ -579,15 +597,15 @@
 
         .modal-content p {
             color: #aaa;
-            margin-bottom: 20px;
-            font-size: 14px;
+            margin-bottom: 18px;
+            font-size: 13px;
         }
 
         .close-modal {
             position: absolute;
-            top: 18px;
-            right: 22px;
-            font-size: 28px;
+            top: 15px;
+            right: 18px;
+            font-size: 26px;
             cursor: pointer;
             color: #aaa;
             transition: 0.3s;
@@ -598,13 +616,13 @@
         }
 
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 15px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-size: 13px;
+            margin-bottom: 6px;
+            font-size: 12px;
             font-weight: 500;
             color: #ddd;
         }
@@ -617,12 +635,12 @@
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 12px 14px;
+            padding: 10px 12px;
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
+            border-radius: 10px;
             color: #fff;
-            font-size: 14px;
+            font-size: 13px;
             transition: 0.3s;
         }
 
@@ -631,7 +649,7 @@
         .form-group textarea:focus {
             outline: none;
             border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
         }
 
         .form-group select option {
@@ -641,7 +659,7 @@
 
         .form-group textarea {
             resize: vertical;
-            min-height: 80px;
+            min-height: 70px;
         }
 
         /* Creator Code Input with Validation */
@@ -653,18 +671,18 @@
         .code-input-group input.valid {
             border-color: #00c853;
             background: rgba(0, 200, 83, 0.1);
-            box-shadow: 0 0 10px rgba(0, 200, 83, 0.3);
+            box-shadow: 0 0 8px rgba(0, 200, 83, 0.3);
         }
 
         .code-input-group input.invalid {
             border-color: #ff4444;
             background: rgba(255, 68, 68, 0.1);
-            box-shadow: 0 0 10px rgba(255, 68, 68, 0.2);
+            box-shadow: 0 0 8px rgba(255, 68, 68, 0.2);
         }
 
         .validation-message {
-            font-size: 12px;
-            margin-top: 5px;
+            font-size: 11px;
+            margin-top: 4px;
         }
 
         .validation-message.valid {
@@ -679,9 +697,9 @@
         .net-cost-box {
             background: linear-gradient(135deg, rgba(0, 200, 83, 0.15), rgba(0, 150, 100, 0.1));
             border: 1px solid rgba(0, 200, 83, 0.3);
-            border-radius: 16px;
-            padding: 15px 20px;
-            margin: 15px 0;
+            border-radius: 14px;
+            padding: 12px 16px;
+            margin: 12px 0;
             text-align: center;
         }
 
@@ -690,13 +708,13 @@
         }
 
         .net-cost-label {
-            font-size: 13px;
+            font-size: 12px;
             color: #aaa;
             letter-spacing: 1px;
         }
 
         .net-cost-amount {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 800;
             background: linear-gradient(135deg, #00c853, #00e676);
             -webkit-background-clip: text;
@@ -705,28 +723,28 @@
         }
 
         .original-price-strikethrough {
-            font-size: 14px;
+            font-size: 12px;
             color: #888;
             text-decoration: line-through;
-            margin-left: 10px;
+            margin-left: 8px;
         }
 
         .submit-btn {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 40px;
             color: #fff;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
-            margin-top: 10px;
+            margin-top: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .submit-btn:hover {
@@ -741,8 +759,8 @@
         }
 
         .spinner {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-top: 2px solid #fff;
             border-radius: 50%;
@@ -774,21 +792,21 @@
 
         footer {
             background: #020202;
-            padding: 60px 0 30px;
+            padding: 50px 0 25px;
             border-top: 1px solid rgba(255, 255, 255, 0.02);
-            margin-top: 80px;
+            margin-top: 60px;
         }
 
         .footer-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 50px;
-            margin-bottom: 50px;
+            gap: 40px;
+            margin-bottom: 40px;
         }
 
         .footer-col h4 {
-            font-size: 18px;
-            margin-bottom: 25px;
+            font-size: 16px;
+            margin-bottom: 20px;
             letter-spacing: 1px;
             color: #fff;
         }
@@ -797,8 +815,8 @@
             color: #ccc;
             text-decoration: none;
             display: block;
-            margin-bottom: 12px;
-            font-size: 14px;
+            margin-bottom: 10px;
+            font-size: 13px;
             transition: all 0.3s ease;
         }
 
@@ -809,17 +827,18 @@
 
         .footer-col p {
             color: #ccc;
+            font-size: 13px;
         }
 
         .social-links {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 15px;
         }
 
         .social-links a {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             background: rgba(255, 255, 255, 0.08);
             border-radius: 50%;
             display: flex;
@@ -837,10 +856,10 @@
 
         .footer-bottom {
             text-align: center;
-            padding-top: 30px;
+            padding-top: 25px;
             border-top: 1px solid rgba(255, 255, 255, 0.02);
             color: #aaa;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         @media (max-width: 768px) {
@@ -855,6 +874,7 @@
             .pricing-grid {
                 flex-direction: column;
                 align-items: center;
+                gap: 20px;
             }
 
             .pricing-card {
@@ -865,7 +885,7 @@
 
             .footer-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 25px;
             }
 
             .section-title {
@@ -877,7 +897,11 @@
             }
 
             .modal-content {
-                padding: 25px;
+                padding: 20px;
+            }
+
+            .price {
+                font-size: 36px;
             }
         }
 
@@ -896,52 +920,8 @@
             animation-delay: 0.2s;
         }
 
-        .tech-item:nth-child(1) {
-            animation-delay: 0.05s;
-        }
-
-        .tech-item:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-
-        .tech-item:nth-child(3) {
-            animation-delay: 0.15s;
-        }
-
-        .tech-item:nth-child(4) {
-            animation-delay: 0.2s;
-        }
-
-        .tech-item:nth-child(5) {
-            animation-delay: 0.25s;
-        }
-
-        .tech-item:nth-child(6) {
+        .pricing-card:nth-child(3) {
             animation-delay: 0.3s;
-        }
-
-        .tech-item:nth-child(7) {
-            animation-delay: 0.35s;
-        }
-
-        .tech-item:nth-child(8) {
-            animation-delay: 0.4s;
-        }
-
-        .step:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .step:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .step:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        .step:nth-child(4) {
-            animation-delay: 0.4s;
         }
     </style>
 </head>
@@ -1037,7 +1017,7 @@
         <!-- CTA Section -->
         <div class="cta-section">
             <h3>Ready to build something extraordinary?</h3>
-            <p style="color:#bbb; max-width: 600px; margin: 15px auto;">Whether you need a blazing-fast static site or a
+            <p style="color:#bbb; max-width: 600px; margin: 12px auto;">Whether you need a blazing-fast static site or a
                 fully dynamic AI-powered platform, we've got you covered.</p>
             <button class="btn-cta" id="openContactPopup">Start Your Project →</button>
         </div>
@@ -1149,44 +1129,69 @@
             // Service Packages
             services: [
                 {
+                    id: "PortfolioX",
+                    name: "PortfolioX",
+                    originalPrice: 1999,
+                    raised_price: 3999,
+                    showRaisedPrice: true,
+                    discountPercent: 15,
+                    badge: "🎓 Best for Students",
+                    description: "Student Portfolio | Social Links | Single Page App",
+                    features: [
+                        "Professional portfolio design",
+                        "Fully responsive layout",
+                        "Social media links integration",
+                        "Single Page Application (SPA)",
+                        "Custom color scheme",
+                        "About & Contact sections",
+                        "Fast loading & optimized",
+                        "WhatsApp contact form",
+                        "Free hosting (3 months)"
+                    ]
+                },
+                {
                     id: "StaticX",
                     name: "StaticX",
-                    originalPrice: 59999,      // Change this value to update StaticX price
-                    discountPercent: 16.66694444907415,     // Change this value to update StaticX discount
+                    originalPrice: 59999,
+                    raised_price: 89999,
+                    showRaisedPrice: false,
+                    discountPercent: 16.66694444907415,
                     badge: "✨ Most Popular for Startups",
                     description: "One-time investment | Static & Animated Website",
                     features: [
-                        "Fully responsive design (mobile/tablet/desktop)",
-                        "Custom UI/UX with modern animations",
-                        "Up to 6 pages (Home, About, Services, Contact, etc.)",
+                        "Fully responsive design",
+                        "Custom UI/UX with animations",
+                        "Up to 6 pages",
                         "Contact form integration",
                         "Google Maps integration",
                         "Social media links & embed",
-                        "Fast loading & optimized assets",
-                        "3 months free support & maintenance",
-                        "Free hosting setup (6 months)"
+                        "Fast loading & optimized",
+                        "3 months free support",
+                        "Free hosting (6 months)"
                     ]
                 },
                 {
                     id: "SyncX",
                     name: "SyncX",
-                    originalPrice: 119999,     // Change this value to update SyncX price
-                    discountPercent: 8.33,      // Change this value to update SyncX discount
+                    originalPrice: 119999,
+                    raised_price: 0,
+                    showRaisedPrice: false,
+                    discountPercent: 8.33,
                     badge: "🔥 Enterprise Grade",
                     description: "Dynamic Web Application | Full-Stack Solution",
                     features: [
                         "Everything in StaticX +",
-                        "Secure user login/authentication (JWT/Session)",
-                        "Payment gateway integration (Razorpay/Stripe)",
-                        "Database storage (MySQL/PostgreSQL/MongoDB)",
-                        "AI prompting & ChatGPT integration",
-                        "Product catalog with buy/purchase flow",
-                        "Order management system & invoice generation",
-                        "Admin dashboard to manage users/orders/products",
+                        "Secure user login/auth",
+                        "Payment gateway integration",
+                        "Database storage",
+                        "AI prompting & ChatGPT",
+                        "Product catalog with buy flow",
+                        "Order management system",
+                        "Admin dashboard",
                         "Advanced search & filters",
-                        "Real-time notifications & email alerts",
-                        "6 months technical support & updates",
-                        "Cloud deployment (AWS/Vercel/self-hosted)"
+                        "Real-time notifications",
+                        "6 months technical support",
+                        "Cloud deployment"
                     ]
                 }
             ],
@@ -1231,10 +1236,26 @@
                     featuresHtml += `<li><i class="fas fa-check-circle"></i> ${feature}</li>`;
                 });
 
+                let priceHtml = '';
+                if (service.showRaisedPrice && service.raised_price && service.raised_price > 0) {
+                    priceHtml = `
+                        <div class="price-container">
+                            <div class="raised-price">₹${formatPrice(service.raised_price)}/-</div>
+                            <div class="price">₹${formatPrice(service.originalPrice)}/-</div>
+                        </div>
+                    `;
+                } else {
+                    priceHtml = `
+                        <div class="price-container">
+                            <div class="price">₹${formatPrice(service.originalPrice)}/-</div>
+                        </div>
+                    `;
+                }
+
                 card.innerHTML = `
                     <div class="card-badge">${service.badge}</div>
                     <h2>${service.name}</h2>
-                    <div class="price">₹${formatPrice(service.originalPrice)}/-</div>
+                    ${priceHtml}
                     <div class="price-sub">${service.description}</div>
                     <ul class="features-list">
                         ${featuresHtml}
@@ -1244,7 +1265,6 @@
                 grid.appendChild(card);
             });
 
-            // Re-attach event listeners to new buttons
             document.querySelectorAll('.btn-pricing').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -1276,15 +1296,13 @@
                 option.value = service.id;
                 option.setAttribute('data-price', service.originalPrice);
                 option.setAttribute('data-discount', service.discountPercent);
-                option.textContent = `${service.name} - ${service.description.split('|')[0].trim()} (₹${formatPrice(service.originalPrice)}) → After Discount: ₹${formatPrice(discountedPrice)}`;
+                option.textContent = `${service.name} - ${service.description.split('|')[0].trim()} (₹${formatPrice(service.originalPrice)}) → After Discount: ₹${formatPrice(Math.round(discountedPrice))}`;
                 serviceSelect.appendChild(option);
             });
         }
 
-        // EmailJS Configuration
         emailjs.init(CONFIG.EMAILJS_PUBLIC_KEY);
 
-        // DOM Elements
         const modal = document.getElementById('contactModal');
         const openPopupBtn = document.getElementById('openContactPopup');
         const closeModal = document.getElementById('closeModal');
@@ -1301,7 +1319,6 @@
         let currentDiscountPercent = 0;
         let isCodeValid = false;
 
-        // Calculate and update net cost display
         function updateNetCost() {
             if (currentServicePrice > 0 && isCodeValid && currentDiscountPercent > 0) {
                 const discountAmount = (currentServicePrice * currentDiscountPercent) / 100;
@@ -1314,7 +1331,6 @@
             }
         }
 
-        // Validate creator code
         function validateCreatorCode() {
             const code = creatorCodeInput.value.trim().toUpperCase();
             if (code === "") {
@@ -1342,7 +1358,6 @@
             updateNetCost();
         }
 
-        // Update service details when selection changes
         function updateServiceDetails() {
             const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
             if (serviceSelect.value && selectedOption && selectedOption.getAttribute('data-price')) {
@@ -1355,15 +1370,9 @@
             updateNetCost();
         }
 
-        if (serviceSelect) {
-            serviceSelect.addEventListener('change', updateServiceDetails);
-        }
+        if (serviceSelect) serviceSelect.addEventListener('change', updateServiceDetails);
+        if (creatorCodeInput) creatorCodeInput.addEventListener('input', validateCreatorCode);
 
-        if (creatorCodeInput) {
-            creatorCodeInput.addEventListener('input', validateCreatorCode);
-        }
-
-        // Open popup from CTA button
         if (openPopupBtn) {
             openPopupBtn.addEventListener('click', () => {
                 if (serviceSelect) serviceSelect.selectedIndex = 0;
@@ -1378,24 +1387,12 @@
             });
         }
 
-        // Close modal
-        if (closeModal) {
-            closeModal.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
-        }
+        if (closeModal) closeModal.addEventListener('click', () => modal.style.display = 'none');
+        window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
 
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        // Form submission with EmailJS
         if (contactForm) {
             contactForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-
                 const fullName = document.getElementById('fullName').value.trim();
                 const email = document.getElementById('email').value.trim();
                 const phone = document.getElementById('phone').value.trim();
@@ -1405,7 +1402,6 @@
                 const creatorCode = document.getElementById('creatorCode').value.trim().toUpperCase();
                 const message = document.getElementById('message').value.trim();
 
-                // Check if code is entered and invalid
                 if (creatorCode !== "" && !CONFIG.validCreatorCodes.includes(creatorCode)) {
                     alert('❌ Invalid creator code. Please enter a valid code or leave it blank.');
                     return;
@@ -1422,7 +1418,6 @@
                     return;
                 }
 
-                // Calculate final price if code is valid
                 let finalPrice = currentServicePrice;
                 let discountApplied = 0;
                 if (creatorCode !== "" && CONFIG.validCreatorCodes.includes(creatorCode)) {
@@ -1451,18 +1446,14 @@
                     };
 
                     await emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, templateParams);
-
                     contactForm.reset();
-                    if (creatorCodeInput) {
-                        creatorCodeInput.classList.remove('valid', 'invalid');
-                    }
+                    if (creatorCodeInput) creatorCodeInput.classList.remove('valid', 'invalid');
                     if (validationMessageDiv) validationMessageDiv.textContent = '';
                     isCodeValid = false;
                     if (serviceSelect) serviceSelect.selectedIndex = 0;
                     updateServiceDetails();
                     modal.style.display = 'none';
                     alert('✓ Message sent successfully! We will contact you within 24 hours.');
-
                 } catch (error) {
                     console.error('Email sending failed:', error);
                     alert('❌ Failed to send message. Please try again later.');
@@ -1473,17 +1464,14 @@
             });
         }
 
-        // Initialize page
         function init() {
             renderPricingCards();
             renderServiceOptions();
         }
 
-        // Crystal rain effects
         function createCrystals() {
             const container = document.getElementById('crystalContainer');
-            const crystalCount = 100;
-            for (let i = 0; i < crystalCount; i++) {
+            for (let i = 0; i < 100; i++) {
                 const crystal = document.createElement('div');
                 crystal.className = 'crystal';
                 const sizeType = Math.random();
