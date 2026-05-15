@@ -1296,7 +1296,7 @@
                 option.value = service.id;
                 option.setAttribute('data-price', service.originalPrice);
                 option.setAttribute('data-discount', service.discountPercent);
-                option.textContent = `${service.name} - ${service.description.split('|')[0].trim()} (₹${formatPrice(service.originalPrice)}) → After Discount: ₹${formatPrice(Math.round(discountedPrice))}`;
+                option.textContent = `${service.name} - ${service.description.split('|')[0].trim()} (₹${formatPrice(service.originalPrice)})`;
                 serviceSelect.appendChild(option);
             });
         }
