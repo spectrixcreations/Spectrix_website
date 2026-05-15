@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Spectrix Creations | Web Development Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -340,6 +342,7 @@
             transition: all 0.3s ease;
             margin-top: auto;
             border-radius: 40px;
+            cursor: pointer;
         }
 
         .btn-pricing:hover {
@@ -349,7 +352,7 @@
             box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
         }
 
-        /* Tech Stack Section - Responsive Grid: 4 -> 3 -> 1 */
+        /* Tech Stack Section */
         .tech-section {
             margin: 80px 0;
         }
@@ -372,7 +375,6 @@
             font-size: 18px;
         }
 
-        /* Tech Grid - Responsive: 4 columns default, then 3, then 1 */
         .tech-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -380,14 +382,12 @@
             margin-top: 50px;
         }
 
-        /* Tablet: 3 columns */
         @media (max-width: 992px) {
             .tech-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
 
-        /* Mobile: 1 column */
         @media (max-width: 576px) {
             .tech-grid {
                 grid-template-columns: 1fr;
@@ -420,7 +420,7 @@
             font-weight: 500;
         }
 
-        /* Process Timeline - with HOVER UPWARD MOVEMENT & HIGHLIGHT */
+        /* Process Timeline */
         .process-section {
             margin: 80px 0;
         }
@@ -442,7 +442,6 @@
             cursor: pointer;
         }
 
-        /* Hover effect: move upward, add glow, enhance border */
         .step:hover {
             transform: translateY(-12px);
             border-color: rgba(255, 255, 255, 0.6);
@@ -450,7 +449,6 @@
             box-shadow: 0 0 35px rgba(255, 255, 255, 0.25), 0 15px 25px rgba(0, 0, 0, 0.3);
         }
 
-        /* Optional: Scale up the step number icon slightly on hover */
         .step:hover .step-number {
             transform: scale(1.1);
             background: rgba(255, 255, 255, 0.2);
@@ -493,7 +491,7 @@
             color: #ddd;
         }
 
-        /* CTA */
+        /* CTA Section with Popup Button */
         .cta-section {
             text-align: center;
             margin: 80px 0 60px;
@@ -518,12 +516,251 @@
             border-radius: 40px;
             transition: all 0.3s ease;
             margin-top: 20px;
+            cursor: pointer;
+            border: none;
         }
 
         .btn-cta:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
             background: #ddd;
+        }
+
+        /* Popup Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: rgba(15, 15, 15, 0.98);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 35px;
+            max-width: 550px;
+            width: 90%;
+            position: relative;
+            animation: fadeInUp 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #666;
+            border-radius: 4px;
+        }
+
+        .modal-content h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .modal-content p {
+            color: #aaa;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 18px;
+            right: 22px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #aaa;
+            transition: 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #ddd;
+        }
+
+        .form-group label .required {
+            color: #ff4444;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group select option {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Creator Code Row - Combined with discount */
+        .creator-code-row {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-left: 3px solid #ff4444;
+        }
+
+        .creator-code-row label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #ddd;
+            margin: 0;
+            display: inline-block;
+        }
+
+        .creator-code-input {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .creator-code-input input {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .creator-code-input input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .discount-highlight {
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(255, 68, 68, 0.15);
+            padding: 8px 16px;
+            border-radius: 40px;
+            white-space: nowrap;
+        }
+
+        .discount-highlight span {
+            color: #ff4444;
+            font-size: 14px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 40px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Footer */
@@ -630,18 +867,19 @@
             .process-steps {
                 grid-template-columns: 1fr;
             }
-        }
 
-        /* Animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
+            .modal-content {
+                padding: 25px;
             }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            .creator-code-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .discount-highlight {
+                text-align: center;
+                white-space: normal;
             }
         }
 
@@ -735,10 +973,10 @@
                 sites to AI-powered dynamic platforms, we bring your digital vision to life.</p>
         </div>
 
-        <!-- Pricing Plans - FLEXBOX with button alignment -->
+        <!-- Pricing Plans - Only StaticX and SyncX -->
         <div class="pricing-grid">
             <!-- StaticX Package -->
-            <div class="pricing-card">
+            <div class="pricing-card" data-service="StaticX" data-discount="16.67">
                 <div class="card-badge">✨ Most Popular for Startups</div>
                 <h2>StaticX</h2>
                 <div class="price">₹60,000/-</div>
@@ -754,11 +992,11 @@
                     <li><i class="fas fa-check-circle"></i> 3 months free support & maintenance</li>
                     <li><i class="fas fa-check-circle"></i> Free hosting setup (6 months)</li>
                 </ul>
-                <a href="index.html#contact" class="btn-pricing">Get StaticX →</a>
+                <button class="btn-pricing" data-service="StaticX" data-discount="16.67">Get StaticX →</button>
             </div>
 
             <!-- SyncX Package -->
-            <div class="pricing-card">
+            <div class="pricing-card" data-service="SyncX" data-discount="8.33">
                 <div class="card-badge">🔥 Enterprise Grade</div>
                 <h2>SyncX</h2>
                 <div class="price">₹1,20,000/-</div>
@@ -777,11 +1015,11 @@
                     <li><i class="fas fa-check-circle"></i> 6 months technical support & updates</li>
                     <li><i class="fas fa-check-circle"></i> Cloud deployment (AWS/Vercel/self-hosted)</li>
                 </ul>
-                <a href="index.html#contact" class="btn-pricing">Get SyncX →</a>
+                <button class="btn-pricing" data-service="SyncX" data-discount="8.33">Get SyncX →</button>
             </div>
         </div>
 
-        <!-- Technologies We Master - Responsive Grid: 4 -> 3 -> 1 -->
+        <!-- Technologies We Master -->
         <div class="tech-section">
             <h2 class="section-title">TECH <span>STACK</span></h2>
             <p class="section-subtitle">Cutting-edge tools & frameworks for modern web experiences</p>
@@ -813,7 +1051,7 @@
             </div>
         </div>
 
-        <!-- Our Development Process - with HOVER UPWARD MOVEMENT & HIGHLIGHT -->
+        <!-- Our Development Process -->
         <div class="process-section">
             <h2 class="section-title">OUR <span>PROCESS</span></h2>
             <div class="process-steps">
@@ -840,12 +1078,66 @@
             </div>
         </div>
 
-        <!-- Call to Action -->
+        <!-- CTA Section with Popup Button -->
         <div class="cta-section">
             <h3>Ready to build something extraordinary?</h3>
             <p style="color:#bbb; max-width: 600px; margin: 15px auto;">Whether you need a blazing-fast static site or a
                 fully dynamic AI-powered platform, we've got you covered.</p>
-            <a href="index.html#contact" class="btn-cta">Start Your Project →</a>
+            <button class="btn-cta" id="openContactPopup">Start Your Project →</button>
+        </div>
+    </div>
+
+    <!-- EmailJS Popup Modal -->
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2>Let's Talk Business</h2>
+            <p>Fill out the form below and we'll get back to you within 24 hours!</p>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label>Full Name <span class="required">*</span></label>
+                    <input type="text" id="fullName" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label>Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number <span class="required">*</span></label>
+                    <input type="tel" id="phone" required placeholder="+91 XXXXX XXXXX">
+                </div>
+                <div class="form-group">
+                    <label>Service Interested In <span class="required">*</span></label>
+                    <select id="service" required>
+                        <option value="">-- Select a Service --</option>
+                        <option value="StaticX - Static & Animated Website (₹60,000)">StaticX - Static & Animated
+                            Website (₹60,000)</option>
+                        <option value="SyncX - Dynamic Web Application (₹1,20,000)">SyncX - Dynamic Web Application
+                            (₹1,20,000)</option>
+                    </select>
+                </div>
+
+                <!-- Creator Code Row - Combined with Discount Highlight -->
+                <div class="form-group">
+                    <label style="display: flex; align-items: flex-end;justify-content: space-between;">Creator Code
+                        <div class="discount-highlight" id="discountHighlight">
+                            ✨ Apply code to get <span id="discountPercent">0%</span> OFF
+                        </div></label>
+                    <div class="creator-code-input">
+                        <input type="text" id="creatorCode" placeholder="Enter your referral code">
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label>Project Details / Message <span class="required">*</span></label>
+                    <textarea id="message" required
+                        placeholder="Tell us about your project requirements, budget timeline, or any specific questions..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Send Inquiry
+                </button>
+            </form>
         </div>
     </div>
 
@@ -888,7 +1180,153 @@
     </footer>
 
     <script>
-        // Glowing Crystals Reverse Rain
+        // ============================================
+        // EMAILJS CONFIGURATION
+        // ============================================
+
+        const EMAILJS_PUBLIC_KEY = "Nb4m_I_v8Ds9g3cfi";
+        const EMAILJS_SERVICE_ID = "service_2uir8cd";
+        const EMAILJS_TEMPLATE_ID = "template_ur7ubap";
+        const RECIPIENT_EMAIL = "officialspectrix@gmail.com";
+
+        // Initialize EmailJS
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+
+        // DOM Elements
+        const modal = document.getElementById('contactModal');
+        const openPopupBtn = document.getElementById('openContactPopup');
+        const closeModal = document.getElementById('closeModal');
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const serviceSelect = document.getElementById('service');
+        const discountPercentSpan = document.getElementById('discountPercent');
+        const discountHighlight = document.getElementById('discountHighlight');
+
+        // Update discount display when service changes
+        function updateDiscountDisplay() {
+            const selectedValue = serviceSelect.value;
+            if (selectedValue.includes('StaticX')) {
+                discountPercentSpan.textContent = '16.67%';
+                discountPercentSpan.style.color = '#ff4444';
+                discountPercentSpan.style.fontWeight = 'bold';
+                discountPercentSpan.style.fontSize = '16px';
+                discountHighlight.style.background = 'rgba(255, 68, 68, 0.15)';
+            } else if (selectedValue.includes('SyncX')) {
+                discountPercentSpan.textContent = '8.33%';
+                discountPercentSpan.style.color = '#ff4444';
+                discountPercentSpan.style.fontWeight = 'bold';
+                discountPercentSpan.style.fontSize = '16px';
+                discountHighlight.style.background = 'rgba(255, 68, 68, 0.15)';
+            } else {
+                discountPercentSpan.textContent = '0%';
+                discountHighlight.style.background = 'rgba(255, 255, 255, 0.08)';
+            }
+        }
+
+        serviceSelect.addEventListener('change', updateDiscountDisplay);
+
+        // Auto-select service when clicking on pricing card buttons
+        document.querySelectorAll('.btn-pricing').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const serviceValue = btn.getAttribute('data-service');
+                const discount = btn.getAttribute('data-discount');
+
+                if (serviceSelect) {
+                    if (serviceValue === 'StaticX') {
+                        serviceSelect.value = "StaticX - Static & Animated Website (₹60,000)";
+                        discountPercentSpan.textContent = '16.67%';
+                        discountHighlight.style.background = 'rgba(255, 68, 68, 0.15)';
+                    } else if (serviceValue === 'SyncX') {
+                        serviceSelect.value = "SyncX - Dynamic Web Application (₹1,20,000)";
+                        discountPercentSpan.textContent = '8.33%';
+                        discountHighlight.style.background = 'rgba(255, 68, 68, 0.15)';
+                    }
+                }
+                modal.style.display = 'flex';
+            });
+        });
+
+        // Open popup from CTA button
+        openPopupBtn.addEventListener('click', () => {
+            if (serviceSelect) serviceSelect.value = "";
+            discountPercentSpan.textContent = '0%';
+            discountHighlight.style.background = 'rgba(255, 255, 255, 0.08)';
+            modal.style.display = 'flex';
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Form submission with EmailJS
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const service = document.getElementById('service').value;
+            const creatorCode = document.getElementById('creatorCode').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (!fullName || !email || !phone || !service || !message) {
+                alert('Please fill in all required fields (*)');
+                return;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+
+            // Show loading state
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="spinner"></span> Sending...';
+            submitBtn.disabled = true;
+
+            try {
+                const templateParams = {
+                    to_email: RECIPIENT_EMAIL,
+                    from_name: fullName,
+                    from_email: email,
+                    phone: phone,
+                    service: service,
+                    creator_code: creatorCode || 'Not provided',
+                    message: message,
+                    subject: `New Inquiry from ${fullName} - ${service.substring(0, 50)}`,
+                    reply_to: email
+                };
+
+                const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+                console.log('Email sent successfully!', response);
+
+                contactForm.reset();
+                discountPercentSpan.textContent = '0%';
+                discountHighlight.style.background = 'rgba(255, 255, 255, 0.08)';
+                modal.style.display = 'none';
+
+                alert('✓ Message sent successfully! We will contact you within 24 hours.');
+
+            } catch (error) {
+                console.error('Email sending failed:', error);
+                alert('❌ Failed to send message. Please try again later.');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Crystal rain and background effects
         function createCrystals() {
             const container = document.getElementById('crystalContainer');
             const crystalCount = 100;
@@ -965,7 +1403,6 @@
             animate();
         }
 
-        // Scroll effect for nav
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
             if (window.scrollY > 100) {
@@ -978,7 +1415,6 @@
             updateCrystalFade();
         });
 
-        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
