@@ -229,7 +229,7 @@
             margin: 0 auto;
         }
 
-        /* Pricing Cards - FLEXBOX with button alignment */
+        /* Pricing Cards */
         .pricing-grid {
             display: flex;
             flex-wrap: wrap;
@@ -491,7 +491,7 @@
             color: #ddd;
         }
 
-        /* CTA Section with Popup Button */
+        /* CTA Section */
         .cta-section {
             text-align: center;
             margin: 80px 0 60px;
@@ -644,62 +644,71 @@
             min-height: 80px;
         }
 
-        /* Creator Code Row - Combined with discount */
-        .creator-code-row {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 12px 16px;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-            border-left: 3px solid #ff4444;
-        }
-
-        .creator-code-row label {
-            font-size: 13px;
-            font-weight: 500;
-            color: #ddd;
-            margin: 0;
-            display: inline-block;
-        }
-
-        .creator-code-input {
-            flex: 1;
-            min-width: 150px;
-        }
-
-        .creator-code-input input {
+        /* Creator Code Input with Validation */
+        .code-input-group input {
             width: 100%;
-            padding: 10px 14px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 14px;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
 
-        .creator-code-input input:focus {
-            outline: none;
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        .code-input-group input.valid {
+            border-color: #00c853;
+            background: rgba(0, 200, 83, 0.1);
+            box-shadow: 0 0 10px rgba(0, 200, 83, 0.3);
         }
 
-        .discount-highlight {
-            font-size: 13px;
-            font-weight: 600;
-            background: rgba(255, 68, 68, 0.15);
-            padding: 8px 16px;
-            border-radius: 40px;
-            white-space: nowrap;
+        .code-input-group input.invalid {
+            border-color: #ff4444;
+            background: rgba(255, 68, 68, 0.1);
+            box-shadow: 0 0 10px rgba(255, 68, 68, 0.2);
         }
 
-        .discount-highlight span {
+        .validation-message {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .validation-message.valid {
+            color: #00c853;
+        }
+
+        .validation-message.invalid {
             color: #ff4444;
+        }
+
+        /* Net Cost Display */
+        .net-cost-box {
+            background: linear-gradient(135deg, rgba(0, 200, 83, 0.15), rgba(0, 150, 100, 0.1));
+            border: 1px solid rgba(0, 200, 83, 0.3);
+            border-radius: 16px;
+            padding: 15px 20px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .net-cost-box.hidden {
+            display: none;
+        }
+
+        .net-cost-label {
+            font-size: 13px;
+            color: #aaa;
+            letter-spacing: 1px;
+        }
+
+        .net-cost-amount {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00c853, #00e676);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .original-price-strikethrough {
             font-size: 14px;
+            color: #888;
+            text-decoration: line-through;
+            margin-left: 10px;
         }
 
         .submit-btn {
@@ -763,7 +772,6 @@
             }
         }
 
-        /* Footer */
         footer {
             background: #020202;
             padding: 60px 0 30px;
@@ -871,16 +879,6 @@
             .modal-content {
                 padding: 25px;
             }
-
-            .creator-code-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .discount-highlight {
-                text-align: center;
-                white-space: normal;
-            }
         }
 
         .pricing-card,
@@ -973,10 +971,9 @@
                 sites to AI-powered dynamic platforms, we bring your digital vision to life.</p>
         </div>
 
-        <!-- Pricing Plans - Only StaticX and SyncX -->
         <div class="pricing-grid">
             <!-- StaticX Package -->
-            <div class="pricing-card" data-service="StaticX" data-discount="16.67">
+            <div class="pricing-card" data-service="StaticX" data-price="60000" data-discount="16.67">
                 <div class="card-badge">✨ Most Popular for Startups</div>
                 <h2>StaticX</h2>
                 <div class="price">₹60,000/-</div>
@@ -985,18 +982,19 @@
                     <li><i class="fas fa-check-circle"></i> Fully responsive design (mobile/tablet/desktop)</li>
                     <li><i class="fas fa-check-circle"></i> Custom UI/UX with modern animations</li>
                     <li><i class="fas fa-check-circle"></i> Up to 6 pages (Home, About, Services, Contact, etc.)</li>
-                    <li><i class="fas fa-check-circle"></i> Contact form integration (EmailJS/Formspree)</li>
+                    <li><i class="fas fa-check-circle"></i> Contact form integration</li>
                     <li><i class="fas fa-check-circle"></i> Google Maps integration</li>
                     <li><i class="fas fa-check-circle"></i> Social media links & embed</li>
                     <li><i class="fas fa-check-circle"></i> Fast loading & optimized assets</li>
                     <li><i class="fas fa-check-circle"></i> 3 months free support & maintenance</li>
                     <li><i class="fas fa-check-circle"></i> Free hosting setup (6 months)</li>
                 </ul>
-                <button class="btn-pricing" data-service="StaticX" data-discount="16.67">Get StaticX →</button>
+                <button class="btn-pricing" data-service="StaticX" data-price="60000" data-discount="16.67">Get StaticX
+                    →</button>
             </div>
 
             <!-- SyncX Package -->
-            <div class="pricing-card" data-service="SyncX" data-discount="8.33">
+            <div class="pricing-card" data-service="SyncX" data-price="120000" data-discount="8.33">
                 <div class="card-badge">🔥 Enterprise Grade</div>
                 <h2>SyncX</h2>
                 <div class="price">₹1,20,000/-</div>
@@ -1015,7 +1013,8 @@
                     <li><i class="fas fa-check-circle"></i> 6 months technical support & updates</li>
                     <li><i class="fas fa-check-circle"></i> Cloud deployment (AWS/Vercel/self-hosted)</li>
                 </ul>
-                <button class="btn-pricing" data-service="SyncX" data-discount="8.33">Get SyncX →</button>
+                <button class="btn-pricing" data-service="SyncX" data-price="120000" data-discount="8.33">Get SyncX
+                    →</button>
             </div>
         </div>
 
@@ -1078,7 +1077,7 @@
             </div>
         </div>
 
-        <!-- CTA Section with Popup Button -->
+        <!-- CTA Section -->
         <div class="cta-section">
             <h3>Ready to build something extraordinary?</h3>
             <p style="color:#bbb; max-width: 600px; margin: 15px auto;">Whether you need a blazing-fast static site or a
@@ -1110,23 +1109,27 @@
                     <label>Service Interested In <span class="required">*</span></label>
                     <select id="service" required>
                         <option value="">-- Select a Service --</option>
-                        <option value="StaticX - Static & Animated Website (₹60,000)">StaticX - Static & Animated
+                        <option value="StaticX" data-price="60000" data-discount="16.67">StaticX - Static & Animated
                             Website (₹60,000)</option>
-                        <option value="SyncX - Dynamic Web Application (₹1,20,000)">SyncX - Dynamic Web Application
+                        <option value="SyncX" data-price="120000" data-discount="8.33">SyncX - Dynamic Web Application
                             (₹1,20,000)</option>
                     </select>
                 </div>
 
-                <!-- Creator Code Row - Combined with Discount Highlight -->
+                <!-- Creator Code Section with Validation -->
                 <div class="form-group">
-                    <label style="display: flex; align-items: flex-end;justify-content: space-between;">Creator Code
-                        <div class="discount-highlight" id="discountHighlight">
-                            ✨ Apply code to get <span id="discountPercent">0%</span> OFF
-                        </div></label>
-                    <div class="creator-code-input">
+                    <label>Creator Code</label>
+                    <div class="code-input-group">
                         <input type="text" id="creatorCode" placeholder="Enter your referral code">
                     </div>
+                    <div id="validationMessage" class="validation-message"></div>
+                </div>
 
+                <!-- Net Cost Display Box -->
+                <div id="netCostBox" class="net-cost-box hidden">
+                    <div class="net-cost-label">💰 Final Price After Discount</div>
+                    <div class="net-cost-amount" id="netCostAmount">₹0</div>
+                    <div class="original-price-strikethrough" id="originalPriceDisplay"></div>
                 </div>
 
                 <div class="form-group">
@@ -1181,15 +1184,23 @@
 
     <script>
         // ============================================
-        // EMAILJS CONFIGURATION
+        // LIST OF VALID CREATOR CODES (30 codes)
         // ============================================
+        const VALID_CREATOR_CODES = [
+            "KAINA2024", "DIKSHA2024", "SHISHAM2024", "PANKAJ2024", "RANI2024",
+            "TANIYA2024", "ISHITA2024", "SAUMYA2024", "BHAWANA2024", "MONIKA2024",
+            "NAYAN2024", "NEHARIKA2024", "PRIYANKA2024", "TUSHAR2024", "RITIK2024",
+            "MILI2024", "KESHAV2024", "SIZZU2024", "CREATOR10", "SPECTRIX20",
+            "KAINAFAN", "DIKSHASTAR", "SHISHAMPOWER", "PANKAJPRO", "ROJALINROSE",
+            "TANIYATREND", "ISHITAGLOW", "SAUMYASAGA", "BHAWANABEAST", "MONIKAMAGIC"
+        ];
 
+        // EmailJS Configuration
         const EMAILJS_PUBLIC_KEY = "Nb4m_I_v8Ds9g3cfi";
         const EMAILJS_SERVICE_ID = "service_2uir8cd";
         const EMAILJS_TEMPLATE_ID = "template_ur7ubap";
         const RECIPIENT_EMAIL = "officialspectrix@gmail.com";
 
-        // Initialize EmailJS
         emailjs.init(EMAILJS_PUBLIC_KEY);
 
         // DOM Elements
@@ -1199,49 +1210,89 @@
         const contactForm = document.getElementById('contactForm');
         const submitBtn = document.getElementById('submitBtn');
         const serviceSelect = document.getElementById('service');
-        const discountPercentSpan = document.getElementById('discountPercent');
-        const discountHighlight = document.getElementById('discountHighlight');
+        const creatorCodeInput = document.getElementById('creatorCode');
+        const validationMessageDiv = document.getElementById('validationMessage');
+        const netCostBox = document.getElementById('netCostBox');
+        const netCostAmount = document.getElementById('netCostAmount');
+        const originalPriceDisplay = document.getElementById('originalPriceDisplay');
 
-        // Update discount display when service changes
-        function updateDiscountDisplay() {
-            const selectedValue = serviceSelect.value;
-            if (selectedValue.includes('StaticX')) {
-                discountPercentSpan.textContent = '16.67%';
-                discountPercentSpan.style.color = '#ff4444';
-                discountPercentSpan.style.fontWeight = 'bold';
-                discountPercentSpan.style.fontSize = '16px';
-                discountHighlight.style.background = 'rgba(255, 68, 68, 0.15)';
-            } else if (selectedValue.includes('SyncX')) {
-                discountPercentSpan.textContent = '8.33%';
-                discountPercentSpan.style.color = '#ff4444';
-                discountPercentSpan.style.fontWeight = 'bold';
-                discountPercentSpan.style.fontSize = '16px';
-                discountHighlight.style.background = 'rgba(255, 68, 68, 0.15)';
+        let currentServicePrice = 0;
+        let currentDiscountPercent = 0;
+        let isCodeValid = false;
+
+        // Calculate and update net cost display
+        function updateNetCost() {
+            if (currentServicePrice > 0 && isCodeValid && currentDiscountPercent > 0) {
+                const discountAmount = (currentServicePrice * currentDiscountPercent) / 100;
+                const netPrice = currentServicePrice - discountAmount;
+                netCostAmount.innerHTML = `₹${netPrice.toLocaleString('en-IN')}`;
+                originalPriceDisplay.innerHTML = `Original: ₹${currentServicePrice.toLocaleString('en-IN')}`;
+                netCostBox.classList.remove('hidden');
             } else {
-                discountPercentSpan.textContent = '0%';
-                discountHighlight.style.background = 'rgba(255, 255, 255, 0.08)';
+                netCostBox.classList.add('hidden');
             }
         }
 
-        serviceSelect.addEventListener('change', updateDiscountDisplay);
+        // Validate creator code
+        function validateCreatorCode() {
+            const code = creatorCodeInput.value.trim().toUpperCase();
+            if (code === "") {
+                creatorCodeInput.classList.remove('valid', 'invalid');
+                validationMessageDiv.textContent = '';
+                validationMessageDiv.className = 'validation-message';
+                isCodeValid = false;
+                updateNetCost();
+                return;
+            }
+
+            if (VALID_CREATOR_CODES.includes(code)) {
+                creatorCodeInput.classList.add('valid');
+                creatorCodeInput.classList.remove('invalid');
+                validationMessageDiv.textContent = '✓ Valid creator code! Discount applied.';
+                validationMessageDiv.className = 'validation-message valid';
+                isCodeValid = true;
+            } else {
+                creatorCodeInput.classList.add('invalid');
+                creatorCodeInput.classList.remove('valid');
+                validationMessageDiv.textContent = '✗ Invalid creator code. Please check and try again.';
+                validationMessageDiv.className = 'validation-message invalid';
+                isCodeValid = false;
+            }
+            updateNetCost();
+        }
+
+        // Update service details when selection changes
+        function updateServiceDetails() {
+            const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
+            if (serviceSelect.value && selectedOption && selectedOption.getAttribute('data-price')) {
+                currentServicePrice = parseInt(selectedOption.getAttribute('data-price'));
+                currentDiscountPercent = parseFloat(selectedOption.getAttribute('data-discount'));
+            } else {
+                currentServicePrice = 0;
+                currentDiscountPercent = 0;
+            }
+            updateNetCost();
+        }
+
+        serviceSelect.addEventListener('change', updateServiceDetails);
+        creatorCodeInput.addEventListener('input', validateCreatorCode);
 
         // Auto-select service when clicking on pricing card buttons
         document.querySelectorAll('.btn-pricing').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 const serviceValue = btn.getAttribute('data-service');
+                const price = btn.getAttribute('data-price');
                 const discount = btn.getAttribute('data-discount');
 
                 if (serviceSelect) {
-                    if (serviceValue === 'StaticX') {
-                        serviceSelect.value = "StaticX - Static & Animated Website (₹60,000)";
-                        discountPercentSpan.textContent = '16.67%';
-                        discountHighlight.style.background = 'rgba(255, 68, 68, 0.15)';
-                    } else if (serviceValue === 'SyncX') {
-                        serviceSelect.value = "SyncX - Dynamic Web Application (₹1,20,000)";
-                        discountPercentSpan.textContent = '8.33%';
-                        discountHighlight.style.background = 'rgba(255, 68, 68, 0.15)';
+                    for (let i = 0; i < serviceSelect.options.length; i++) {
+                        if (serviceSelect.options[i].value === serviceValue) {
+                            serviceSelect.selectedIndex = i;
+                            break;
+                        }
                     }
+                    updateServiceDetails();
                 }
                 modal.style.display = 'flex';
             });
@@ -1249,9 +1300,12 @@
 
         // Open popup from CTA button
         openPopupBtn.addEventListener('click', () => {
-            if (serviceSelect) serviceSelect.value = "";
-            discountPercentSpan.textContent = '0%';
-            discountHighlight.style.background = 'rgba(255, 255, 255, 0.08)';
+            if (serviceSelect) serviceSelect.selectedIndex = 0;
+            creatorCodeInput.value = '';
+            creatorCodeInput.classList.remove('valid', 'invalid');
+            validationMessageDiv.textContent = '';
+            isCodeValid = false;
+            updateServiceDetails();
             modal.style.display = 'flex';
         });
 
@@ -1266,30 +1320,44 @@
             }
         });
 
-        // Form submission with EmailJS
+        // Form submission with EmailJS - only sends if code is valid (or no code entered)
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const fullName = document.getElementById('fullName').value.trim();
             const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
-            const service = document.getElementById('service').value;
-            const creatorCode = document.getElementById('creatorCode').value.trim();
+            const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
+            const service = selectedOption?.text || '';
+            const serviceValue = serviceSelect.value;
+            const creatorCode = document.getElementById('creatorCode').value.trim().toUpperCase();
             const message = document.getElementById('message').value.trim();
 
-            if (!fullName || !email || !phone || !service || !message) {
+            // Check if code is entered and invalid
+            if (creatorCode !== "" && !VALID_CREATOR_CODES.includes(creatorCode)) {
+                alert('❌ Invalid creator code. Please enter a valid code or leave it blank.');
+                return;
+            }
+
+            if (!fullName || !email || !phone || !serviceValue || !message) {
                 alert('Please fill in all required fields (*)');
                 return;
             }
 
-            // Email validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 alert('Please enter a valid email address');
                 return;
             }
 
-            // Show loading state
+            // Calculate final price if code is valid
+            let finalPrice = currentServicePrice;
+            let discountApplied = 0;
+            if (creatorCode !== "" && VALID_CREATOR_CODES.includes(creatorCode)) {
+                discountApplied = currentDiscountPercent;
+                finalPrice = currentServicePrice - (currentServicePrice * currentDiscountPercent / 100);
+            }
+
             const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<span class="spinner"></span> Sending...';
             submitBtn.disabled = true;
@@ -1302,19 +1370,23 @@
                     phone: phone,
                     service: service,
                     creator_code: creatorCode || 'Not provided',
+                    discount_applied: discountApplied > 0 ? `${discountApplied}%` : '0%',
+                    original_price: `₹${currentServicePrice.toLocaleString('en-IN')}`,
+                    final_price: `₹${finalPrice.toLocaleString('en-IN')}`,
                     message: message,
                     subject: `New Inquiry from ${fullName} - ${service.substring(0, 50)}`,
                     reply_to: email
                 };
 
-                const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
-                console.log('Email sent successfully!', response);
+                await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
 
                 contactForm.reset();
-                discountPercentSpan.textContent = '0%';
-                discountHighlight.style.background = 'rgba(255, 255, 255, 0.08)';
+                creatorCodeInput.classList.remove('valid', 'invalid');
+                validationMessageDiv.textContent = '';
+                isCodeValid = false;
+                if (serviceSelect) serviceSelect.selectedIndex = 0;
+                updateServiceDetails();
                 modal.style.display = 'none';
-
                 alert('✓ Message sent successfully! We will contact you within 24 hours.');
 
             } catch (error) {
@@ -1326,7 +1398,7 @@
             }
         });
 
-        // Crystal rain and background effects
+        // Crystal rain effects
         function createCrystals() {
             const container = document.getElementById('crystalContainer');
             const crystalCount = 100;
