@@ -1,158 +1,1110 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>View Certificate - Spectrix</title>
-    <link rel="icon" type="image/png" href="images/favicon.png" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="keywords" content="html, css, javascript, jquery">
-    <meta name="author" content="">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>SPECTRIX CREATIONS | Content Creator Directory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <style>
+        /* Your existing CSS styles here - same as before */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <link rel="stylesheet" href="css/vendor/icomoon/style.css">
-    <link rel="stylesheet" href="css/vendor/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/vendor/animate.min.css">
-    <link rel="stylesheet" href="css/vendor/aos.css">
-    <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
-    <link rel="stylesheet" href="css/vendor/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="css/style.css">
+        body {
+            background: #050505;
+            color: #e8e8e8;
+            font-family: 'Inter', system-ui, sans-serif;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a2a;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a4a4a;
+        }
+
+        .crystal-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .crystal {
+            position: absolute;
+            bottom: -20px;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #ffffff, #888888);
+            border-radius: 1px;
+            opacity: 0;
+            animation: floatUpGlow linear infinite;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+        }
+
+        .crystal.large {
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #ffffff, #aaaaff);
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+        }
+
+        .crystal.small {
+            width: 2px;
+            height: 2px;
+            background: radial-gradient(circle, #dddddd, #666666);
+        }
+
+        @keyframes floatUpGlow {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: translateY(-50vh) rotate(180deg);
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .crystal.fade-behind {
+            opacity: 0.1 !important;
+            transition: opacity 0.2s;
+        }
+
+        .canvas-3d {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .site-wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #888);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            background: none;
+            color: #fff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #fff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        .page-header {
+            padding: 140px 0 30px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 52px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .page-header h1 span {
+            color: #aaa;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+        }
+
+        .page-header p {
+            color: #777;
+            max-width: 700px;
+            margin: 15px auto 0;
+            font-size: 17px;
+        }
+
+        .filter-section {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 25px 0 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 20px;
+            border-radius: 40px;
+            color: #ccc;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+
+        .filter-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: #fff;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .creator-count {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 40px;
+            padding: 5px 16px;
+            font-size: 13px;
+            color: #bbb;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .become-creator-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 7px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .become-creator-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: rgba(15, 15, 15, 0.98);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 30px 35px;
+            max-width: 520px;
+            width: 90%;
+            position: relative;
+            animation: fadeInUp 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #666;
+            border-radius: 4px;
+        }
+
+        .modal-content h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .modal-content p {
+            color: #aaa;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 18px;
+            right: 22px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #aaa;
+            transition: 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #ddd;
+        }
+
+        .form-group label .required {
+            color: #ff4444;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 40px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .creators-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin: 30px 0 50px;
+        }
+
+        .creator-card {
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 18px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: row;
+            gap: 18px;
+            align-items: center;
+            z-index: 15;
+        }
+
+        .creator-card::before,
+        .creator-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .creator-card::before {
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0) 100%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .creator-card::after {
+            background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0) 100%);
+            transform: translateY(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .creator-card:hover::before {
+            transform: translateX(100%);
+            opacity: 1;
+        }
+
+        .creator-card:hover::after {
+            transform: translateY(100%);
+            opacity: 1;
+        }
+
+        .creator-card:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+            background: rgba(25, 25, 25, 0.95);
+        }
+
+        .creator-photo {
+            width: 110px;
+            height: 110px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: all 0.35s ease;
+            border: 2.5px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .creator-card:hover .creator-photo {
+            border-color: rgba(255, 255, 255, 0.7);
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .creator-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .creator-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #fff, #ddd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .creator-description {
+            color: #aaa;
+            font-size: 12px;
+            line-height: 1.4;
+            margin: 6px 0 6px;
+            padding: 0;
+            text-align: left;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .creator-card:hover .creator-description {
+            color: #ddd;
+        }
+
+        .creator-category {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 3px 10px;
+            font-size: 9px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: #bbb;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .creator-card:hover .creator-category {
+            background: rgba(255, 255, 255, 0.18);
+            color: #fff;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: flex-start;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .social-icons a {
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.25s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 13px;
+        }
+
+        .social-icons a:hover {
+            background: #fff;
+            color: #000;
+            transform: translateY(-3px);
+            border-color: #fff;
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+        }
+
+        footer {
+            background: #020202;
+            padding: 40px 0 25px;
+            margin-top: 40px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-bottom {
+            color: #aaa;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading spinner */
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .creators-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .site-wrapper {
+                padding: 0 20px;
+            }
+
+            .page-header {
+                padding: 120px 0 20px;
+            }
+
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .page-header p {
+                font-size: 14px;
+            }
+
+            .creators-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                margin: 25px 0 40px;
+            }
+
+            .creator-card {
+                flex-direction: row;
+                text-align: left;
+                padding: 16px;
+                gap: 14px;
+            }
+
+            .creator-photo {
+                width: 85px;
+                height: 85px;
+            }
+
+            .creator-info {
+                text-align: left;
+            }
+
+            .creator-description {
+                text-align: left;
+                font-size: 11px;
+            }
+
+            .social-icons {
+                justify-content: flex-start;
+            }
+
+            .nav-container {
+                padding: 14px 20px;
+            }
+
+            .modal-content {
+                padding: 25px 20px;
+            }
+
+            .filter-section {
+                gap: 8px;
+                margin: 20px 0 12px;
+            }
+
+            .filter-btn {
+                padding: 5px 14px;
+                font-size: 11px;
+            }
+
+            .stats-container {
+                gap: 12px;
+            }
+
+            .creator-count {
+                font-size: 12px;
+                padding: 4px 14px;
+            }
+
+            .become-creator-btn {
+                padding: 6px 16px;
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
-<body data-spy="scroll" data-target=".site-nav-target" data-offset="200">
 
-    <nav class="unslate_co--site-nav site-nav-target">
+<body>
 
-        <div class="container">
-        
-          <div class="row align-items-center justify-content-between text-left">
-            <div class="col-md-5 text-right">
-              <ul class="site-nav-ul js-clone-nav text-left d-none d-lg-inline-block">
-                <li class="has-children">
-                  <a href="index.html#home-section" class="nav-link">Home</a>
-                  <ul class="dropdown">
-                    <li>
-                      <a href="index.html">Hero Image BG</a>
-                    </li>
-                    <li>
-                      <a href="index-video.html">Video BG</a>
-                    </li>
-                    <li>
-                      <a href="index-hero-slider.html">Hero Slider</a>
-                    </li>
-                    <li>
-                      <a href="index-sidebar-menu.html">Sidebar Menu</a>
-                    </li>
-                    <li>
-                      <a href="index-right-menu.html">Right Menu</a>
-                    </li>
-                  </ul>
-                </li>
-                
-                <li><a href="index.html#about-section" class="nav-link">About</a></li>
-                <li><a href="index.html#services-section" class="nav-link">Services</a></li>
-              </ul>
+    <div class="crystal-container" id="crystalContainer"></div>
+    <canvas class="canvas-3d" id="threeCanvas"></canvas>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">SPECTRIX<span> CREATIONS</span></a>
+            <div class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="index.html#services">SERVICES</a>
+                <a href="index.html#portfolio">WORK</a>
+                <a href="index.html#team">TEAM</a>
+                <a href="index.html#contact">CONTACT</a>
+                <a href="#" style="color:#fff; border-bottom: 1px solid #fff;">CREATORS</a>
             </div>
-            <div class="site-logo pos-absolute">
-              <a href="index.html" class="unslate_co--site-logo">Spectrix<span>.</span></a>
-            </div>
-            <div class="col-md-5 text-right text-lg-left">
-              <ul class="site-nav-ul js-clone-nav text-left d-none d-lg-inline-block">
-                
-                
-                <li><a href="index.html#journal-section" class="nav-link">Coming up</a></li>
-                <li><a href="index.html#contact-section" class="nav-link">Contact</a></li>
-                <li><a href="certificates.html" class="nav-link">Interns</a></li>
-              </ul>
-
-              <ul class="site-nav-ul-none-onepage text-right d-inline-block d-lg-none">
-                <li><a href="#" class="js-menu-toggle">Menu</a></li>
-              </ul>
-
-            </div>
-          </div>
         </div>
+    </nav>
 
-      </nav>
-      <!-- END nav -->
-
-    <br>
-<!-- ✅ Certificate Display Section -->
-<div class="unslate_co--section">
-    <div class="container text-center">
-        <h2 class="heading-h2">Your Certificate</h2>
-
-        <!-- Responsive Certificate Image Preview -->
-        <div style="display: flex; justify-content: center;">
-            <canvas id="certificateCanvas" style="max-width: 100%; height: auto;"></canvas>
-        </div>
-
-        <!-- Download Button -->
-        <div>
-            <a id="downloadLink" class="btn btn-outline-pill btn-custom-light mt-3" href="#" download>Download Certificate</a>
+    <!-- Popup Modal -->
+    <div class="modal" id="creatorModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2>Join as a Creator</h2>
+            <p>Fill out the form below and we'll reach out to you via email!</p>
+            <form id="creatorForm">
+                <div class="form-group">
+                    <label>Full Name <span class="required">*</span></label>
+                    <input type="text" id="fullName" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label>Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number <span class="required">*</span></label>
+                    <input type="tel" id="phone" required placeholder="+91 XXXXX XXXXX">
+                </div>
+                <div class="form-group">
+                    <label>Instagram Profile Link <span class="required">*</span></label>
+                    <input type="url" id="instagram" required placeholder="https://instagram.com/yourhandle">
+                </div>
+                <div class="form-group">
+                    <label>YouTube Channel Link <span class="required">*</span></label>
+                    <input type="url" id="youtube" required placeholder="https://youtube.com/@yourchannel">
+                </div>
+                <div class="form-group">
+                    <label>Tell us about yourself <span class="required">*</span></label>
+                    <textarea id="bio" required
+                        placeholder="Share your content niche, audience size, and why you want to join Spectrix..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Submit Application
+                </button>
+            </form>
         </div>
     </div>
-</div>
 
-<!-- Load PDF.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <div class="site-wrapper">
+        <div class="page-header">
+            <h1>MEET OUR <span>CONTENT CREATORS</span></h1>
+            <p>Certified excellence — each glow reflects a milestone achieved.</p>
 
-<script>
-    // Get the certificate filename from the URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const certificateFile = urlParams.get('cert');
+            <div class="filter-section">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="Beauty & Lifestyle">Beauty & Lifestyle</button>
+                <button class="filter-btn" data-filter="Fitness & Lifestyle">Fitness & Lifestyle</button>
+                <button class="filter-btn" data-filter="True Gaming">True Gaming</button>
+                <button class="filter-btn" data-filter="Gaming & Lifestyle">Gaming & Lifestyle</button>
+                <button class="filter-btn" data-filter="Mythology & Storyteller">Mythology & Storyteller</button>
+            </div>
 
-    if (certificateFile) {
-        const certPath = `certificates/${certificateFile}`;
-        
-        // Set download link
-        document.getElementById('downloadLink').href = certPath;
+            <div class="stats-container">
+                <div class="creator-count" id="creatorCount">🖤 18 Content Creators</div>
+                <button class="become-creator-btn" id="becomeCreatorBtn"><i class="fas fa-pen-fancy"></i> Become a
+                    Creator</button>
+            </div>
+        </div>
 
-        // Load PDF and render as image
-        const canvas = document.getElementById('certificateCanvas');
-        const ctx = canvas.getContext('2d');
+        <div class="creators-grid" id="creatorsGrid"></div>
+    </div>
 
-        pdfjsLib.getDocument(certPath).promise.then(pdf => {
-            return pdf.getPage(1); // Get the first page
-        }).then(page => {
-            const viewport = page.getViewport({ scale: 2 }); // Increased scale for better quality
-            canvas.width = viewport.width;
-            canvas.height = viewport.height;
-
-            // Ensure the image fits within the screen
-            canvas.style.maxWidth = "80%";
-            canvas.style.height = "auto";
-
-            const renderContext = { canvasContext: ctx, viewport: viewport };
-            return page.render(renderContext);
-        }).catch(error => {
-            document.body.innerHTML = "<h2 style='text-align:center; margin-top:20px;'>Certificate not found</h2>";
-        });
-
-    } else {
-        document.body.innerHTML = "<h2 style='text-align:center; margin-top:20px;'>Certificate not found</h2>";
-    }
-</script>
-
-
-    <!-- Footer -->
-    <footer style="background-color: #111; color: #fff; padding: 40px 0; text-align: center;">
-        <div class="container">
-            <div class="row" style="display: flex; justify-content: center;">
-                <div class="col-md-7">
-                    <div class="footer-logo" style="margin-bottom: 20px;">
-                        <a href="#" style="color: #fff; font-size: 24px; font-weight: bold; text-decoration: none;">Spectrix<span>.</span></a>
-                    </div>
-                    <ul class="footer-social-links" style="list-style: none; padding: 0; margin: 20px 0; display: flex; gap: 15px; justify-content: center;">
-                      <li><a href="https://www.linkedin.com/in/spectrix-creations-4a3570302/" target="_blank" rel="noopener" style="color: #fff; font-size: 16px; text-decoration: none;">Linkedin</a></li>
-                      <li><a href="https://x.com/spectrixindia" target="_blank" rel="noopener" style="color: #fff; font-size: 16px; text-decoration: none;">Twitter</a></li>
-                      <li><a href="https://www.instagram.com/spectrix_creations/" target="_blank" rel="noopener" style="color: #fff; font-size: 16px; text-decoration: none;">Instagram</a></li>
-                      
-               
-                    </ul>
-                    <p style="font-size: 14px; color: #bbb;">&copy; <script>document.write(new Date().getFullYear());</script> Spectrix Creations. All rights reserved.</p>
-                </div>
+    <footer>
+        <div class="site-wrapper">
+            <div class="footer-bottom">
+                <p>© 2025 SPECTRIX CREATIONS – Glowing Creator Directory | Innovate. Inspire. Illuminate.</p>
             </div>
         </div>
     </footer>
 
+    <script>
+        // ============================================
+        // EMAILJS CONFIGURATION - REPLACE WITH YOUR IDs
+        // ============================================
+        // Get these from your EmailJS account:
+        // 1. Public Key: From Account → API Keys
+        // 2. Service ID: From Email Services
+        // 3. Template ID: From Email Templates
+
+        const EMAILJS_PUBLIC_KEY = "Nb4m_I_v8Ds9g3cfi";     // Replace with your Public Key
+        const EMAILJS_SERVICE_ID = "service_2uir8cd";     // Replace with your Service ID
+        const EMAILJS_TEMPLATE_ID = "template_ur7ubap";   // Replace with your Template ID
+        const RECIPIENT_EMAIL = "officialspectrix@gmail.com";   // Email where applications will be sent
+
+        // Initialize EmailJS
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+
+        // Creator Data Array
+        const creatorsData = [
+            { name: "Kaina June", category: "Beauty & Lifestyle", description: "Kaina blends honest beauty insights with effortless lifestyle inspiration.", instagram: "https://www.instagram.com/kaina_june_/", youtube: "https://www.youtube.com/@KainaJune-pn4rt", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Kaina_June.png" },
+            { name: "Diksha Joshi", category: "Beauty & Lifestyle", description: "Diksha brings relatable beauty rituals and everyday elegance.", instagram: "https://www.instagram.com/its_dikshajoshi/", youtube: "https://www.youtube.com/@DikshaJoshi-u6p", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Diksha.png" },
+            { name: "Shisham Rai", category: "Fitness & Lifestyle", description: "Shisham turns sweat into strength and discipline into results.", instagram: "https://www.instagram.com/shisham.lifts/", youtube: "https://www.youtube.com/@Shishamraiofficial", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Shisham.png" },
+            { name: "Pankaj Tadiyal", category: "Gaming & Lifestyle", description: "Pankaj brings high-energy gameplay, genuine reactions, and a loyal squad.", instagram: "https://www.instagram.com/dogesh_gamer_yt/", youtube: "https://www.youtube.com/@dogeshgamer", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Pankaj.png" },
+            { name: "Rani Rojalin", category: "Beauty & Lifestyle", description: "Rojalin celebrates real skin, real style, and real moments.", instagram: "https://www.instagram.com/rani_rojalin4/", youtube: "https://www.youtube.com/@SpectrixCreations", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Rani-Rojalin.png" },
+            { name: "Taniya Behera", category: "Beauty & Lifestyle", description: "Taniya blends fresh beauty perspectives with authentic lifestyle moments.", instagram: "https://www.instagram.com/taniya_on_board/", youtube: "https://www.youtube.com/@SpectrixCreations", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Taniya-Behera.png" },
+            { name: "Ishita Shinde", category: "Beauty & Lifestyle", description: "Ishita champions real-girl beauty rituals and soulful living.", instagram: "https://www.instagram.com/ishita.aaaaaaa/", youtube: "https://www.youtube.com/@SpectrixCreations", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Ishita-Shinde.png" },
+            { name: "Saumya Shah", category: "Mythology & Storyteller", description: "Saumya brings ancient tales to life with captivating narration.", instagram: "https://www.instagram.com/almost_saumya/", youtube: "https://www.youtube.com/@SpectrixCreations", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Saumya-Shah.png" },
+            { name: "Bhawana Parihar", category: "Fitness & Lifestyle", description: "Bhawana shares authentic beauty tips and lifestyle inspiration.", instagram: "https://www.instagram.com/flex_with_bhawana/", youtube: "https://www.youtube.com/@bhawana_parihar2229", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Bhawana-Parihar.png" },
+            { name: "Monika Barman", category: "Gaming & Lifestyle", description: "Monika brings elegance and authenticity to every post.", instagram: "https://www.instagram.com/notyour_batman/", youtube: "https://www.youtube.com/@MONikaYT", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Monika-Barman.png" },
+            { name: "Nayan", category: "Fitness & Lifestyle", description: "Nayan shapes sweat into sanctuary and turns daily moves into mindful living.", instagram: "https://www.instagram.com/trainwithnayan", youtube: "https://www.youtube.com/@SpectrixCreations", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Nayan.png" },
+            { name: "Neharika Adullat", category: "Gaming & Lifestyle", description: "Neharika seamlessly switches between boss battles and daily routines.", instagram: "https://www.instagram.com/neharikadullat/", youtube: "https://www.youtube.com/@SpectrixCreations", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Neharika-Adullat.png" },
+            { name: "Priyanka", category: "Fitness & Lifestyle", description: "Priyanka proves that strength and softness coexist.", instagram: "https://www.instagram.com/nickk_liftz/", youtube: "https://www.youtube.com/@SpectrixCreations", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Priyanka.png" },
+            { name: "Tushar", category: "Fitness & Lifestyle", description: "Tushar brings the fire of a workout and the calm of a balanced life.", instagram: "https://www.instagram.com/tushar_liftzzzz/", youtube: "https://www.youtube.com/@SpectrixCreations", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Tushar.png" },
+            { name: "Ritik", category: "Fitness & Lifestyle", description: "Ritik lives the grind and loves the unwind.", instagram: "https://www.instagram.com/burnndbuild/", youtube: "https://www.youtube.com/@SpectrixCreations", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/ritik.png" },
+            { name: "Mili Samantha", category: "Fitness & Lifestyle", description: "Mili turns every workout into a win and every rest day into reset.", instagram: "https://www.instagram.com/milisafitness_/", youtube: "https://www.youtube.com/@Milisamanta001", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/Mili-Samantha.png" },
+            { name: "Keshav", category: "Fitness & Lifestyle", description: "Keshav flows from high-intensity reps to restful routines.", instagram: "https://www.instagram.com/keshavfit19/", youtube: "https://www.youtube.com/@SpectrixCreations", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/keshav.png" },
+            { name: "Sizzu Da Mommy", category: "True Gaming", description: "Sizzu dominates the leaderboard and owns every lobby.", instagram: "https://www.instagram.com/xo.sizzors/", youtube: "https://www.youtube.com/@xosizzors", discord: "https://discord.gg/vxsPyfzMfS", image: "./images/content-creators/SIzzu-Da-Mommy.png" }
+        ];
+
+        // Function to render cards
+        function renderCards(filter = "all") {
+            const grid = document.getElementById('creatorsGrid');
+            grid.innerHTML = '';
+
+            let filteredData = creatorsData;
+            if (filter !== "all") {
+                filteredData = creatorsData.filter(creator => creator.category === filter);
+            }
+
+            document.getElementById('creatorCount').innerHTML = `🖤 ${filteredData.length} Content Creators`;
+
+            filteredData.forEach(creator => {
+                const card = document.createElement('div');
+                card.className = 'creator-card';
+
+                card.innerHTML = `
+                    <div class="creator-photo" style="background-image: url('${creator.image}');"></div>
+                    <div class="creator-info">
+                        <div class="creator-name">${creator.name}</div>
+                        <div class="creator-category">${creator.category}</div>
+                        <div class="creator-description">${creator.description}</div>
+                        <div class="social-icons">
+                            <a href="${creator.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="${creator.youtube}" target="_blank"><i class="fab fa-youtube"></i></a>
+                            <a href="${creator.discord}" target="_blank"><i class="fab fa-discord"></i></a>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Crystal rain effects
+        function createCrystals() {
+            const container = document.getElementById('crystalContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            const crystalCount = 100;
+            for (let i = 0; i < crystalCount; i++) {
+                const crystal = document.createElement('div');
+                crystal.className = 'crystal';
+                if (Math.random() < 0.12) crystal.classList.add('large');
+                else if (Math.random() > 0.85) crystal.classList.add('small');
+                crystal.style.left = Math.random() * 100 + '%';
+                crystal.style.animationDuration = (2.5 + Math.random() * 7) + 's';
+                crystal.style.animationDelay = Math.random() * 18 + 's';
+                container.appendChild(crystal);
+            }
+        }
+
+        function updateCrystalFade() {
+            const cards = document.querySelectorAll('.creator-card');
+            const crystals = document.querySelectorAll('.crystal');
+            if (!cards.length || !crystals.length) return;
+            cards.forEach(card => {
+                const cardRect = card.getBoundingClientRect();
+                crystals.forEach(crystal => {
+                    const crystalRect = crystal.getBoundingClientRect();
+                    if (crystalRect.bottom > cardRect.top && crystalRect.top < cardRect.bottom &&
+                        crystalRect.right > cardRect.left && crystalRect.left < cardRect.right) {
+                        crystal.classList.add('fade-behind');
+                    } else {
+                        crystal.classList.remove('fade-behind');
+                    }
+                });
+            });
+        }
+
+        function create3DBackground() {
+            const canvas = document.getElementById('threeCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+            let particles = [];
+
+            function resizeCanvas() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+                initParticles();
+            }
+
+            function initParticles() {
+                particles = [];
+                const particleCount = Math.min(70, Math.floor(width * height / 18000));
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        radius: Math.random() * 2 + 0.8,
+                        alpha: Math.random() * 0.15 + 0.02,
+                        vx: (Math.random() - 0.5) * 0.15,
+                        vy: (Math.random() - 0.5) * 0.1
+                    });
+                }
+            }
+
+            function animateParticles() {
+                if (!ctx) return;
+                ctx.clearRect(0, 0, width, height);
+                for (let p of particles) {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+                    ctx.fill();
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < -50) p.x = width + 50;
+                    if (p.x > width + 50) p.x = -50;
+                    if (p.y < -50) p.y = height + 50;
+                    if (p.y > height + 50) p.y = -50;
+                }
+                requestAnimationFrame(animateParticles);
+            }
+
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+            animateParticles();
+        }
+
+        // Popup Modal Logic
+        const modal = document.getElementById('creatorModal');
+        const becomeCreatorBtn = document.getElementById('becomeCreatorBtn');
+        const closeModal = document.getElementById('closeModal');
+        const creatorForm = document.getElementById('creatorForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        becomeCreatorBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // EmailJS Form submission
+        creatorForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const instagram = document.getElementById('instagram').value;
+            const youtube = document.getElementById('youtube').value;
+            const bio = document.getElementById('bio').value;
+
+            if (!fullName || !email || !phone || !instagram || !youtube || !bio) {
+                alert('Please fill in all required fields (*)');
+                return;
+            }
+
+            // Show loading state
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="spinner"></span> Sending...';
+            submitBtn.disabled = true;
+
+            try {
+                // Prepare template parameters
+                const templateParams = {
+                    to_email: RECIPIENT_EMAIL,
+                    from_name: fullName,
+                    from_email: email,
+                    phone: phone,
+                    instagram: instagram,
+                    youtube: youtube,
+                    bio: bio,
+                    subject: `New Creator Application from ${fullName}`,
+                    reply_to: email
+                };
+
+                // Send email using EmailJS
+                const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+
+                console.log('Email sent successfully!', response);
+
+                // Reset form and close modal
+                creatorForm.reset();
+                modal.style.display = 'none';
+
+                // Show success message
+                alert('✓ Application submitted successfully! We will contact you soon.');
+
+            } catch (error) {
+                console.error('Email sending failed:', error);
+                alert('❌ Failed to send application. Please try again later.');
+            } finally {
+                // Reset button state
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filterValue = btn.getAttribute('data-filter');
+                renderCards(filterValue);
+                setTimeout(updateCrystalFade, 100);
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(5, 5, 5, 0.95)';
+                nav.style.backdropFilter = 'blur(20px)';
+            } else {
+                nav.style.background = 'rgba(5, 5, 5, 0.85)';
+                nav.style.backdropFilter = 'blur(15px)';
+            }
+            updateCrystalFade();
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createCrystals();
+            create3DBackground();
+            renderCards('all');
+            setInterval(updateCrystalFade, 120);
+        });
+    </script>
 </body>
+
 </html>
