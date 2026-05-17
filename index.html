@@ -20,7 +20,9 @@
       color: #e8e8e8;
       line-height: 1.6;
       overflow-x: hidden;
+      overflow-y: auto;
       cursor: default;
+      height: 100vh;
     }
 
     /* Custom Scrollbar */
@@ -113,334 +115,166 @@
       z-index: 0;
     }
 
-    /* Main Container */
-    .site-wrapper {
+    /* Main Container - but all interactive removed, only visual */
+    .redirect-wrapper {
       position: relative;
       z-index: 10;
       max-width: 1400px;
       margin: 0 auto;
       padding: 0 40px;
-    }
-
-    /* Navigation */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(5, 5, 5, 0.85);
-      backdrop-filter: blur(15px);
-      z-index: 1000;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      transition: all 0.3s ease;
-    }
-
-    .nav-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 20px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .logo {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      background: linear-gradient(135deg, #ffffff, #888888);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-decoration: none;
-      position: relative;
-    }
-
-    .logo::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #fff, #888);
-      transition: width 0.3s ease;
-    }
-
-    .logo:hover::after {
-      width: 100%;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 35px;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a {
-      color: #ccc;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 14px;
-      letter-spacing: 1px;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .nav-links a::before {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: #fff;
-      transition: width 0.3s ease;
-    }
-
-    .nav-links a:hover {
-      color: #fff;
-    }
-
-    .nav-links a:hover::before {
-      width: 100%;
-    }
-
-    /* Hero Section */
-    .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding: 140px 0 100px;
-      position: relative;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
     }
 
-    .hero-content {
+    /* Hero style for redirect message */
+    .redirect-card {
+      background: rgba(5, 5, 5, 0.65);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 32px;
+      padding: 60px 50px;
       max-width: 700px;
+      width: 100%;
+      animation: fadeScaleIn 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.02);
     }
 
-    .hero-badge {
-      display: inline-block;
-      padding: 6px 15px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 30px;
-      font-size: 12px;
-      letter-spacing: 2px;
-      margin-bottom: 30px;
-      opacity: 0;
-      animation: fadeInUp 0.6s ease forwards;
-      animation-delay: 0.2s;
+    @keyframes fadeScaleIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.96) translateY(20px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
     }
 
-    /* Animated Hero Text */
-    .hero h1 {
-      font-size: 72px;
+    .logo-large {
+      font-size: 52px;
       font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 25px;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #ffffff, #aaaaaa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 20px;
     }
 
-    .hero h1 span {
+    .tagline {
+      font-size: 18px;
+      color: #ccc;
+      margin-bottom: 35px;
+      letter-spacing: 1px;
+    }
+
+    .redirect-message {
+      font-size: 20px;
+      margin-bottom: 30px;
+      color: #ddd;
+    }
+
+    .countdown-box {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 12px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px 28px;
+      border-radius: 60px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin-bottom: 40px;
+      backdrop-filter: blur(4px);
+    }
+
+    .countdown-number {
+      font-size: 48px;
+      font-weight: 800;
       background: linear-gradient(135deg, #fff, #aaa);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      line-height: 1;
     }
 
-    .hero-line {
-      display: block;
-      overflow: hidden;
-      margin: 0;
-      line-height: 1.2;
+    .countdown-text {
+      font-size: 20px;
+      font-weight: 500;
+      color: #bbb;
+      letter-spacing: 1px;
     }
 
-    .hero-line .word {
+    .redirect-btn {
       display: inline-block;
-      animation: textGlowIn 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
-      opacity: 0;
-      transform: translateY(40px);
-    }
-
-    .hero-line .period {
-      display: inline-block;
-      animation: textGlowIn 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
-      opacity: 0;
-      transform: translateY(40px);
-    }
-
-    .hero-line:nth-child(1) .word {
-      animation-delay: 0.3s;
-    }
-
-    .hero-line:nth-child(1) .period {
-      animation-delay: 0.45s;
-    }
-
-    .hero-line:nth-child(2) .word {
-      animation-delay: 0.6s;
-    }
-
-    .hero-line:nth-child(2) .period {
-      animation-delay: 0.75s;
-    }
-
-    .hero-line:nth-child(3) .word {
-      animation-delay: 0.9s;
-    }
-
-    .hero-line:nth-child(3) .period {
-      animation-delay: 1.05s;
-    }
-
-    @keyframes textGlowIn {
-      0% {
-        opacity: 0;
-        transform: translateY(40px);
-        text-shadow: 0 0 0 rgba(255, 255, 255, 0);
-      }
-
-      50% {
-        opacity: 0.6;
-        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-      }
-    }
-
-    .hero-line .word::after {
-      content: '';
-      display: inline-block;
-      width: 0;
-      height: 100%;
-      margin-left: 2px;
-      border-right: 2px solid rgba(255, 255, 255, 0.8);
-      animation: blinkCursor 0.8s step-end infinite;
-      opacity: 0;
-    }
-
-    .hero-line:nth-child(1) .word::after {
-      animation-delay: 0.45s;
-      animation-duration: 0.5s;
-    }
-
-    .hero-line:nth-child(2) .word::after {
-      animation-delay: 0.75s;
-      animation-duration: 0.5s;
-    }
-
-    .hero-line:nth-child(3) .word::after {
-      animation-delay: 1.05s;
-      animation-duration: 0.5s;
-    }
-
-    @keyframes blinkCursor {
-
-      0%,
-      100% {
-        border-color: transparent;
-      }
-
-      50% {
-        border-color: rgba(255, 255, 255, 0.8);
-      }
-    }
-
-    .hero p {
-      font-size: 18px;
-      color: #aaa;
-      margin-bottom: 40px;
-      line-height: 1.8;
-      opacity: 0;
-      animation: fadeInUp 0.6s ease forwards;
-      animation-delay: 1.2s;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeInUp 0.6s ease forwards;
-      animation-delay: 1.4s;
-    }
-
-    @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .btn-primary {
-      display: inline-block;
-      padding: 14px 35px;
+      padding: 14px 38px;
       background: #fff;
       color: #050505;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 1px;
+      border-radius: 40px;
       transition: all 0.3s ease;
+      font-size: 16px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
       border: none;
       cursor: pointer;
     }
 
-    .btn-primary:hover {
+    .redirect-btn:hover {
       background: #ddd;
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(255, 255, 255, 0.15);
     }
 
-    .btn-outline {
+    .note {
+      margin-top: 35px;
+      font-size: 13px;
+      color: #888;
+    }
+
+    .spark-icon {
       display: inline-block;
-      padding: 14px 35px;
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      letter-spacing: 1px;
-      transition: all 0.3s ease;
-      cursor: pointer;
+      margin: 0 8px;
+      animation: pulseGlow 1.8s infinite;
     }
 
-    .btn-outline:hover {
-      border-color: #fff;
-      background: rgba(255, 255, 255, 0.05);
-      transform: translateY(-2px);
+    @keyframes pulseGlow {
+      0% {
+        opacity: 0.5;
+        text-shadow: 0 0 0px #fff;
+      }
+
+      100% {
+        opacity: 1;
+        text-shadow: 0 0 6px #fff;
+      }
     }
 
-    /* 3D Rotating Elements */
-    .floating-3d {
+    /* Floating elements (same 3D style but decorative) */
+    .deco-shapes {
       position: absolute;
-      right: 5%;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 300px;
-      height: 300px;
-      perspective: 1000px;
-    }
-
-    .rotating-cube {
       width: 100%;
       height: 100%;
-      position: relative;
-      transform-style: preserve-3d;
-      animation: rotateCube 20s infinite linear;
+      pointer-events: none;
+      z-index: 5;
     }
 
-    @keyframes rotateCube {
+    .rotating-mini-cube {
+      position: absolute;
+      bottom: 12%;
+      left: 5%;
+      width: 80px;
+      height: 80px;
+      transform-style: preserve-3d;
+      animation: rotateCubeSlow 18s infinite linear;
+      opacity: 0.4;
+    }
+
+    @keyframes rotateCubeSlow {
       0% {
         transform: rotateX(0deg) rotateY(0deg);
       }
@@ -450,667 +284,62 @@
       }
     }
 
-    .cube-face {
+    .mini-face {
       position: absolute;
-      width: 120px;
-      height: 120px;
-      background: rgba(15, 15, 15, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(5px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.03);
-    }
-
-    .face-front {
-      transform: translateZ(60px);
-    }
-
-    .face-back {
-      transform: rotateY(180deg) translateZ(60px);
-    }
-
-    .face-right {
-      transform: rotateY(90deg) translateZ(60px);
-    }
-
-    .face-left {
-      transform: rotateY(-90deg) translateZ(60px);
-    }
-
-    .face-top {
-      transform: rotateX(90deg) translateZ(60px);
-    }
-
-    .face-bottom {
-      transform: rotateX(-90deg) translateZ(60px);
-    }
-
-    /* Section Styles */
-    .section {
-      padding: 120px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.03);
-    }
-
-    .section-title {
-      font-size: 42px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      letter-spacing: 1px;
-    }
-
-    .section-title span {
-      color: #555;
-    }
-
-    .section-subtitle {
-      color: #777;
-      max-width: 700px;
-      margin-bottom: 60px;
-      font-size: 18px;
-    }
-
-    /* ===== SERVICE CARDS ===== */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 30px;
-    }
-
-    .service-card {
-      background: rgba(8, 8, 8, 0.7);
-      backdrop-filter: blur(10px);
-      padding: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-
-    .service-card::before,
-    .service-card::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      opacity: 0;
-    }
-
-    .service-card::before {
-      background: linear-gradient(90deg,
-          transparent 0%,
-          rgba(255, 255, 255, 0) 0%,
-          rgba(255, 255, 255, 0.8) 50%,
-          rgba(255, 255, 255, 0) 100%);
-      transform: translateX(-100%);
-      transition: transform 0.6s ease;
-    }
-
-    .service-card::after {
-      background: linear-gradient(180deg,
-          transparent 0%,
-          rgba(255, 255, 255, 0) 0%,
-          rgba(255, 255, 255, 0.8) 50%,
-          rgba(255, 255, 255, 0) 100%);
-      transform: translateY(-100%);
-      transition: transform 0.6s ease;
-    }
-
-    .service-card:hover::before {
-      transform: translateX(100%);
-      opacity: 1;
-    }
-
-    .service-card:hover::after {
-      transform: translateY(100%);
-      opacity: 1;
-    }
-
-    .service-card:hover {
-      border-color: rgba(255, 255, 255, 0.6);
-      box-shadow: 0 0 40px rgba(255, 255, 255, 0.3), 0 20px 40px rgba(0, 0, 0, 0.5);
-      transform: translateY(-10px);
-    }
-
-    .service-icon {
-      font-size: 48px;
-      margin-bottom: 25px;
-      color: #fff;
-      transition: transform 0.3s ease;
-      display: inline-block;
-    }
-
-    /* Center zoom animation instead of moving right */
-    .service-card:hover .service-icon {
-      transform: scale(1.15);
-    }
-
-    .service-card h3 {
-      font-size: 24px;
-      margin-bottom: 15px;
-      font-weight: 600;
-    }
-
-    .service-card p {
-      color: #999;
-      line-height: 1.7;
-    }
-
-    /* ===== STATS SECTION ===== */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 40px;
-      text-align: center;
-    }
-
-    .stat-item {
-      padding: 40px;
-      background: rgba(8, 8, 8, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      transition: all 0.3s ease;
-    }
-
-    .stat-item:hover {
-      border-color: rgba(255, 255, 255, 0.6);
-      transform: scale(1.02);
-      box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
-    }
-
-    .stat-number {
-      font-size: 52px;
-      font-weight: 800;
-      margin-bottom: 10px;
-      background: linear-gradient(135deg, #fff, #aaa);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    /* ===== PORTFOLIO CARDS ===== */
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 30px;
-    }
-
-    .portfolio-item {
-      background: rgba(8, 8, 8, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-    }
-
-    .portfolio-item::before,
-    .portfolio-item::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      opacity: 0;
-      z-index: 1;
-    }
-
-    .portfolio-item::before {
-      background: linear-gradient(90deg,
-          transparent 0%,
-          rgba(255, 255, 255, 0) 0%,
-          rgba(255, 255, 255, 0.7) 50%,
-          rgba(255, 255, 255, 0) 100%);
-      transform: translateX(-100%);
-      transition: transform 0.6s ease;
-    }
-
-    .portfolio-item::after {
-      background: linear-gradient(180deg,
-          transparent 0%,
-          rgba(255, 255, 255, 0) 0%,
-          rgba(255, 255, 255, 0.7) 50%,
-          rgba(255, 255, 255, 0) 100%);
-      transform: translateY(-100%);
-      transition: transform 0.6s ease;
-    }
-
-    .portfolio-item:hover::before {
-      transform: translateX(100%);
-      opacity: 1;
-    }
-
-    .portfolio-item:hover::after {
-      transform: translateY(100%);
-      opacity: 1;
-    }
-
-    .portfolio-item:hover {
-      border-color: rgba(255, 255, 255, 0.6);
-      transform: translateY(-8px);
-      box-shadow: 0 0 40px rgba(255, 255, 255, 0.25);
-    }
-
-    .portfolio-img {
-      height: 220px;
-      background: linear-gradient(135deg, #111111, #050505);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 60px;
-      color: #444;
-      transition: transform 0.3s ease;
-    }
-
-    .portfolio-item:hover .portfolio-img {
-      transform: scale(1.02);
-    }
-
-    .portfolio-content {
-      padding: 30px;
-    }
-
-    .portfolio-tag {
-      display: inline-block;
-      padding: 5px 12px;
-      background: rgba(255, 255, 255, 0.05);
-      font-size: 12px;
-      border-radius: 20px;
-      color: #aaa;
-      transition: all 0.3s ease;
-    }
-
-    .portfolio-item:hover .portfolio-tag {
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
-    }
-
-    /* ===== TEAM CARDS ===== */
-    .team-grid {
-      gap: 30px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .team-card {
-      background: rgba(8, 8, 8, 0.7);
-      padding: 30px;
-      text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
-      width: 25%;
-    }
-
-    .team-card::before,
-    .team-card::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      opacity: 0;
-    }
-
-    .team-card::before {
-      background: linear-gradient(90deg,
-          transparent 0%,
-          rgba(255, 255, 255, 0) 0%,
-          rgba(255, 255, 255, 0.7) 50%,
-          rgba(255, 255, 255, 0) 100%);
-      transform: translateX(-100%);
-      transition: transform 0.6s ease;
-    }
-
-    .team-card::after {
-      background: linear-gradient(180deg,
-          transparent 0%,
-          rgba(255, 255, 255, 0) 0%,
-          rgba(255, 255, 255, 0.7) 50%,
-          rgba(255, 255, 255, 0) 100%);
-      transform: translateY(-100%);
-      transition: transform 0.6s ease;
-    }
-
-    .team-card:hover::before {
-      transform: translateX(100%);
-      opacity: 1;
-    }
-
-    .team-card:hover::after {
-      transform: translateY(100%);
-      opacity: 1;
-    }
-
-    .team-card:hover {
-      border-color: rgba(255, 255, 255, 0.6);
-      transform: translateY(-8px);
-      box-shadow: 0 0 40px rgba(255, 255, 255, 0.25);
-    }
-
-    .team-avatar {
-      width: 120px;
-      height: 120px;
-      background: linear-gradient(135deg, #111111, #050505);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-      font-size: 48px;
-      color: #555;
-      transition: all 0.3s ease;
-    }
-
-    .team-card:hover .team-avatar {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
-    }
-
-    .team-social-icons {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .team-social-icons a {
-      width: 36px;
-      height: 36px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ddd;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .team-social-icons a:hover {
-      background: #fff;
-      color: #000;
-      transform: translateY(-3px);
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
-    }
-
-    /* ===== CONTACT SECTION ===== */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-    }
-
-    .contact-form input,
-    .contact-form textarea,
-    .contact-form select {
-      width: 100%;
-      padding: 16px;
-      background: rgba(8, 8, 8, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #fff;
-      font-size: 14px;
-      margin-bottom: 20px;
-      transition: all 0.3s ease;
-    }
-
-    .contact-form input:focus,
-    .contact-form textarea:focus,
-    .contact-form select:focus {
-      outline: none;
-      border-color: rgba(255, 255, 255, 0.5);
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-    }
-
-    .contact-info {
-      background: rgba(8, 8, 8, 0.7);
-      padding: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      transition: all 0.3s ease;
-    }
-
-    .contact-info:hover {
-      border-color: rgba(255, 255, 255, 0.3);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-    }
-
-    .contact-info p {
-      margin-bottom: 20px;
-      color: #aaa;
-    }
-
-    .contact-info i {
-      width: 30px;
-      color: #fff;
-    }
-
-    .contact-social-links {
-      display: flex;
-      gap: 20px;
-      margin-top: 30px;
-    }
-
-    .contact-social-link {
-      width: 45px;
-      height: 45px;
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ddd;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .contact-social-link:hover {
-      background: rgba(255, 255, 255, 0.9);
-      color: #000000;
-      transform: translateY(-5px);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-      border-color: rgba(255, 255, 255, 0.8);
-    }
-
-    /* Custom X Logo SVG */
-    .x-logo {
-      width: 20px;
-      height: 20px;
-      display: inline-block;
-      vertical-align: middle;
-    }
-
-    .x-logo svg {
-      width: 100%;
-      height: 100%;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .contact-social-link .x-logo svg,
-    .social-links .x-logo svg {
-      stroke: currentColor;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      background: #020202;
-      padding: 70px 0 30px;
-      border-top: 1px solid rgba(255, 255, 255, 0.02);
-      margin-top: 80px;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 50px;
-      margin-bottom: 50px;
-    }
-
-    .footer-col h4 {
-      font-size: 18px;
-      margin-bottom: 25px;
-      letter-spacing: 1px;
-      color: #fff;
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    }
-
-    .footer-col a {
-      color: #ccc;
-      text-decoration: none;
-      display: block;
-      margin-bottom: 12px;
-      font-size: 14px;
-      transition: all 0.3s ease;
-      text-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
-    }
-
-    .footer-col a:hover {
-      color: #fff;
-      transform: translateX(5px);
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
-    }
-
-    .footer-col p {
-      color: #ccc;
-      text-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
-    }
-
-    .social-links {
-      display: flex;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .social-links a {
       width: 40px;
       height: 40px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 50%;
+      background: rgba(20, 20, 30, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(4px);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #ccc;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 20px;
     }
 
-    .social-links a:hover {
-      background: #fff;
-      color: #050505;
-      transform: translateY(-3px);
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    .m-f1 {
+      transform: translateZ(20px);
     }
 
-    .footer-bottom {
-      text-align: center;
-      padding-top: 30px;
-      border-top: 1px solid rgba(255, 255, 255, 0.02);
-      color: #aaa;
-      font-size: 12px;
-      text-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+    .m-f2 {
+      transform: rotateY(180deg) translateZ(20px);
     }
 
-    /* Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(50px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .m-f3 {
+      transform: rotateY(90deg) translateZ(20px);
     }
 
-    .service-card,
-    .portfolio-item,
-    .team-card,
-    .stat-item {
-      animation: fadeInUp 0.6s ease forwards;
-      opacity: 0;
+    .m-f4 {
+      transform: rotateY(-90deg) translateZ(20px);
     }
 
-    .service-card:nth-child(1) {
-      animation-delay: 0.1s;
+    .m-f5 {
+      transform: rotateX(90deg) translateZ(20px);
     }
 
-    .service-card:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .service-card:nth-child(3) {
-      animation-delay: 0.3s;
-    }
-
-    .service-card:nth-child(4) {
-      animation-delay: 0.4s;
-    }
-
-    .service-card:nth-child(5) {
-      animation-delay: 0.5s;
-    }
-
-    /* Responsive */
-    @media (max-width: 1200px) {
-
-      .stats-grid,
-      .team-grid,
-      .footer-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .floating-3d {
-        display: none;
-      }
-    }
-
-    @media (max-width: 992px) {
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
+    .m-f6 {
+      transform: rotateX(-90deg) translateZ(20px);
     }
 
     @media (max-width: 768px) {
-      .site-wrapper {
+      .redirect-wrapper {
         padding: 0 20px;
       }
 
-      .nav-container {
-        flex-direction: column;
-        text-align: center;
+      .redirect-card {
+        padding: 40px 25px;
       }
 
-      .hero h1 {
-        font-size: 48px;
+      .logo-large {
+        font-size: 36px;
       }
 
-      .stats-grid,
-      .team-grid,
-      .footer-grid,
-      .portfolio-grid {
-        grid-template-columns: 1fr;
+      .countdown-number {
+        font-size: 36px;
       }
 
-      .section-title {
-        font-size: 32px;
+      .rotating-mini-cube {
+        display: none;
       }
     }
   </style>
@@ -1118,364 +347,52 @@
 
 <body>
 
-  <!-- Glowing Crystals Reverse Rain -->
+  <!-- Glowing Crystals Reverse Rain (same immersive effect) -->
   <div class="crystal-container" id="crystalContainer"></div>
 
-  <!-- 3D Background Canvas -->
+  <!-- 3D Background Canvas (same particle system) -->
   <canvas class="canvas-3d" id="threeCanvas"></canvas>
 
-  <!-- Navigation -->
-  <nav>
-    <div class="nav-container">
-      <a href="#" class="logo">SPECTRIX<span style="background: none; color: #fff;">CREATIONS</span></a>
-      <img style="height: 50px;" src="images/favicon2.png" alt="">
-      <div class="nav-links">
-        <a href="#home">HOME</a>
-        <a href="#services">SERVICES</a>
-        <a href="#portfolio">WORK</a>
-        <a href="#team">TEAM</a>
-        <a href="#contact">CONTACT</a>
+  <!-- Decorative 3D element (crystal cube vibe) -->
+  <div class="deco-shapes">
+    <div class="rotating-mini-cube">
+      <div class="mini-face m-f1"><i class="fas fa-code"></i></div>
+      <div class="mini-face m-f2"><i class="fas fa-gamepad"></i></div>
+      <div class="mini-face m-f3"><i class="fas fa-mobile-alt"></i></div>
+      <div class="mini-face m-f4"><i class="fas fa-film"></i></div>
+      <div class="mini-face m-f5"><i class="fas fa-globe"></i></div>
+      <div class="mini-face m-f6"><i class="fas fa-crown"></i></div>
+    </div>
+  </div>
+
+  <!-- Main Content: Beautiful Redirect Interface with countdown and manual option -->
+  <div class="redirect-wrapper">
+    <div class="redirect-card">
+      <div class="logo-large">SPECTRIX CREATIONS</div>
+      <div class="tagline">✦ Dev & Content Studio ✦</div>
+      <div class="redirect-message">
+        <i class="fas fa-arrow-right spark-icon"></i> Experience our full universe
+        <i class="fas fa-star spark-icon"></i>
+      </div>
+      <div class="countdown-box">
+        <span class="countdown-number" id="countdownDisplay">5</span>
+        <span class="countdown-text">redirecting to official site</span>
+      </div>
+      <a href="https://www.spectrixcreations.com/" class="redirect-btn" id="manualRedirectBtn">
+        <i class="fas fa-external-link-alt"></i> ENTER SPECTRIX →
+      </a>
+      <div class="note">
+        <i class="fas fa-crystal"></i> You will be automatically redirected in a moment
       </div>
     </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section id="home" class="hero">
-    <div class="site-wrapper" style="width: 100%;">
-      <div class="hero-content">
-        <div class="hero-badge">✦ PREMIUM DIGITAL STUDIO ✦</div>
-        <h1>
-          <span class="hero-line"><span class="word">CREATE</span><span class="period">.</span></span>
-          <span class="hero-line"><span class="word">INNOVATE</span><span class="period">.</span></span>
-          <span class="hero-line"><span class="word">DOMINATE</span><span class="period">.</span></span>
-        </h1>
-        <p>Spectrix Creations is a full-service digital studio specializing in app development, web development,
-          game development, and content creation. We bring your visions to life with cutting-edge technology
-          and creative excellence.</p>
-        <div class="hero-buttons">
-          <a href="#contact" class="btn-primary">START A PROJECT</a>
-          <a href="#services" class="btn-outline">EXPLORE SERVICES</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3D Floating Cube -->
-    <div class="floating-3d">
-      <div class="rotating-cube">
-        <div class="cube-face face-front"><i class="fas fa-code"></i></div>
-        <div class="cube-face face-back"><i class="fas fa-gamepad"></i></div>
-        <div class="cube-face face-right"><i class="fas fa-mobile-alt"></i></div>
-        <div class="cube-face face-left"><i class="fas fa-video"></i></div>
-        <div class="cube-face face-top"><i class="fas fa-globe"></i></div>
-        <div class="cube-face face-bottom"><i class="fas fa-crown"></i></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services Section - What We Create -->
-  <section id="services" class="section">
-    <div class="site-wrapper">
-      <h2 class="section-title">WHAT WE <span>CREATE</span></h2>
-      <p class="section-subtitle">Comprehensive digital solutions tailored to your needs</p>
-
-      <div class="services-grid">
-        <!-- App Development -->
-
-
-        <!-- Web Development -->
-        <a href="web-dev.html" class="service-card">
-          <div class="service-icon"><i class="fas fa-code"></i></div>
-          <h3>Web Development</h3>
-          <p>Custom websites, web applications, and e-commerce platforms. Modern, responsive, and scalable
-            solutions for businesses of all sizes.</p>
-        </a>
-
-
-        <!-- Content Creation -->
-        <a href="content-creation.html" class="service-card">
-          <div class="service-icon"><i class="fas fa-film"></i></div>
-          <h3>Content Creation</h3>
-          <p>Video production, animation, social media content, and creator management. Engaging content that
-            tells your brand's story.</p>
-        </a>
-
-        <!-- Interns (New) -->
-        <a href="certificates.html" class="service-card">
-          <div class="service-icon"><i class="fas fa-graduation-cap"></i></div>
-          <h3>Interns</h3>
-          <p>Kickstart your career with our paid internship program. Learn from industry experts and work on
-            real-world projects in app, web, game development, and content creation.</p>
-        </a>
-        <a class="service-card">
-          <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
-          <h3>App Development</h3>
-          <p>Comming Soon</p>
-        </a>
-        <!-- Game Development -->
-        <a class="service-card">
-          <div class="service-icon"><i class="fas fa-gamepad"></i></div>
-          <h3>Game Development</h3>
-          <p>Comming Soon</p>
-        </a>
-        <a class="service-card">
-          <div class="service-icon"><i class="fas fa-trophy"></i></div>
-          <h3>E-Sports</h3>
-          <p>Coming Soon</p>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Stats Section -->
-  <section class="section">
-    <div class="site-wrapper">
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-number">50+</div>
-          <div class="stat-label">PROJECTS DELIVERED</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">25+</div>
-          <div class="stat-label">HAPPY CLIENTS</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">15+</div>
-          <div class="stat-label">CREATORS</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">10M+</div>
-          <div class="stat-label">REACH</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Portfolio Section -->
-  <section id="portfolio" class="section">
-    <div class="site-wrapper">
-      <h2 class="section-title">FEATURED <span>WORK</span></h2>
-      <p class="section-subtitle">Showcasing our best projects across all disciplines</p>
-
-      <div class="portfolio-grid">
-        <div class="portfolio-item" href="temp.html">
-          <div class="portfolio-img"><i class="fas fa-gamepad"></i></div>
-          <div class="portfolio-content">
-            <h3>Galaxy Quest VR</h3>
-            <p>Immersive VR gaming experience built with Unreal Engine. Won "Best Indie Game" at IGDC 2024.
-            </p>
-            <span class="portfolio-tag">Game Development</span>
-          </div>
-        </div>
-        <div class="portfolio-item" href="temp.html">
-          <div class="portfolio-img"><i class="fas fa-mobile-alt"></i></div>
-          <div class="portfolio-content">
-            <h3>FitTrack Pro</h3>
-            <p>AI-powered fitness tracking app with 500K+ downloads. Featured on Google Play's "Best of
-              2024".</p>
-            <span class="portfolio-tag">App Development</span>
-          </div>
-        </div>
-        <div class="portfolio-item" href="temp.html">
-          <div class="portfolio-img"><i class="fas fa-code"></i></div>
-          <div class="portfolio-content">
-            <h3>EcoMart</h3>
-            <p>Sustainable e-commerce platform with 1000+ daily active users. Built with React and Node.js.
-            </p>
-            <span class="portfolio-tag">Web Development</span>
-          </div>
-        </div>
-        <div class="portfolio-item" href="temp.html">
-          <div class="portfolio-img"><i class="fas fa-video"></i></div>
-          <div class="portfolio-content">
-            <h3>Creator Collab Series</h3>
-            <p>Content campaign featuring 15 top creators. Generated 5M+ views across platforms.</p>
-            <span class="portfolio-tag">Content Creation</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Team Section -->
-  <section id="team" class="section">
-    <div class="site-wrapper">
-      <h2 class="section-title">LEADERSHIP <span>TEAM</span></h2>
-      <p class="section-subtitle">The visionaries behind Spectrix Creations</p>
-
-      <div class="team-grid">
-        <div class="team-card">
-          <div class="team-avatar"><i class="fas fa-crown"></i></div>
-          <h3>Suryakanta Sahoo</h3>
-          <div class="position">Founder & CEO</div>
-          <p>Visionary leader with 6+ years in content creation and tech industry. Building India's premier
-            digital studio.</p>
-          <div class="team-social-icons">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-        <div class="team-card">
-          <div class="team-avatar"><i class="fas fa-microchip"></i></div>
-          <h3>Marvel john</h3>
-          <div class="position">Chief Technical Officer (CTO)</div>
-          <p>Full-stack architect with expertise in AI/ML and cloud infrastructure. with more than 6 years experience
-          </p>
-          <div class="team-social-icons">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-        <!-- <div class="team-card">
-          <div class="team-avatar"><i class="fas fa-paintbrush"></i></div>
-          <h3>Meera Kapoor</h3>
-          <div class="position">Creative Director</div>
-          <p>Award-winning designer and animator. 8+ years in visual storytelling and brand design.</p>
-          <div class="team-social-icons">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-        <div class="team-card">
-          <div class="team-avatar"><i class="fas fa-chart-line"></i></div>
-          <h3>Rohan Desai</h3>
-          <div class="position">Strategy & Growth</div>
-          <p>Growth specialist who scaled 3 startups to 7-figure revenues. Expert in digital marketing.</p>
-          <div class="team-social-icons">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div> -->
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="section">
-    <div class="site-wrapper">
-      <h2 class="section-title">LET'S <span>CONNECT</span></h2>
-      <p class="section-subtitle">Ready to bring your vision to life? Let's talk.</p>
-
-      <div class="contact-grid">
-        <form class="contact-form"
-          onsubmit="event.preventDefault(); alert('Thank you! We will contact you within 24 hours.');">
-          <input type="text" placeholder="Your Name" required>
-          <input type="email" placeholder="Email Address" required>
-          <input type="tel" placeholder="Phone Number">
-          <select>
-            <option>Select Service</option>
-            <option>App Development</option>
-            <option>Web Development</option>
-            <option>Game Development</option>
-            <option>Content Creation</option>
-            <option>Internship</option>
-            <option>Other</option>
-          </select>
-          <textarea rows="5" placeholder="Tell us about your project..." required></textarea>
-          <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">SEND
-            MESSAGE</button>
-        </form>
-
-        <div class="contact-info">
-          <h3 style="margin-bottom: 25px;">Contact Information</h3>
-          <p><i class="fas fa-envelope"></i> officialspectrix@gmail.com</p>
-          <p><i class="fas fa-phone"></i> +91 7656898298/+91 7840992258</p>
-          <p><i class="fas fa-map-marker-alt"></i> Hyderabad, India</p>
-          <p><i class="fas fa-globe"></i> spectrix-creations.vercel.app</p>
-
-          <div class="contact-social-links">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <!-- Custom X Logo -->
-            <!-- <a href="#" class="contact-social-link x-logo-wrapper">
-              <span class="x-logo">
-                <svg viewBox="-6 -7 12 20" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M -5.56 -6.01 L -3.98 -2.33 L -2.4 1.35 L -0.82 5.03 L 0.76 8.71 L 2.34 11.49"
-                    stroke="currentColor" fill="none" stroke-width="1.2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                  <path d="M -5.56 -6.01 L -2.96 -3.37 L -0.36 -0.73 L 2.24 1.91 L 4.84 4.55 L 4.86 4.57"
-                    stroke="currentColor" fill="none" stroke-width="1.2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                  <path d="M -4.65 7.02 L -2.53 3.63 L -0.41 0.25 L 1.71 -3.14 L 3.23 -5.67" stroke="currentColor"
-                    fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M 0.76 8.71 L 2.74 5.24 L 4.72 1.77 L 4.86 -0.05" stroke="currentColor" fill="none"
-                    stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M 3.23 -5.67 L 4.81 -5.99" stroke="currentColor" fill="none" stroke-width="1.2"
-                    stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </span>
-            </a> -->
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <!-- <a href="#"><i class="fab fa-github"></i></a> -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="site-wrapper">
-      <div class="footer-grid">
-        <div class="footer-col">
-          <h4>SPECTRIX CREATIONS</h4>
-          <p style="color: #ddd;">Premium digital studio specializing in app, web, game development, and
-            content creation. Built on innovation and creativity.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Quick Links</h4>
-          <a href="#home">Home</a>
-          <a href="#services">Services</a>
-          <a href="#portfolio">Portfolio</a>
-          <a href="#team">Team</a>
-          <a href="#contact">Contact</a>
-        </div>
-        <div class="footer-col">
-          <h4>Services</h4>
-          <a href="#">App Development</a>
-          <a href="#">Web Development</a>
-          <a href="#">Game Development</a>
-          <a href="#">Content Creation</a>
-          <a href="#">Internships</a>
-        </div>
-        <div class="footer-col">
-          <h4>Connect</h4>
-          <div class="social-links">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <!-- Custom X Logo in Footer -->
-            <!-- <a href="#" class="x-logo-wrapper">
-              <span class="x-logo">
-                <svg viewBox="-6 -7 12 20" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M -5.56 -6.01 L -3.98 -2.33 L -2.4 1.35 L -0.82 5.03 L 0.76 8.71 L 2.34 11.49"
-                    stroke="currentColor" fill="none" stroke-width="1.2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                  <path d="M -5.56 -6.01 L -2.96 -3.37 L -0.36 -0.73 L 2.24 1.91 L 4.84 4.55 L 4.86 4.57"
-                    stroke="currentColor" fill="none" stroke-width="1.2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                  <path d="M -4.65 7.02 L -2.53 3.63 L -0.41 0.25 L 1.71 -3.14 L 3.23 -5.67" stroke="currentColor"
-                    fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M 0.76 8.71 L 2.74 5.24 L 4.72 1.77 L 4.86 -0.05" stroke="currentColor" fill="none"
-                    stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M 3.23 -5.67 L 4.81 -5.99" stroke="currentColor" fill="none" stroke-width="1.2"
-                    stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </span>
-            </a> -->
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 SPECTRIX CREATIONS PRIVATE LIMITED. All rights reserved.</p>
-        <p style="margin-top: 10px;">App Dev | Web Dev | Game Dev | Content Creation | Internships</p>
-      </div>
-    </div>
-  </footer>
+  </div>
 
   <script>
+    // ======================== CRYSTAL RAIN (same engine) ========================
     function createCrystals() {
       const container = document.getElementById('crystalContainer');
-      const crystalCount = 100;
+      if (!container) return;
+      const crystalCount = 120;
 
       for (let i = 0; i < crystalCount; i++) {
         const crystal = document.createElement('div');
@@ -1486,18 +403,18 @@
         else if (sizeType > 0.85) crystal.classList.add('small');
 
         crystal.style.left = Math.random() * 100 + '%';
-        crystal.style.animationDuration = (3 + Math.random() * 6) + 's';
+        crystal.style.animationDuration = (3 + Math.random() * 7) + 's';
         crystal.style.animationDelay = Math.random() * 20 + 's';
-        crystal.style.opacity = 0.3 + Math.random() * 0.5;
+        crystal.style.opacity = 0.3 + Math.random() * 0.6;
 
         container.appendChild(crystal);
       }
     }
 
     function updateCrystalFade() {
-      const boxes = document.querySelectorAll('.service-card, .portfolio-item, .team-card, .stat-item, .contact-info, .contact-form');
+      const boxes = document.querySelectorAll('.redirect-card, .countdown-box, .redirect-btn');
       const crystals = document.querySelectorAll('.crystal');
-
+      if (!crystals.length) return;
       boxes.forEach(box => {
         const boxRect = box.getBoundingClientRect();
         crystals.forEach(crystal => {
@@ -1512,8 +429,10 @@
       });
     }
 
+    // 3D Background Particles (identical to original but lightweight)
     function create3DBackground() {
       const canvas = document.getElementById('threeCanvas');
+      if (!canvas) return;
       const ctx = canvas.getContext('2d');
 
       function resizeCanvas() {
@@ -1524,24 +443,25 @@
       window.addEventListener('resize', resizeCanvas);
 
       let particles = [];
-      for (let i = 0; i < 50; i++) {
+      for (let i = 0; i < 70; i++) {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          radius: Math.random() * 1.5 + 0.5,
-          alpha: Math.random() * 0.15 + 0.02,
-          vx: (Math.random() - 0.5) * 0.15,
-          vy: (Math.random() - 0.5) * 0.15,
-          glow: Math.random() * 0.3 + 0.1
+          radius: Math.random() * 2 + 0.6,
+          alpha: Math.random() * 0.2 + 0.02,
+          vx: (Math.random() - 0.5) * 0.2,
+          vy: (Math.random() - 0.5) * 0.2,
+          glow: Math.random() * 0.4 + 0.1
         });
       }
 
       function animate() {
+        if (!ctx) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         for (let p of particles) {
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.shadowBlur = 4;
+          ctx.shadowBlur = 5;
           ctx.shadowColor = `rgba(255, 255, 255, ${p.glow})`;
           ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
           ctx.fill();
@@ -1557,49 +477,103 @@
       animate();
     }
 
-    function addScrollEffects() {
-      const elements = document.querySelectorAll('.service-card, .portfolio-item, .team-card, .stat-item');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.animation = 'none';
-            entry.target.offsetHeight;
-            entry.target.style.animation = null;
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-      elements.forEach(el => observer.observe(el));
+    // ======================== REDIRECT LOGIC (preserve theme) ========================
+    let countdown = 5;
+    const countdownElement = document.getElementById('countdownDisplay');
+    let intervalId = null;
+    let redirectTimeout = null;
+
+    function performRedirect() {
+      if (redirectTimeout) clearTimeout(redirectTimeout);
+      if (intervalId) clearInterval(intervalId);
+      window.location.href = "https://www.spectrixcreations.com/";
     }
 
-    document.querySelectorAll('.nav-links a, .hero-buttons a').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
-        if (href && href.startsWith('#')) {
-          e.preventDefault();
-          const target = document.querySelector(href);
-          if (target) target.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
-
-    window.addEventListener('scroll', () => {
-      const nav = document.querySelector('nav');
-      if (window.scrollY > 100) {
-        nav.style.background = 'rgba(5, 5, 5, 0.95)';
-        nav.style.backdropFilter = 'blur(20px)';
-      } else {
-        nav.style.background = 'rgba(5, 5, 5, 0.85)';
-        nav.style.backdropFilter = 'blur(15px)';
+    function updateCountdown() {
+      if (countdown <= 0) {
+        if (intervalId) clearInterval(intervalId);
+        performRedirect();
+        return;
       }
+      if (countdownElement) {
+        countdownElement.innerText = countdown;
+      }
+      countdown--;
+    }
+
+    function startCountdown() {
+      if (intervalId) clearInterval(intervalId);
+      if (redirectTimeout) clearTimeout(redirectTimeout);
+      countdown = 5;
+      updateCountdown();
+      intervalId = setInterval(() => {
+        updateCountdown();
+      }, 1000);
+      // ultimate safety redirect after max 6 secs
+      redirectTimeout = setTimeout(() => {
+        if (intervalId) clearInterval(intervalId);
+        performRedirect();
+      }, 6000);
+    }
+
+    // manual redirect button
+    const manualBtn = document.getElementById('manualRedirectBtn');
+    if (manualBtn) {
+      manualBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (intervalId) clearInterval(intervalId);
+        if (redirectTimeout) clearTimeout(redirectTimeout);
+        window.location.href = "https://www.spectrixcreations.com/";
+      });
+    }
+
+    // Intersection / subtle animation re-trigger for cards?
+    function enhanceVisuals() {
+      const card = document.querySelector('.redirect-card');
+      if (card) {
+        card.style.animation = 'none';
+        card.offsetHeight;
+        card.style.animation = 'fadeScaleIn 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards';
+      }
+    }
+
+    // Optional: Glow effects for countdown updates (just style)
+    function attachCountdownGlow() {
+      if (countdownElement) {
+        const originalUpdate = updateCountdown;
+        // override not needed, just add extra glow on each tick
+        setInterval(() => {
+          if (countdownElement && document.body.contains(countdownElement)) {
+            countdownElement.style.textShadow = '0 0 8px rgba(255,255,255,0.8)';
+            setTimeout(() => {
+              if (countdownElement) countdownElement.style.textShadow = 'none';
+            }, 150);
+          }
+        }, 1000);
+      }
+    }
+
+    // interaction to keep fade-behind sync across scroll/resize
+    window.addEventListener('scroll', () => {
+      updateCrystalFade();
+    });
+    window.addEventListener('resize', () => {
       updateCrystalFade();
     });
 
+    // initialize full environment
     document.addEventListener('DOMContentLoaded', () => {
       createCrystals();
       create3DBackground();
-      addScrollEffects();
-      setInterval(updateCrystalFade, 100);
+      startCountdown();
+      attachCountdownGlow();
+      enhanceVisuals();
+      setInterval(updateCrystalFade, 150);
+      // small hack to ensure 3d canvas gets proper size
+      setTimeout(() => {
+        if (window.dispatchEvent) window.dispatchEvent(new Event('resize'));
+        updateCrystalFade();
+      }, 100);
     });
   </script>
 </body>
